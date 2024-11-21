@@ -1,0 +1,18 @@
+---
+
+interface Props {
+    link: string;
+    nameClass: string;
+    texto: string;
+}
+
+const {link, nameClass, texto} =  Astro.props;
+
+---
+
+<!-- Link de referencia -->
+ 
+<a href={link} class={nameClass}>
+    <slot />
+    {texto}
+</a>

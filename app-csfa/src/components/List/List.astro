@@ -1,0 +1,18 @@
+---
+
+interface Props {
+    nameId?: string;
+    nameClass: string;
+    ariaExp? : string;
+}
+
+const { nameId, nameClass, ariaExp} = Astro.props;
+
+
+---
+
+<ul id={nameId} class={nameClass} aria-expanded={ariaExp ? true : false}>
+    <slot />
+</ul>
+  
+

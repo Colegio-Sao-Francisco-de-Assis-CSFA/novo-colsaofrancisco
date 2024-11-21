@@ -1,0 +1,220 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../public/logo-cfsa.svg';
+---
+
+<header class="fixed z-50 top-0 left-0 w-[100dvw] h-[80px]">
+  <div id="navmenu" class="relative mx-auto max-w-[1980px] h-full flex items-center justify-between transition-colors delay-100 ease-in-out bg-[#121B3D]/60 px-4 py-2 shadow-sm">
+    <!-- Logo -->
+    <div class="flex-shrink-0">
+      <Image src={logo} alt="Logo colégio" class="h-[80px] w-auto" />
+    </div>
+  
+    <!-- Navigation -->
+    <nav class="hidden lg:block w-full flex flex-1 flex-row items-center justify-center">
+      <ul class="flex justify-center items-center space-x-8">
+        <li><a href="#" class="text-white hover:text-blue-500">Inicio</a></li>
+        <li><a href="#" class="text-white hover:text-blue-500">Matriculas</a></li>
+
+        <li class="relative group">
+          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
+            <span>O Colégio</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <ul class="absolute left-0 top-full z-20 min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 1</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 2</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 3</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 4</a></li>
+          </ul>
+        </li>
+
+        <li class="relative group">
+          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
+            <span>Segmentos</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <ul class="absolute left-0 top-full z-20 min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 1</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 2</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 3</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 4</a></li>
+          </ul>
+        </li>
+
+        <li class="relative group">
+          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
+            <span>Acontece no CSFA</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <ul class="absolute left-0 top-full z-20 min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 1</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 2</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 3</a></li>
+            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 4</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  
+    <!-- Align Area Restrita and mobile menu button to the right -->
+    <div class="flex items-center ml-auto">
+      <div class="relative group mr-2 lg:mr-0">
+        <button class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <span>Area Restrita</span>
+        </button>
+        <ul class="absolute right-0 top-full z-20 border-transparent min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+          {[1, 2, 3].map((item) => (
+            <li>
+              <a href="#" class="flex items-center space-x-3 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">
+                <img src={`/logo_botao_${item}.svg`} alt={`Logo botão ${item}`} class="h-6 w-6" />
+                <span>Area Restrita {item}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    
+      <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
+        <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
+        <span class="block w-6 h-0.5 bg-slate-50 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
+        <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
+      </button>
+    </div>
+  
+    <div id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
+      <nav class="p-4 pt-16">
+        <ul class="space-y-4 flex flex-col justify-center items-center">
+          <li><a href="#" class="block text-gray-700 hover:text-blue-500">Inicio</a></li>
+
+          <li><a href="#" class="block text-gray-700 hover:text-blue-500">Matriculas</a></li>
+
+          <li class="relative">
+            <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+              <span>O Colégio</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <ul class="mt-2 space-y-2 pl-4 hidden">
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+            </ul>
+          </li>
+
+          <li class="relative">
+            <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+              <span>Segmentos</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <ul class="mt-2 space-y-2 pl-4 hidden">
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+            </ul>
+          </li>
+
+          <li class="relative tran">
+            <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+              <span>Acontece no CSFA</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <ul class="mt-2 space-y-2 pl-4 hidden">
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+              <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script>
+const mobileMenuButton = document.getElementById('mobileMenuButton');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileDropItems = document.getElementsByClassName('mobileDropItem');
+const line1 = document.getElementById('line1');
+const line2 = document.getElementById('line2');
+const line3 = document.getElementById('line3');
+
+function toggleMenu() {
+  mobileMenu?.classList.toggle('hidden');
+  document.body.classList.toggle('overflow-hidden');
+  mobileMenuButton?.classList.toggle('text-red-500');
+  line1?.classList.toggle('rotate-45');
+  line1?.classList.toggle('translate-y-2');
+  line2?.classList.toggle('opacity-0');
+  line3?.classList.toggle('-rotate-45');
+  line3?.classList.toggle('-translate-y-2');
+}
+
+mobileMenuButton?.addEventListener('click', toggleMenu);
+// closeMenuButton?.addEventListener('click', toggleMenu);
+
+Array.from(mobileDropItems).forEach(item => {
+  item.addEventListener('click', (event) => {
+    event.preventDefault();
+    const dropList = item.nextElementSibling;
+    if (dropList) {
+      // Close all other dropdowns
+      Array.from(mobileDropItems).forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.nextElementSibling?.classList.add('hidden');
+        }
+      });
+      // Toggle the clicked dropdown
+      dropList.classList.toggle('hidden');
+    }
+  });
+});
+
+window.addEventListener('scroll', () => {
+  const navMenu = document.getElementById('navmenu');
+  if (window.scrollY > 0) {
+    navMenu?.classList.add('activeClassName');
+  } else {
+    navMenu?.classList.remove('activeClassName');
+  }
+});
+</script>
+
+<style>
+  .activeClassName {
+    background-color: #121B3D;
+    border-bottom: solid 1px rgba(231, 231, 231, 0.719);
+    transition: background ease-in-out .2s;
+  }
+  #mobileMenu {
+    overflow-y: auto;
+    max-height: 100vh;
+  }
+  body.overflow-hidden {
+    overflow: hidden;
+  }
+  #mobileMenuButton.text-red-500 span {
+    background-color: #EF4444;
+  }
+  #closeMenuButton {
+    transition: transform 0.3s ease-in-out;
+  }
+  #closeMenuButton:hover {
+    transform: rotate(90deg);
+  }
+</style>
+
+
+

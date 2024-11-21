@@ -1,0 +1,11 @@
+---
+    interface Props {
+        dataIcon: string;
+        dataInline: string;
+    }
+
+    const { dataIcon, dataInline} : Props = Astro.props
+---
+
+
+<span class="iconify" data-icon={ dataIcon } data-inline={ dataInline }></span>

@@ -1,0 +1,164 @@
+---
+//Astro Imports Components
+// import MailOutlineIcon from '@mui/icons-material/MailOutline';
+
+
+
+// Astro component script section
+const segments = [
+  {
+    title: "Educação Infantil",
+    description: "Primeiros passos da jornada acadêmica, preparando para o ingresso no Ensino Fundamental.",
+    image: "/placeholder.svg?height=400&width=400",
+    route:"/Segmentos/Educacao-Infantil",
+  },
+  {
+    title: "Ensino Fundamental - Anos Iniciais",
+    description: "Base sólida de conhecimento, preparando para o ingresso no Ensino Fundamental.",
+    image: "/placeholder.svg?height=400&width=400",
+    route:"/Segmentos/Anos-Iniciais",
+  },
+  {
+    title: "Ensino Fundamental - Anos Finais",
+    description: "Desenvolvimento integral, preparando para o ingresso no Ensino Fundamental.",
+    image: "/placeholder.svg?height=400&width=400",
+    route:"/Segmentos/Anos-Finais",
+  },
+  {
+    title: "Ensino Médio",
+    description: "Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.",
+    image: "/placeholder.svg?height=400&width=400",
+    route:"/Segmentos/Ensino-Medio",
+  },
+];
+---
+
+<div class="h-auto w-full relative overflow-hidden">
+
+  {/* Decorative elements */}
+  <!-- Quadrado superior -->
+  <div class="absolute top-14 right-4 w-32 h-32 bg-yellow-400 rounded-xl -z-20 rotate-45"></div>
+
+  <!-- Circulo superior -->
+  <div class="absolute top-72 -left-10 w-64 h-60 bg-yellow-400 rounded-full -z-20"></div>
+
+  <!-- Barra lateral -->
+  <div class="absolute top-0 right-0 w-4 h-[100%] bg-pink-500 -z-30 sm:w-10 md:w-14 lg: w-32"></div>
+
+  <!-- Circulo inferior -->
+  <div class="absolute bottom-0 -right-16 w-56 h-52 bg-yellow-400 rounded-full -z-20 before:content-[''] before:absolute before:h-20 before:rounded-full before:w-20 before:bg-cyan-400 before:-bottom-10"></div>
+
+
+
+  {/* Main content */}
+  <main class="h-auto w-full flex flex-col justify-center items-center">
+
+    {/* Segments section */}
+    <section class="flex flex-col justify-center items-center p-4 pt-12 w-full h-auto">
+      <!-- Section Title -->
+      <h2 class="title text-white text-[1.2rem] font-bold mb-8">Segmentos</h2>
+
+      <!-- Card Grid -->
+      <!-- grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8  -->
+      <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 gap-8 mt-4 lg:grid-cols-4">
+        {segments.map((segment) => (
+          <a 
+            href={segment.route} 
+            class="aspect-auto group relative bg-[#121B3D] rounded-lg overflow-hidden w-[15rem] h-[15rem] hover:shadow-lg transition-shadow block "
+          >
+            <img
+              src={segment.image}
+              alt={segment.title}
+              class="w-full h-[200px] object-cover"
+              width="400"
+              height="400"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 p-6 flex flex-col justify-end">
+              <h3 class="text-white text-[1rem] font-semibold mb-2 w-full">{segment.title}</h3>
+              <p class="text-white/80 text-[10px]">{segment.description}</p>
+              <svg 
+                class="absolute top-4 right-4 w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+              >
+                <path d="M7 17L17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    {/* About section */}
+    <section class=" mt-16 flex flex-col justify-center items-center p-8 w-full h-auto gap-6 lg:grid grid-cols-2 max-w-[1024px]">
+      
+      {/* O colégio */}
+      <div class="flex flex-auto flex-col text-white w-full px-2 gap-6 max-w-[550px] lg:items-left max-w-[90%] ">
+
+        <!-- Título sobre o Colégio -->
+        <h2 class="title text-[1.2rem] text-center font-bold mb-4 max-w-44 m-auto lg:m-0 max-w-80 ">O Colégio São Francisco de Assis</h2>
+
+        <!-- Textro Sobre o Colégio -->
+        <p class="text-white/80 text-[.8rem] text-center lg:text-left">
+          No Colégio São Francisco de Assis, acreditamos que a educação é a chave para a transformação social. 
+          Nossos alunos são jovens protagonistas, preparados para enfrentar os desafios do mundo com ética e 
+          criatividade. Aqui, oferecemos um ambiente acolhedor e uma educação de qualidade, desenvolvendo não 
+          apenas habilidades acadêmicas, mas também valores essenciais.
+        </p>
+
+        <!-- Botões de Acão Sobre o Colégio -->
+        <div class="flex flex-1 flex-col w-full gap-6 items-center justify-center sm:flex-row lg:justify-start" >
+
+          <!-- inline-flex items-center px-4 py-2 text-white hover:bg-white/10 transition-colors rounded-lg -->
+          
+          <a 
+            href="#" 
+            class="inline-flex flex-row gap-2 p-2 text-[.75rem] bg-white/10 item-center justify-center rounded-lg min-w-60 sm:min-w-fit "
+          >
+          <!-- <MailOutlineIcon/> -->
+            Entre em contato
+          </a>
+          <a 
+            href="#" 
+            class="inline-flex flex-row gap-2 p-2 text-[.75rem] bg-white/10 item-center justify-center rounded-lg min-w-60 sm:min-w-fit "
+          >
+            Saiba mais sobre o colégio
+          </a>
+        </div>
+      </div>
+
+      {/* Video - Youtube */}
+      <div class="w-full h-full flex flex-1 items-center justify-center my-12 max-w-[500px]">
+        <iframe class="aspect-video min-w-[90%] shadow-[0_10px_60px_-15px] shadow-[#bbbbbb3b] border-solid border-2 border-white/20 rounded-md sm:min-w-[100%]" src="https://www.youtube.com/embed/69MfY3vOVV8?autoplay=1&mute=1" allow="autoplay" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    
+    </section>
+
+  </div>
+
+  </main>
+</div>
+
+<style>
+  .title{
+    position: relative;
+  }
+
+  .title::after{
+    content: '';
+    position: absolute;
+    z-index: 20;
+    bottom: -5px;
+    width: 60px;
+    height: 4px;
+    background-color: rgb(220, 29, 102);
+    border-radius: 100px;
+    left: -10px;  
+  }
+</style>
