@@ -7,7 +7,10 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "enable":"astro preferences enable devToolbar",
+    "disable":"astro preferences disable devToolbar"
+
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.0",
@@ -26,6 +29,7 @@
     "alpinejs": "^3.14.3",
     "astro": "^4.16.13",
     "astro-icon": "^1.1.2",
+    "flowbite": "^2.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.15",
