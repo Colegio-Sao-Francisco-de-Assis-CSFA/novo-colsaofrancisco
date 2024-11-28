@@ -1,0 +1,257 @@
+---
+// Logo
+import { Image } from 'astro:assets';
+import logo from '../../public/logo-cfsa.svg';
+
+// Icons
+import { Icon } from 'astro-icon/components'
+
+// Navigation Items
+const navItems = [
+
+  { label: 'Inicio', href: '#' },
+  { label: 'Matrículas', href: '#' },
+  {
+    label: 'Colégio',
+    dropdownItems: [
+      { label: 'Nossa História', href: '/Nossa-historia' },
+      { label: 'Metodologia de Ensino', href: '/Metodologia-de-ensino' },
+      { label: 'Sobre o Colégio', href: '/Sobre-o-colegio' },
+      { label: 'Escola de Esportes', href: 'Escola-de-esportes' },
+      { label: 'Fale Conosco', href: '/Fale-conosco' },
+    ],
+  },
+  {
+    label: 'Segmentos',
+    dropdownItems: [
+      { label: 'Anos Finais', href: 'Segmentos/Anos-Finais' },
+      { label: 'Anos Iniciais', href: 'Segmentos/Anos-Iniciais' },
+      { label: 'Ensino Fundamental', href: 'Segmentos/Ensino-Fundamental' },
+      { label: 'Ensino Médiol', href: 'Segmentos/Ensino-Medio' },
+    ],
+  },
+  {
+    label: 'Acontece no CSFA',
+    dropdownItems: [
+      { label: 'Item 1', href: '#' },
+      { label: 'Item 2', href: '#' },
+      { label: 'Item 3', href: '#' },
+    ],
+  },
+]
+
+---
+
+<header class="container__nav fixed top-0 left-0 flex flex-1 flex-row w-[100dvw] h-24 p-6">
+  
+    <div class="flex flex-1 items-center mx-auto max-w-[1980px] h-20 rounded-full bg-white p-6">
+        
+        <!-- Logo -->
+        <div class="">
+            <Image src={logo} alt="Logo colégio" class="h-[70px] w-auto" />
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="nav hidden lg:flex block h-20 w-full items-center justify-center">
+            <ul class="nav__list flex flex-1 flex-row items-center gap-8 h-full">
+                {navItems.map((item) => (
+                    <li class={`nav__list-item item flex flex-row items-center justify-center text-gray-400 h-full transition ${item.dropdownItems ? 'item-drop relative' : ''}`}>
+                        {item.dropdownItems ? (
+                            <>
+                            <button class="btn-to-drop flex items-center gap-2 hover:text-blue-500" type="button">
+                                {item.label}
+                                <Icon name="mdi:chevron-down" class="w-5 h-5 transition-transform" />
+                            </button>
+                            <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
+                                {item.dropdownItems.map((dropItem) => (
+                                <li class="nav__list__drop-item border-transparent w-full hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
+                                    <a class="block w-full h-full p-4" href={dropItem.href}>
+                                    {dropItem.label}
+                                    </a>
+                                </li>
+                                ))}
+                            </ul>
+                            </>
+                        ) : (
+                            <a href={item.href}>{item.label}</a>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </nav>
+
+        <!-- Align Area Restrita and mobile menu button to the right -->
+        <div class="flex items-center ml-auto">
+            <div class="relative group mr-2 lg:mr-0">
+                <button class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
+                    
+                    <Icon class:list={'text-lg'} name='mdi:lock'/>
+                    <span>Área Restrita</span>
+
+                </button>
+                <!-- <ul class="absolute right-0 top-full z-20 border-transparent min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+                {[1, 2, 3].map((item) => (
+                    <li>
+                    <a href="#" class="flex items-center space-x-3 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <img src={`/logo_botao_${item}.svg`} alt={`Logo botão ${item}`} class="h-6 w-6" />
+                        <span>Area Restrita {item}</span>
+                    </a>
+                    </li>
+                ))}
+                </ul> -->
+            </div>
+            
+            <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
+                <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
+                <span class="block w-6 h-0.5 bg-slate-50 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
+                <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
+            </button>
+        </div>
+    
+        <div id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
+        <nav class="p-4 pt-16">
+            <ul class="space-y-4 flex flex-col justify-center items-center">
+            <li><a href="#" class="block text-white hover:text-blue-500">Inicio</a></li>
+
+            <li><a href="#" class="block text-gray-700 hover:text-blue-500">Matriculas</a></li>
+
+            <li class="relative">
+                <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+                <span>O Colégio</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+                </button>
+                <ul class="mt-2 space-y-2 pl-4 hidden">
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+                </ul>
+            </li>
+
+            <li class="relative">
+                <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+                <span>Segmentos</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+                </button>
+                <ul class="mt-2 space-y-2 pl-4 hidden">
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+                </ul>
+            </li>
+
+            <li class="relative tran">
+                <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
+                <span>Acontece no CSFA</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+                </button>
+                <ul class="mt-2 space-y-2 pl-4 hidden">
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
+                <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
+                </ul>
+            </li>
+
+            </ul>
+        </nav>
+        </div>
+    </div>
+   
+
+</header>
+
+<script>
+
+    // Menu Desktop  {(+) 769px}
+        // Setup dropdown config
+            function setupDropdowns() {
+            const dropdowns = document.querySelectorAll('.item-drop');
+            
+            dropdowns.forEach((dropdown) => {
+            const button = dropdown.querySelector('.btn-to-drop');
+            const list = dropdown.querySelector('.nav__list__drop');
+            const icon = button?.querySelector('svg');
+            
+            button?.addEventListener('click', () => {
+                list?.classList.toggle('hidden');
+                icon?.classList.toggle('rotate-180');
+            });
+            
+            document.addEventListener('click', (event) => {
+                if (!dropdown.contains(event.target)){
+                list?.classList.add('hidden');
+                icon?.classList.remove('rotate-180');
+                }
+            });
+            });
+        }
+        // Run the setupDropdown function when the DOM is fully loaded
+            document.addEventListener('DOMContentLoaded', setupDropdowns);
+
+    // Menu Mobile {(-) 768px}
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileDropItems = document.getElementsByClassName('mobileDropItem');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        function toggleMenu() {
+            mobileMenu?.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+            mobileMenuButton?.classList.toggle('text-red-500');
+            line1?.classList.toggle('rotate-45');
+            line1?.classList.toggle('translate-y-2');
+            line2?.classList.toggle('opacity-0');
+            line3?.classList.toggle('-rotate-45');
+            line3?.classList.toggle('-translate-y-2');
+        }
+
+        mobileMenuButton?.addEventListener('click', toggleMenu);
+
+        Array.from(mobileDropItems).forEach(item => {
+        item.addEventListener('click', (event) => {
+            event.preventDefault();
+            const dropList = item.nextElementSibling;
+            if (dropList) {
+            // Close all other dropdowns
+            Array.from(mobileDropItems).forEach(otherItem => {
+                if (otherItem !== item) {
+                otherItem.nextElementSibling?.classList.add('hidden');
+                }
+            });
+            // Toggle the clicked dropdown
+            dropList.classList.toggle('hidden');
+            }
+        });
+    });
+
+</script>
+
+<style>
+    .activeClass{
+    top: 10%;
+    width: 95vw;
+    background-color: var(--);
+    transition: all .2s ease-in-out;
+    border-radius: 100px;
+  }
+  #mobileMenu {
+    overflow-y: auto;
+    max-height: 100vh;
+  }
+  body.overflow-hidden {
+    overflow: hidden;
+  }
+  #mobileMenuButton.text-red-500 span {
+    background-color: #EF4444;
+  }
+  #closeMenuButton {
+    transition: transform 0.3s ease-in-out;
+  }
+  #closeMenuButton:hover {
+    transform: rotate(90deg);
+  }
+</style>

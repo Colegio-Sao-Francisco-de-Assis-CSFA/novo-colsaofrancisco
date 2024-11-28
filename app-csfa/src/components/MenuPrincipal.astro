@@ -4,26 +4,26 @@ import logo from '../../public/logo-cfsa.svg';
 ---
 
 <header class="fixed z-50 top-0 left-0 w-[100dvw] h-[80px]">
-  <div id="navmenu" class="relative mx-auto max-w-[1980px] h-full flex items-center justify-between transition-colors delay-100 ease-in-out bg-[#121B3D]/60 px-4 py-2 shadow-sm">
+  <div id="navmenu" class="relative mx-auto max-w-[1980px] h-full flex items-center justify-between transition-colors delay-100 ease-in-out backdrop-blur-[8px] bg-white/60 px-4 py-2 shadow-sm">
     <!-- Logo -->
     <div class="flex-shrink-0">
-      <Image src={logo} alt="Logo colégio" class="h-[80px] w-auto" />
+      <Image src={logo} alt="Logo colégio" class="h-[70px] w-auto" />
     </div>
-  
+    
     <!-- Navigation -->
     <nav class="hidden lg:block w-full flex flex-1 flex-row items-center justify-center">
       <ul class="flex justify-center items-center space-x-8">
-        <li><a href="#" class="text-white hover:text-blue-500">Inicio</a></li>
-        <li><a href="#" class="text-white hover:text-blue-500">Matriculas</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-blue-500">Inicio</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-blue-500">Matriculas</a></li>
 
         <li class="relative group">
-          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
+          <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-500">
             <span>O Colégio</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <ul class="absolute left-0 top-full z-20 min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
+          <ul class="absolute left-0 top-[220%] z-20 min-w-[200px] rounded-md bg-white hidden group-hover:block">
             <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 1</a></li>
             <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 2</a></li>
             <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 3</a></li>
@@ -31,23 +31,18 @@ import logo from '../../public/logo-cfsa.svg';
           </ul>
         </li>
 
-        <li class="relative group">
-          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
-            <span>Segmentos</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <ul class="absolute left-0 top-full z-20 min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
-            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 1</a></li>
-            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 2</a></li>
-            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 3</a></li>
-            <li><a href="#" class="block rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">drop 4</a></li>
-          </ul>
+        <li class="">
+          <details>
+            <summary>Parent</summary>
+            <ul class="p-2">
+              <li><a>Submenu 1</a></li>
+              <li><a>Submenu 2</a></li>
+            </ul>
+          </details>
         </li>
 
         <li class="relative group">
-          <button class="flex items-center space-x-1 text-white hover:text-blue-500">
+          <button class="flex items-center space-x-1 text-gray-700 hover:text-blue-500">
             <span>Acontece no CSFA</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -94,7 +89,7 @@ import logo from '../../public/logo-cfsa.svg';
     <div id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
       <nav class="p-4 pt-16">
         <ul class="space-y-4 flex flex-col justify-center items-center">
-          <li><a href="#" class="block text-gray-700 hover:text-blue-500">Inicio</a></li>
+          <li><a href="#" class="block text-white hover:text-blue-500">Inicio</a></li>
 
           <li><a href="#" class="block text-gray-700 hover:text-blue-500">Matriculas</a></li>
 
@@ -141,7 +136,9 @@ import logo from '../../public/logo-cfsa.svg';
       </nav>
     </div>
   </div>
-</header>
+
+  
+</header> 
 
 <script>
 const mobileMenuButton = document.getElementById('mobileMenuButton');
@@ -182,21 +179,26 @@ Array.from(mobileDropItems).forEach(item => {
   });
 });
 
+// scroll event
 window.addEventListener('scroll', () => {
   const navMenu = document.getElementById('navmenu');
   if (window.scrollY > 0) {
-    navMenu?.classList.add('activeClassName');
+    navMenu?.classList.add('activeClass');
   } else {
-    navMenu?.classList.remove('activeClassName');
+    navMenu?.classList.remove('activeClass');
   }
 });
 </script>
 
 <style>
-  .activeClassName {
-    background-color: #121B3D;
-    border-bottom: solid 1px rgba(231, 231, 231, 0.719);
-    transition: background ease-in-out .2s;
+  
+
+  .activeClass{
+    top: 10%;
+    width: 95vw;
+    background-color: var(--);
+    transition: all .2s ease-in-out;
+    border-radius: 100px;
   }
   #mobileMenu {
     overflow-y: auto;
