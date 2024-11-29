@@ -1,10 +1,10 @@
 ---
+// Icons
+import { Icon } from 'astro-icon/components';
+
 // Logo
 import { Image } from 'astro:assets';
 import logo from '../../public/logo-cfsa.svg';
-
-// Icons
-import { Icon } from 'astro-icon/components'
 
 // Navigation Items
 const navItems = [
@@ -40,20 +40,30 @@ const navItems = [
   },
 ]
 
+const restrictContent = [
+    { label: 'E-mail Aluno', href: '#', iconName:'mail', color:'#fff'},
+    { label: 'Google Classroom', href: '#', iconName:'classroom', color:'#388E3C' },
+    { label: 'Sas Educação', href: '#', iconName:'sas', color:'#051B4A'},
+    { label: 'Activesoft', href: '#', iconName:'activesoft', color:'#0154D4'},
+    { label: 'Cantina', href: '#', iconName:'gds', color:'#2D76A3'},
+    { label: 'E-mail Coorporativo', href: '#', iconName:'mdi:google', color:'#97989A'},
+    { label: 'Interno Apdges', href: '#', iconName:'apadges', color:'#fff'}
+]
+
 ---
 
-<header class="container__nav fixed top-0 left-0 flex flex-1 flex-row w-[100dvw] h-24 p-6">
+<header class="container__nav fixed top-0 left-0 flex flex-1  flex-row w-[100dvw] h-24 p-6">
   
-    <div class="flex flex-1 items-center mx-auto max-w-[1980px] h-20 rounded-full bg-white p-6">
-        
+    <div class="w-full h-20 bg-white rounded-full flex flex-row items-center justify-between p-4">
+                     
         <!-- Logo -->
-        <div class="">
+        <div>
             <Image src={logo} alt="Logo colégio" class="h-[70px] w-auto" />
         </div>
         
         <!-- Navigation -->
-        <nav class="nav hidden lg:flex block h-20 w-full items-center justify-center">
-            <ul class="nav__list flex flex-1 flex-row items-center gap-8 h-full">
+        <nav class="nav hidden lg:flex h-20 items-center justify-center">
+            <ul class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
                 {navItems.map((item) => (
                     <li class={`nav__list-item item flex flex-row items-center justify-center text-gray-400 h-full transition ${item.dropdownItems ? 'item-drop relative' : ''}`}>
                         {item.dropdownItems ? (
@@ -81,24 +91,27 @@ const navItems = [
         </nav>
 
         <!-- Align Area Restrita and mobile menu button to the right -->
-        <div class="flex items-center ml-auto">
-            <div class="relative group mr-2 lg:mr-0">
-                <button class="flex items-center space-x-2 rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700">
-                    
-                    <Icon class:list={'text-lg'} name='mdi:lock'/>
+        <div class="flex items-center h-20">
+            <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0">
+                <!-- Btn Area Restrita -->
+                <button id="restrict" class="flex items-center space-x-2 rounded-lg bg-blue-500 px-2 py-2 text-white hover:bg-blue-700 text-base">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
                     <span>Área Restrita</span>
-
                 </button>
-                <!-- <ul class="absolute right-0 top-full z-20 border-transparent min-w-[200px] rounded-lg bg-white p-2 shadow-lg hidden group-hover:block">
-                {[1, 2, 3].map((item) => (
-                    <li>
-                    <a href="#" class="flex items-center space-x-3 rounded-md px-4 py-2 text-gray-700 hover:bg-gray-100">
-                        <img src={`/logo_botao_${item}.svg`} alt={`Logo botão ${item}`} class="h-6 w-6" />
-                        <span>Area Restrita {item}</span>
-                    </a>
+
+                <!-- Drop list Btn -->
+                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
+                {restrictContent.map((item) => (
+                    <li class={`${item.iconName} w-full rounded-sm`} style={`background-color:${item.color}`}>
+                        <a href={`${item.href}`} class={`flex items-center justify-between text-center rounded-md px-4 py-2 text-gray-700 `}>
+                            <Icon name={`${item.iconName}`} size={25} />
+                            <span class="mx-auto">{item.label}</span>
+                        </a>
                     </li>
                 ))}
-                </ul> -->
+                </ul>
             </div>
             
             <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
@@ -166,29 +179,29 @@ const navItems = [
 
     // Menu Desktop  {(+) 769px}
         // Setup dropdown config
-            function setupDropdowns() {
-            const dropdowns = document.querySelectorAll('.item-drop');
-            
-            dropdowns.forEach((dropdown) => {
-            const button = dropdown.querySelector('.btn-to-drop');
-            const list = dropdown.querySelector('.nav__list__drop');
-            const icon = button?.querySelector('svg');
-            
-            button?.addEventListener('click', () => {
-                list?.classList.toggle('hidden');
-                icon?.classList.toggle('rotate-180');
-            });
-            
-            document.addEventListener('click', (event) => {
-                if (!dropdown.contains(event.target)){
-                list?.classList.add('hidden');
-                icon?.classList.remove('rotate-180');
-                }
-            });
-            });
-        }
-        // Run the setupDropdown function when the DOM is fully loaded
-            document.addEventListener('DOMContentLoaded', setupDropdowns);
+         function setupDropdowns() {
+                const dropdowns = document.querySelectorAll('.item-drop');
+                
+                dropdowns.forEach((dropdown) => {
+                    const button = dropdown.querySelector('.btn-to-drop');
+                    const list = dropdown.querySelector('.nav__list__drop');
+                    const icon = button?.querySelector('svg');
+                    
+                    button?.addEventListener('click', () => {
+                        list?.classList.toggle('hidden');
+                        icon?.classList.toggle('rotate-180');
+                    });
+                    
+                    document.addEventListener('click', (event) => {
+                        if (!dropdown.contains(event.target)){
+                        list?.classList.add('hidden');
+                        icon?.classList.remove('rotate-180');
+                        }
+                    });
+                });
+            }
+    // Run the setupDropdown function when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', setupDropdowns);
 
     // Menu Mobile {(-) 768px}
         const mobileMenuButton = document.getElementById('mobileMenuButton');
@@ -212,46 +225,67 @@ const navItems = [
         mobileMenuButton?.addEventListener('click', toggleMenu);
 
         Array.from(mobileDropItems).forEach(item => {
-        item.addEventListener('click', (event) => {
-            event.preventDefault();
-            const dropList = item.nextElementSibling;
-            if (dropList) {
-            // Close all other dropdowns
-            Array.from(mobileDropItems).forEach(otherItem => {
-                if (otherItem !== item) {
-                otherItem.nextElementSibling?.classList.add('hidden');
+         item.addEventListener('click', (event) => {
+                event.preventDefault();
+                const dropList = item.nextElementSibling;
+                if (dropList) {
+                // Close all other dropdowns
+                Array.from(mobileDropItems).forEach(otherItem => {
+                    if (otherItem !== item) {
+                    otherItem.nextElementSibling?.classList.add('hidden');
+                    }
+                });
+                // Toggle the clicked dropdown
+                dropList.classList.toggle('hidden');
                 }
             });
-            // Toggle the clicked dropdown
-            dropList.classList.toggle('hidden');
-            }
         });
+        
+    // Restrict Area
+    const buttonRestrict = document.getElementById('restrict');
+    const listRestrict = document.getElementById('droprestrictlist');
+
+    function toggleRestric() {
+        listRestrict?.classList.toggle('hidden');
+    }
+
+    buttonRestrict?.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleRestric();
+    });
+
+     document.addEventListener('click', (event) => {
+        
+        if (!event.target?.closest('#restrict') && !event.target?.closest('#droprestrictlist')) {
+            listRestrict?.classList.add('hidden');
+        }
+
     });
 
 </script>
 
-<style>
+<style type="text/scss">
     .activeClass{
-    top: 10%;
-    width: 95vw;
-    background-color: var(--);
-    transition: all .2s ease-in-out;
-    border-radius: 100px;
-  }
-  #mobileMenu {
-    overflow-y: auto;
-    max-height: 100vh;
-  }
-  body.overflow-hidden {
-    overflow: hidden;
-  }
-  #mobileMenuButton.text-red-500 span {
-    background-color: #EF4444;
-  }
-  #closeMenuButton {
-    transition: transform 0.3s ease-in-out;
-  }
-  #closeMenuButton:hover {
-    transform: rotate(90deg);
-  }
+        top: 10%;
+        width: 95vw;
+        background-color: var(--);
+        transition: all .2s ease-in-out;
+        border-radius: 100px;
+    }
+    #mobileMenu {
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    body.overflow-hidden {
+        overflow: hidden;
+    }
+    #mobileMenuButton.text-red-500 span {
+        background-color: #EF4444;
+    }
+    #closeMenuButton {
+        transition: transform 0.3s ease-in-out;
+    }
+    #closeMenuButton:hover {
+        transform: rotate(90deg);
+    }
 </style>
