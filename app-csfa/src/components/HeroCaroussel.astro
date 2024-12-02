@@ -45,7 +45,7 @@ const banners = [
 ];
 ---
 
-<section class="banner-carousel relative overflow-hidden h-[90dvh]">
+<section class="banner-carousel relative overflow-hidden h-[90dvh] rounded-b-[3rem]">
   {banners.map((banner, index) => (
     <div class={`carousel-item absolute inset-0 transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} data-index={index}>
       <picture class="w-full h-full">
@@ -57,10 +57,10 @@ const banners = [
           class="w-full h-full object-cover"
         />
       </picture>
-      <div class="absolute inset-0 flex flex-col justify-center items-center text-white bg-black bg-opacity-50">
+      {/* <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{banner.title}</h2>
         <p class="text-xl md:text-2xl lg:text-3xl">{banner.description}</p>
-      </div>
+      </div> */}
     </div>
   ))}
 
