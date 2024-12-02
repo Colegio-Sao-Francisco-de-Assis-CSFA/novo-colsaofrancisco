@@ -200,7 +200,7 @@ const restrictContent = [
                     });
                     
                     document.addEventListener('click', (event) => {
-                        if (!dropdown.contains(event.target)){
+                        if (!dropdown.contains(event.target?)){
                         list?.classList.add('hidden');
                         icon?.classList.remove('rotate-180');
                         }
@@ -248,26 +248,37 @@ const restrictContent = [
             });
         });
         
-    // Restrict Area
-    const buttonRestrict = document.getElementById('restrict');
-    const listRestrict = document.getElementById('droprestrictlist');
+   // Restrict Area
+const buttonRestrict = document.getElementById('restrict');
+const listRestrict = document.getElementById('droprestrictlist');
 
-    function toggleRestric() {
-        listRestrict?.classList.toggle('hidden');
-    }
+function toggleRestrict() {
+  listRestrict?.classList.toggle('hidden'); // Efficiently toggle hidden class
+}
 
-    buttonRestrict?.addEventListener('click', (event) => {
-        event.stopPropagation();
-        toggleRestric();
-    });
+buttonRestrict?.addEventListener('click', (event) => {
+  event.stopPropagation(); // Prevent event bubbling
+  toggleRestrict();
+});
 
-     document.addEventListener('click', (event) => {
-        
-        if (!event.target?.closest('#restrict') && !event.target?.closest('#droprestrictlist')) {
-            listRestrict?.classList.add('hidden');
-        }
+document.addEventListener('click', (event) => {
+  // Check if event target is a valid Node (prevents unnecessary type checks)
+  if (!(event.target instanceof Node)) {
+    return;
+  }
 
-    });
+  const targetNode = event.target as Node;
+
+  // Use closest for efficiency and specificity (check browser compatibility if needed)
+//   if (!targetNode.closest('#restrict') && !targetNode.closest('#droprestrictlist')) {
+//     listRestrict?.classList.add('hidden');
+//   }
+
+  // Alternatively, use contains for broader compatibility (might be less performant)
+  if (!buttonRestrict?.contains(targetNode) && !listRestrict?.contains(targetNode)) {
+    listRestrict?.classList.add('hidden');
+  }
+});
 
 </script>
 
