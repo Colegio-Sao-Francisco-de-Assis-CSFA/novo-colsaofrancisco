@@ -1,8 +1,7 @@
 ---
 //Astro Imports Components
-// import MailOutlineIcon from '@mui/icons-material/MailOutline';
-
-
+// Icons
+import { Icon } from 'astro-icon/components';
 
 // Astro component script section
 const segments = [
@@ -37,24 +36,24 @@ const segments = [
 
   {/* Decorative elements */}
   <!-- Quadrado superior -->
-  <div class="absolute top-14 right-4 w-32 h-32 bg-yellow-400 rounded-xl -z-20 rotate-45"></div>
+  <div class="absolute top-14 right-4 w-32 h-32 bg-yellow-400 rounded-xl z-20 rotate-45"></div>
 
   <!-- Circulo superior -->
-  <div class="absolute top-72 -left-10 w-64 h-60 bg-yellow-400 rounded-full -z-20"></div>
+  <div class="absolute top-72 -left-10 w-64 h-60 bg-yellow-400 rounded-full z-10"></div>
 
   <!-- Barra lateral -->
-  <div class="absolute top-0 right-0 w-4 h-[100%] bg-pink-500 -z-30 sm:w-10 md:w-14 lg: w-32"></div>
+  <div class="absolute top-0 right-0 w-4 h-[100%] bg-pink-500 z-10 sm:w-10 md:w-14 lg:w-32 "></div>
 
   <!-- Circulo inferior -->
-  <div class="absolute bottom-0 -right-16 w-56 h-52 bg-yellow-400 rounded-full -z-20 before:content-[''] before:absolute before:h-20 before:rounded-full before:w-20 before:bg-cyan-400 before:-bottom-10"></div>
+  <div class="absolute bottom-0 -right-16 w-56 h-52 bg-yellow-400 rounded-full z-10 before:content-[''] before:absolute before:h-20 before:rounded-full before:w-20 before:bg-cyan-400 before:-bottom-10"></div>
 
 
 
   {/* Main content */}
-  <main class="h-auto w-full flex flex-col justify-center items-center">
+  <main class="h-auto w-full flex flex-col justify-center items-center bg-gradient-to-t from-[#00137D] to-[#0154D4]">
 
     {/* Segments section */}
-    <section class="flex flex-col justify-center items-center p-4 pt-12 w-full h-auto">
+    <section class="flex flex-col justify-center items-center p-4 pt-12 w-full h-auto z-20">
       <!-- Section Title -->
       <h2 class="title text-white text-[1.2rem] font-bold mb-8">Segmentos</h2>
 
@@ -113,30 +112,30 @@ const segments = [
         </p>
 
         <!-- Botões de Acão Sobre o Colégio -->
-        <div class="flex flex-1 flex-col w-full gap-6 items-center justify-center sm:flex-row lg:justify-start" >
+        <div class="flex flex-1 flex-col w-full gap-6 items-center justify-center text-[.8rem] sm:flex-row lg:justify-start" >
 
-          <!-- inline-flex items-center px-4 py-2 text-white hover:bg-white/10 transition-colors rounded-lg -->
-          
-          <a 
-            href="#" 
-            class="inline-flex flex-row gap-2 p-2 text-[.75rem] bg-white/10 item-center justify-center rounded-lg min-w-60 sm:min-w-fit "
-          >
-          <!-- <MailOutlineIcon/> -->
-            Entre em contato
-          </a>
-          <a 
-            href="#" 
-            class="inline-flex flex-row gap-2 p-2 text-[.75rem] bg-white/10 item-center justify-center rounded-lg min-w-60 sm:min-w-fit "
-          >
-            Saiba mais sobre o colégio
-          </a>
+            <a href="#" class="inline-flex flex-row item-center justify-center space-x-4 p-2 text-[.8rem] bg-white rounded-lg min-w-60 text-blue-500 sm:min-w-fit ">
+              
+              <Icon name="mdi:email-outline" size={20} style={'h-full'}/>
+  
+              <span class="inline-flex h-full items-center justify-center font-semibold"> Entre em contato </span>
+
+            </a>
+
+            <a href="#" class="inline-flex flex-row item-center justify-center space-x-1 p-2 text-[.8rem] bg-white rounded-lg min-w-60 text-blue-500 sm:min-w-fit ">
+              
+              <Icon name="mdi:account-balance" size={20} style={'h-full'}/>
+              <span class="inline-flex h-full items-center justify-center font-semibold"> Saiba mais sobre o colégio </span>
+
+            </a>
+
         </div>
       </div>
 
-      {/* Video - Youtube */}
-      <div class="w-full h-full flex flex-1 items-center justify-center my-12 max-w-[500px]">
-        <iframe class="aspect-video min-w-[90%] shadow-[0_10px_60px_-15px] shadow-[#bbbbbb3b] border-solid border-2 border-white/20 rounded-md sm:min-w-[100%]" src="https://www.youtube.com/embed/69MfY3vOVV8?autoplay=1&mute=1" allow="autoplay" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
+      <video class="w-full h-full rounded-md z-30" autoplay muted controls>
+        <source src="../../public/videos/colsaofrancisco.mp4" type="video/mp4">
+         Your browser does not support the video tag.
+      </video>
     
     </section>
 
