@@ -129,49 +129,36 @@ const restrictContent = [
 
                     <!-- <li><a href="#" class="block text-white hover:text-blue-500">Inicio</a></li> -->
 
-                    {navItems.map((item) => (
+                    {navItems.map(
+                            (item) => (
 
-                        <li class={`block text-gray-700 hover:text-blue-500 ${item.dropdownItems ? 'relative' : ''}`}>
-                            {item.dropdownItems ? (
-                                <button class="mobileDropItem flex flex-row items-center justify-center text-gray-700 hover:text-blue-500" type="button">
-                                    <span>{item.label}</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>                                </button>
-    
-                                <ul class="mt-2 space-y-2 pl-4 hidden">
-                                    {item.dropdownItems.map((dropItem) => (
-                                    <li>
-                                        <a class="block text-gray-700 hover:text-blue-500" href={dropItem.href}>
-                                            {dropItem.label}
-                                        </a>
-                                    </li>
-                                    ))}
-                                </ul>
-                            ) : (
+                                <li class={`block text-gray-700 hover:text-blue-500 ${item.dropdownItems ? 'relative' : ''}`}>
+                                    {item.dropdownItems ? (
+                                        <button class="mobileDropItem flex flex-row items-center justify-center text-gray-700 hover:text-blue-500" type="button">
+                                            <span>{item.label}</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                            </svg>                                </button>
+            
+                                        <ul class="mt-2 space-y-2 pl-4 hidden">
+                                            {item.dropdownItems.map((dropItem) => (
+                                            <li>
+                                                <a class="block text-gray-700 hover:text-blue-500" href={dropItem.href}>
+                                                    {dropItem.label}
+                                                </a>
+                                            </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
 
-                                <a class="block ttext-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
-                            )}
-                        </li>
+                                        <a class="block ttext-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
+                                    )}
+                                </li>
     
-                    ))}
+                                 )
+                            )  
+                    }
                     
-                    <!-- <li class="relative">
-
-                        <button class="mobileDropItem flex flex-row w-full items-center justify-between text-gray-700 hover:text-blue-500">
-                            <span>O Colégio</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-
-                        <ul class="mt-2 space-y-2 pl-4 hidden">
-                            <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 1</a></li>
-                            <li><a href="#" class="block text-gray-700 hover:text-blue-500">drop 2</a></li>
-                        </ul>
-
-                    </li> -->
-
                     
 
                 </ul>
@@ -185,28 +172,33 @@ const restrictContent = [
 <script>
 
     // Menu Desktop  {(+) 769px}
+
         // Setup dropdown config
-         function setupDropdowns() {
+        function setupDropdowns() {
                 const dropdowns = document.querySelectorAll('.item-drop');
                 
                 dropdowns.forEach((dropdown) => {
                     const button = dropdown.querySelector('.btn-to-drop');
                     const list = dropdown.querySelector('.nav__list__drop');
                     const icon = button?.querySelector('svg');
-                    
+                                 
                     button?.addEventListener('click', () => {
                         list?.classList.toggle('hidden');
                         icon?.classList.toggle('rotate-180');
                     });
                     
                     document.addEventListener('click', (event) => {
-                        if (!dropdown.contains(event.target?)){
-                        list?.classList.add('hidden');
-                        icon?.classList.remove('rotate-180');
+                        
+                        const targetNode = event.target as Node;       
+
+                        if (!dropdown.contains(targetNode)){
+                            list?.classList.add('hidden');
+                            icon?.classList.remove('rotate-180');
                         }
                     });
                 });
-            }
+        }
+
     // Run the setupDropdown function when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', setupDropdowns);
 
@@ -249,36 +241,31 @@ const restrictContent = [
         });
         
    // Restrict Area
-const buttonRestrict = document.getElementById('restrict');
-const listRestrict = document.getElementById('droprestrictlist');
+        const buttonRestrict = document.getElementById('restrict');
+        const listRestrict = document.getElementById('droprestrictlist');
 
-function toggleRestrict() {
-  listRestrict?.classList.toggle('hidden'); // Efficiently toggle hidden class
-}
+        function toggleRestrict() {
+        listRestrict?.classList.toggle('hidden'); // Efficiently toggle hidden class
+        }
 
-buttonRestrict?.addEventListener('click', (event) => {
-  event.stopPropagation(); // Prevent event bubbling
-  toggleRestrict();
-});
+        buttonRestrict?.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent event bubbling
+        toggleRestrict();
+        });
 
-document.addEventListener('click', (event) => {
-  // Check if event target is a valid Node (prevents unnecessary type checks)
-  if (!(event.target instanceof Node)) {
-    return;
-  }
+        document.addEventListener('click', (event) => {
+        // Check if event target is a valid Node (prevents unnecessary type checks)
+        if (!(event.target instanceof Node)) {
+            return;
+        }
 
-  const targetNode = event.target as Node;
+        const targetNode = event.target as Node;
 
-  // Use closest for efficiency and specificity (check browser compatibility if needed)
-//   if (!targetNode.closest('#restrict') && !targetNode.closest('#droprestrictlist')) {
-//     listRestrict?.classList.add('hidden');
-//   }
-
-  // Alternatively, use contains for broader compatibility (might be less performant)
-  if (!buttonRestrict?.contains(targetNode) && !listRestrict?.contains(targetNode)) {
-    listRestrict?.classList.add('hidden');
-  }
-});
+        // Alternatively, use contains for broader compatibility (might be less performant)
+        if (!buttonRestrict?.contains(targetNode) && !listRestrict?.contains(targetNode)) {
+            listRestrict?.classList.add('hidden');
+        }
+        });
 
 </script>
 
