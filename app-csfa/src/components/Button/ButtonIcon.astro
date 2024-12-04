@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    iconName: string;
+    size: "sm" | "md" | "lg";
+    classes?: string;
+}
+
+const {iconName, size, classes} = Astro.props;
+---
+
+<Icon name={iconName} data-size={size} class={classes} />
+
+<style>
+
+    [data-size="sm"]{
+        font-size: 0.8rem;
+    }
+    [data-size="md"]{
+        font-size: 1.2rem;
+    }
+    [data-size="lg"]{
+        font-size: 1.6rem;
+    }
+
+
+</style>
