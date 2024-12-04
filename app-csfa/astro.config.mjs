@@ -13,11 +13,14 @@ import netlify from '@astrojs/netlify';
 
 import alpinejs from '@astrojs/alpinejs';
 
+
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
 
   adapter: netlify(),
 
-  integrations: [tailwind(), react(), icon(), alpinejs()]
+  integrations: [tailwind(), react(), icon(), alpinejs()],
+
 });

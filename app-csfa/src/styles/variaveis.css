@@ -19,7 +19,7 @@
     --csfa-clr-gray-200:#E0E0E0;
     --csfa-clr-gray-600:#646464;
     --csfa-clr-gray-700:#4e4e4e;
-    --csfa-clr-white: white;
+    --csfa-clr-white: #fff;
     --csfa-clr-softblack: rgb(31, 31, 31);
 
     /* Tamanhos de fontes */
@@ -40,6 +40,7 @@
     --info: #6c757d;
     --light: #f8f9fa;
     --dark: #343a40;
+    --offdecoration: #646464:
 
 
 
