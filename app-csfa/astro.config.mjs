@@ -21,6 +21,11 @@ export default defineConfig({
 
   adapter: netlify(),
 
-  integrations: [tailwind(), react(), icon(), alpinejs()],
+  integrations: [tailwind({
+    applyBaseStyles: false,
+  }), react({
+    experimentalReactChildren: true,
+    include: ['**/react/*'],
+  }), icon(), alpinejs()],
 
 });

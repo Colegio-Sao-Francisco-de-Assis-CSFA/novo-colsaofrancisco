@@ -1,14 +1,20 @@
 ---
-// Imports
+//------------------------------- //
+//----------   Imports   ---------//
+//------------------------------- //
 
-    import { Button } from './Button/index.astro';
+    // Button
+    import { Button } from '../Button/index.astro';
 
     // Icons
     import { Icon } from 'astro-icon/components';
 
-    // Logo
-    import { Image } from 'astro:assets';
-    import logo from '../../public/logo-cfsa.svg';
+    // logo
+    import Logo from '../Logo/Logo.astro';
+
+//------------------------------- //
+//--------    Variaveis   --------//
+//------------------------------- //
 
     // Navigation Items
     const navItems = [
@@ -56,92 +62,93 @@
     ]
 
 ---
+{/*----------------------------- */}
+{/*-----   HTML COMPONENT  ----- */}
+{/*----------------------------- */}
 
 <header class="container__nav fixed top-0 left-0 flex flex-1  flex-row w-[100dvw] h-24 p-6 z-[999] shadow-lg">
-  
+
+    {/* Content Menu*/} 
     <div class="w-full h-20 bg-white rounded-full flex flex-row items-center justify-between p-4">
-                     
-        <!-- Logo -->
-        <div>
-            <Image src={logo} alt="Logo colégio" class="h-[70px] w-auto" />
-        </div>
         
-        <!-- Navigation -->
-        <nav class="nav hidden lg:flex h-20 items-center justify-center">
-            <ul class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
-                {navItems.map((item) => (
+        {/* Content Navigation Desktop*/} 
+        <div>
+            
+            <Logo />
+            
+            {/*Links de Navegção */} 
+            <nav class="nav hidden lg:flex h-20 items-center justify-center">
+                <menu class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
+                    {navItems.map((item) => (
 
-                    <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
-                        {item.dropdownItems ? (
+                        <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
+                            {item.dropdownItems ? (
 
-                            <Button.Root offdecoration type='button' classes='btn-to-drop text-csfa_font_lsm' theme='offdecoration' size='off'> 
-                                {item.label}
-                                <Button.Icon iconName='mdi:chevron-down' size='sm' classes='w-5 h-5 transition-transform'/>
-                            </Button.Root>
-                
+                                <Button.Root offdecoration type='button' classes='btn-to-drop text-csfa_font_lsm' theme='offdecoration' size='off'> 
+                                    {item.label}
+                                    <Button.Icon iconName='mdi:chevron-down' size='sm' classes='w-5 h-5 transition-transform'/>
+                                </Button.Root>
+                    
 
-                            <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
-                                {item.dropdownItems.map((dropItem) => (
-                                <li class="nav__list__drop-item border-transparent w-full text-gray-400 hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
-                                    <a class="block w-full h-full p-4" href={dropItem.href}>
-                                        {dropItem.label}
+                                <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
+                                    {item.dropdownItems.map((dropItem) => (
+                                    <li class="nav__list__drop-item border-transparent w-full text-gray-400 hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
+                                        <a class="block w-full h-full p-4" href={dropItem.href}>
+                                            {dropItem.label}
+                                        </a>
+                                    </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <a href={item.href}>{item.label}</a>
+                            )}
+                        </li>
+
+                    ))}
+                </menu>
+            </nav>
+
+            {/* Right Content */} 
+            <div class="flex items-center h-20">
+                {/* Area Restrita */} 
+                <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0">
+                    
+                    <!-- Btn Area Restrita -->
+                    <Button.Root id='restrict' theme='primary' type='button' isfilled size='md' classes='rounded-md'> 
+                        <Button.Icon iconName='mdi:lock' size='md' classes='text-white'/>
+                        Área Restrita
+                    </Button.Root>
+
+                    <!-- Drop list Btn -->
+                    <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
+                        {restrictContent.map((item) => (
+                            
+                                <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
+                                    <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2 text-gray-700 `}>
+                                        <Icon name={`${item.iconName}`} size={25} />
+                                        <span class="mx-auto">{item.label}</span>
                                     </a>
                                 </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <a href={item.href}>{item.label}</a>
-                        )}
-                    </li>
-
-                ))}
-            </ul>
-        </nav>
-
-        <!-- Align Area Restrita and mobile menu button to the right -->
-        <div class="flex items-center h-20">
-            <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0">
-                <!-- Btn Area Restrita -->
-
-                <Button.Root id='restrict' theme='primary' type='button' isfilled size='md' classes='rounded-md'> 
-                    <Button.Icon iconName='mdi:lock' size='md' classes='text-white'/>
-                    Área Restrita
-                </Button.Root>
-
-                <!-- <button id="" class="flex items-center space-x-2 rounded-lg bg-blue-500 px-2 py-2 text-white hover:bg-blue-700 text-base">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span></span>
-                </button> -->
-
-                <!-- Drop list Btn -->
-                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
-                    {restrictContent.map((item) => (
-                        
-                            <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
-                                <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2 text-gray-700 `}>
-                                    <Icon name={`${item.iconName}`} size={25} />
-                                    <span class="mx-auto">{item.label}</span>
-                                </a>
-                            </li>
-                            
+                                
+                            )
                         )
-                      )
-                    }
-                </ul>  
+                        }
+                    </ul>  
+                </div>
+                
+                {/* Botão Menu Mobile */} 
+                <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
+                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
+                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
+                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
+                </button>
             </div>
-            
-            <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
-                <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
-                <span class="block w-6 h-0.5 bg-slate-50 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
-                <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
-            </button>
         </div>
-    
-        <div id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
-            <nav class="p-4 pt-16">
-                <ul class="space-y-4 flex flex-col justify-center items-center">
+        
+        {/* Content Navigation Mobile - Full Width*/} 
+        <nav id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
+            <div class="p-4 pt-16">
+                <menu class="space-y-4 flex flex-col justify-center items-center">
 
                     <!-- <li><a href="#" class="block text-white hover:text-blue-500">Inicio</a></li> -->
 
@@ -178,13 +185,17 @@
                     
                     
 
-                </ul>
-            </nav>
-        </div>
+                </menu>
+            </div>
+        </nav>
     </div>
-   
 
 </header>
+
+
+{/*----------------------------- */}
+{/*--------   SCRIPTS   -------- */}
+{/*----------------------------- */}
 
 <script>
 
@@ -286,7 +297,17 @@
 
 </script>
 
-<style type="text/scss">
+{/*----------------------------- */}
+{/*--------    STYLES   -------- */}
+{/*----------------------------- */}
+
+<!-- <style type="text/scss"> -->
+ 
+<style>
+
+    body.overflow-hidden{
+        overflow: hidden;
+    }
     .activeClass{
         top: 10%;
         width: 95vw;
@@ -294,13 +315,9 @@
         transition: all .2s ease-in-out;
         border-radius: 100px;
     }
-   
     #mobileMenu {
         overflow-y: auto;
         max-height: 100vh;
-    }
-    body.overflow-hidden {
-        overflow: hidden;
     }
     #mobileMenuButton.text-red-500 span {
         background-color: #EF4444;
@@ -311,7 +328,6 @@
     #closeMenuButton:hover {
         transform: rotate(90deg);
     }
-
     #droprestrictlist li{
         transition: all cubic-bezier(0.19, 1, 0.22, 1);
     }

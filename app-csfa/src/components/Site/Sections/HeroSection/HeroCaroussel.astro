@@ -1,16 +1,15 @@
 ---
-import { Image } from 'astro:assets';
 
 // Import images
-import banner1Large from '../../public/images/banner1.jpeg';
+import banner1Large from '/images/banner1.jpeg';
 // import banner1Medium from '../../images/banner1-medium.jpg';
 // import banner1Small from '../../images/banner1-small.jpg';
 
-import banner2Large from '../../public/images/banner2.jpeg';
+import banner2Large from '/images/banner2.jpeg';
 // import banner2Medium from '../../images/banner2-medium.jpg';
 // import banner2Small from '../../images/banner2-small.jpg';
 
-import banner3Large from '../../public/images/banner3.jpeg';
+import banner3Large from '/images/banner3.jpeg';
 // import banner3Medium from '../../images/banner3-medium.jpg';
 // import banner3Small from '../../images/banner3-small.jpg';
 
@@ -43,19 +42,21 @@ const banners = [
     alt: "Banner 3"
   }
 ];
+
 ---
 
 <section class="banner-carousel relative overflow-hidden h-[90dvh] rounded-b-[3rem]">
+
   {banners.map((banner, index) => (
     <div class={`carousel-item absolute inset-0 transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0'}`} data-index={index}>
       <picture class="w-full h-full">
-        {/* <source media="(min-width: 400px)" srcset={banner.imageLarge.src}>  */}
-        {/* <source media="(min-width: 640px)" srcset={banner.imageMedium.src}> */}
-        <Image 
-          src={banner.imageLarge} 
-          alt={banner.alt} 
-          class="w-full h-full object-cover"
-        />
+          {/* <source media="(min-width: 400px)" srcset={banner.imageLarge.src}>  */}
+          {/* <source media="(min-width: 640px)" srcset={banner.imageMedium.src}> */}
+          <Image 
+            src={banner.imageLarge} 
+            alt={banner.alt} 
+            class="w-full h-full object-cover"
+          />
       </picture>
       {/* <div class="absolute inset-0 flex flex-col justify-center items-center text-white">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">{banner.title}</h2>
@@ -72,35 +73,37 @@ const banners = [
 </section>
 
 <script>
-  let currentIndex = 0;
-  const items = document.querySelectorAll('.carousel-item');
-  const dots = document.querySelectorAll('.banner-carousel button');
-  const totalItems = items.length;
 
-  function showItem(index: number) {
-    items.forEach((item, i) => {
-      item.classList.toggle('opacity-0', i !== index);
-      item.classList.toggle('opacity-100', i === index);
-    });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('opacity-50', i !== index);
-      dot.classList.toggle('opacity-100', i === index);
-    });
-  }
+    let currentIndex = 0;
+    const items = document.querySelectorAll('.carousel-item');
+    const dots = document.querySelectorAll('.banner-carousel button');
+    const totalItems = items.length;
 
-  function nextItem() {
-    currentIndex = (currentIndex + 1) % totalItems;
-    showItem(currentIndex);
-  }
+    function showItem(index: number) {
+      items.forEach((item, i) => {
+        item.classList.toggle('opacity-0', i !== index);
+        item.classList.toggle('opacity-100', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('opacity-50', i !== index);
+        dot.classList.toggle('opacity-100', i === index);
+      });
+    }
 
-  // Auto-advance the carousel every 5 seconds
-  setInterval(nextItem, 8000);
-
-  // Add click event listeners to the dots
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
+    function nextItem() {
+      currentIndex = (currentIndex + 1) % totalItems;
       showItem(currentIndex);
+    }
+
+    // Auto-advance the carousel every 5 seconds
+    setInterval(nextItem, 8000);
+
+    // Add click event listeners to the dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showItem(currentIndex);
+      });
     });
-  });
+    
 </script>

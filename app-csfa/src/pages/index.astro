@@ -1,33 +1,18 @@
 ---
 
 	import Layout from '../layouts/Layout.astro';
-	import { Button } from '../components/Button/index.astro';
 	import '../styles/variaveis.css';
-	import '../styles/global.css';
-	import HeroCaroussel from '../components/HeroCaroussel.astro';
-	import SobreColegio from '../components/SobreColegio.astro';
-
-
-const layout ={
-    title: 'Colégio São Francisco de Assis',
-    description: 'descrição'
-}
+	import '../styles/globals.css';
+	
+	const layout ={
+		title: 'Colégio São Francisco de Assis',
+		description: 'descrição'
+	}
 
 ---
 
 <Layout title={layout.title} description={layout.description}>
 
-	<!-- <HeroCaroussel /> -->
-	<!-- <SobreColegio /> -->
 
-
-	<!-- <Button.Root theme='dark' type='button'> 
-		<Button.Icon iconName='mdi:google' size='md'/>
-		button
-	</Button.Root>
-
-	<Button.Link link='#' target='_blank' theme='primary'>
-		button
-	</Button.Link> -->
  
 </Layout>
