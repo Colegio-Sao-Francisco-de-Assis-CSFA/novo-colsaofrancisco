@@ -1,0 +1,181 @@
+---
+
+const items = [
+    { 
+        slide: 1, img: '/images/banner1.jpeg',
+        titulo: 'Título 1',
+        id: 1, descricao: 'Descrição do slide 1',
+        funcao: () => alert('Função 1 executada') 
+    },
+    { 
+        slide: 2, 
+        img: '/images/banner2.jpeg', 
+        titulo: 'Título 2', 
+        id: 2, 
+        descricao: 'Descrição do slide 2', 
+        funcao: () => alert('Função 2 executada') 
+    },
+    { 
+        slide: 3, 
+        img: '/images/banner3.jpeg', 
+        titulo: 'Título 3', 
+        id: 3, 
+        descricao: 'Descrição do slide 3', 
+        funcao: () => alert('Função 3 executada') 
+    }
+];
+
+---
+<div id="carousel__slide">
+
+    <!-- Content Left -->
+    <div class="content__left informacional">
+        <h1 id="slide-title"></h1>
+        <p id="slide-description"></p>
+        <button id="slide-button"></button>
+    </div>
+
+    <!-- Content Right -->
+    <div class="content__right" id="container__image">
+   
+    </div>
+
+    <!-- Controls -->
+    <div id="controls">
+        <button id="prev__slide" class="arrow">❮</button>
+        <button id="next__slide" class="arrow">❯</button>
+    </div>
+
+    <!-- Indicators -->
+    <div id="indicators" class="indicators"></div>
+    
+</div>
+
+
+
+<script type="module" is:inline>
+
+  import Carousel from '/scripts/Carousel/carousel-class.js';
+
+  const items = [
+      { 
+          slide: 1, img: '/images/banner1.jpeg',
+          titulo: 'Título 1',
+          id: 1, descricao: 'Descrição do slide 1',
+          funcao: () => alert('Função 1 executada') 
+      },
+      { 
+          slide: 2, 
+          img: '/images/banner2.jpeg', 
+          titulo: 'Título 2', 
+          id: 2, 
+          descricao: 'Descrição do slide 2', 
+          funcao: () => alert('Função 2 executada') 
+      },
+      { 
+          slide: 3, 
+          img: '/images/banner3.jpeg', 
+          titulo: 'Título 3', 
+          id: 3, 
+          descricao: 'Descrição do slide 3', 
+          funcao: () => alert('Função 3 executada') 
+      }
+  ];
+  
+  new Carousel(items, 'carousel__slide', 'indicators', 'prev__slide', 'next__slide', 6000);
+
+</script>
+
+<style>
+
+#carousel__slide {
+  width: 800px;
+  height: 400px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: aliceblue;
+}
+
+.content__left {
+  width: 50%;
+  padding: 1rem;
+}
+
+.content__right {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+
+#controls {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  display: none;
+}
+
+#carousel__slide:hover #controls {
+  display: flex;
+}
+
+.arrow {
+  
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  bottom: 10px;
+  z-index: 10;
+}
+
+.indicator{
+  display: block !important;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(211, 211, 211);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  z-index: 15;
+
+}
+
+.indicator.active {
+  background-color: rgb(233, 37, 170);
+}
+
+@media (max-width: 768px) {
+  #carousel__slide {
+    flex-direction: column;
+  }
+
+  .content__right {
+    order: 2;
+    width: 100%;
+    height: 50%;
+  }
+
+  .content__left {
+    width: 100%;
+    height: 50%;
+  }
+}
+</style>
