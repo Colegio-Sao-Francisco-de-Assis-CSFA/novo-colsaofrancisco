@@ -27,7 +27,7 @@ import type { HTMLAttributes } from 'astro/types';
     } = Astro.props
     
     const background = `var(--${theme})`;
-    const foreground = theme === "light" ? "var(--primary)" : "var(--light)"
+    const foreground = theme === "light" ? "var(--primary)" : "var(--light)";
 
 ---
 
@@ -69,7 +69,6 @@ import type { HTMLAttributes } from 'astro/types';
         border: 0.2em solid var(--bkg);
         padding: 0.4em 1.2em;
     }
-
     :where(button.filled){
         background-color: var(--bkg);
         color: var(--foreground);
@@ -81,20 +80,12 @@ import type { HTMLAttributes } from 'astro/types';
         border: none;
         padding: 0;
     }
-    :where(button.filled){
-        background-color: var(--bkg);
-        color: var(--foreground);
-        border: none;
-
-    }
     button:hover{
         opacity: 0.8;
     }
-
     [data-size="off"]{
         font-size: 1rem;
     }
-
     [data-size="sm"]{
         font-size: 0.8rem;
     }

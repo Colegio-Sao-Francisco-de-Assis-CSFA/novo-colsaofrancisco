@@ -1,15 +1,24 @@
 ---
-const {title, description} = Astro.props;
 import logoImage from '../../public/logo-cfsa.svg';
-import FloatLinks from '../components/FloatLinks.astro';
-import MenuPrincipal from '../components/MenuPrincipal.astro';
+
+
+interface Props{
+	title: string;
+	description: string;
+}
+
+const {
+	title,
+	description
+} = Astro.props;
+
 
 ---
 
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8"/>
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
@@ -20,13 +29,10 @@ import MenuPrincipal from '../components/MenuPrincipal.astro';
 		<title>{title}</title>
 	</head>
 	<body class="bg-slate-800">		
-		<!-- <MenuPrincipal /> -->
-		<!-- <FloatLinks /> -->
 
 		<div class="container mx-auto max-w-[1980px]">
-			<slot />
+			<slot/>
 		</div>
-
 
 	</body>
 </html>

@@ -1,9 +1,15 @@
 ---
 
-	import Layout from '../layouts/Layout.astro';
+	import Layout from '../layouts/SiteLayout.astro';
+	import '../styles/assets.css'
 	import '../styles/variaveis.css';
 	import '../styles/globals.css';
-	import Teste from '../components/Teste.astro';
+	import SectionDiferenciais from '@/components/Site/Sections/SectionDiferenciais.astro';
+	import SectionHeroBanner from '@/components/Site/Sections/SectionHeroBanner.astro';
+
+	
+	import Teste from './Site/Teste.astro';
+
 
 	const layout ={
 		title: 'Colégio São Francisco de Assis',
@@ -14,6 +20,7 @@
 
 <Layout title={layout.title} description={layout.description}>
 
-	<Teste></Teste>
+	<SectionHeroBanner></SectionHeroBanner>
+	<!-- <SectionDiferenciais /> -->
  
 </Layout>
