@@ -49,8 +49,15 @@ export default class Carousel {
     
     this.slideTitle.textContent = item.titulo;
     this.slideDescription.textContent = item.descricao;
-    this.slideButton.textContent = `Botão ${item.slide}`;
-    this.slideButton.onclick = item.funcao;
+    this.slideButton.innerHTML = ` 
+      &#9733
+      Saiba mais
+    `;
+
+    this.slideButton.onclick = () => {
+      window.location.replace(item.location);
+    };
+      
     this.containerImage.innerHTML = `<img src='${item.img}' alt='imagem do slide ${item.slide}' style="width: 100%; height: 100%; object-fit: cover;">`;
 
     const indicators = this.indicatorsContainer.querySelectorAll('.indicator');

@@ -1,0 +1,77 @@
+
+
+<!-- max-w-[1200px] max-h-[450px] -->
+
+  <div id="carousel__slide" class="w-[full] h-[full] aspect-video flex flex-row overflow-hidden bg-blue-500 relative rounded- group">
+
+      <!-- Content Left -->
+      <div class="content__left informacional w-[50%] h-full flex flex-col justify-center p-12 space-y-4 z-10">
+          <h1 id="slide-title" class="text-csfa_font_ text-slate-50 font-medium"></h1>
+          <p id="slide-description" class="text-csfa_font_sm text-slate-100 font-normal"></p>
+          <button type="button" id="slide-button" class="max-w-[10rem] flex justify-around items-center bg-white px-6 py-2 text-slate-600 cursor-pointer hover:bg-csfa_pink_500 hover:text-csfa_gray_200 transition-all group/button" style="border-radius: 6px;">
+        
+         </button>
+      </div>
+  
+      <!-- Content Right -->
+      <div id="container__image" class="content__right overflow-hidden w-[50%]" >
+      
+      </div>
+  
+      <!-- Controls -->
+      <div id="controls" class="hidden group-hover:flex w-full h-full absolute justify-between items-center ">
+          <button id="prev__slide" class="arrow w-8 m-2 bg-white/80 h-20 rounded-full text-blue-500 transition-all cursor-pointer z-20">❮</button>
+          <button id="next__slide" class="arrow w-8 m-2 bg-white/80 h-20 rounded-full text-blue-500 transition-all cursor-pointer z-20">❯</button>
+      </div>
+  
+      <!-- Indicators -->
+      <div id="indicators" class="indicators"></div>
+      
+  </div>
+
+  
+
+  <script type="module" is:inline>
+
+        import Carousel from '/scripts/Carousel/carousel-class.js';
+
+        const items = [
+            { 
+                slide: 1, 
+                img: '/images/banner1.jpeg',
+                titulo: 'Robótica Educacional',
+                id: 1, 
+                descricao: 
+                    `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
+                    anim id est laborum`,
+
+                location: "https://stackoverflow.com"
+            },
+            { 
+                slide: 2, 
+                img: '/images/banner2.jpeg', 
+                titulo: 'Título 2', 
+                id: 2, 
+                descricao: 'Descrição do slide 2', 
+                location: "https://stackoverflow.com"
+            },
+            { 
+                slide: 3, 
+                img: '/images/banner3.jpeg', 
+                titulo: 'Título 3', 
+                id: 3, 
+                descricao: 'Descrição do slide 3', 
+                location: "https://stackoverflow.com" 
+            }       
+        ];
+
+
+        new Carousel(items, 'carousel__slide', 'indicators', 'prev__slide', 'next__slide', 6000);
+
+  </script>
+
