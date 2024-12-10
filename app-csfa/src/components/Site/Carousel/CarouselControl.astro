@@ -1,11 +1,13 @@
 ---
 interface Props {
-    id?: string;
     classes?: string;
+    id?: string;
 }
+
 const { id, classes } = Astro.props;
 ---
 
+<!-- Controls -->
 <div id={id} class={classes}>
     <slot />
 </div>

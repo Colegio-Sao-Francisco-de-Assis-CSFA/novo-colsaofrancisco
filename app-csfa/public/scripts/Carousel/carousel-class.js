@@ -1,96 +1,185 @@
 export default class Carousel {
-  constructor(items, containerId, indicatorContainerId, prevButtonId, nextButtonId, autoSlideInterval = 6000) {
-    this.items = items;
-    this.currentIndex = 0;
-    this.autoSlideInterval = autoSlideInterval;
+    constructor(
+        items,
+        containerId,
+        indicatorsId,
+        prevButtonId,
+        nextButtonId,
+        autoPlayInterval = 6000
+    ) {
+        // Elementos do DOM
+        this.container = document.getElementById(containerId);
+        this.content = this.container.querySelector('#container__image');
+        this.indicators = document.getElementById(indicatorsId);
+        this.prevButton = document.getElementById(prevButtonId);
+        this.nextButton = document.getElementById(nextButtonId);
 
-    this.container = document.getElementById(containerId);
-    this.indicatorsContainer = document.getElementById(indicatorContainerId);
-    this.prevButton = document.getElementById(prevButtonId);
-    this.nextButton = document.getElementById(nextButtonId);
+        // Dados dos slides
+        this.items = items;
+        this.currentIndex = 0;
+        this.totalSlides = items.length;
 
-    this.slideTitle = document.getElementById('slide-title');
-    this.slideDescription = document.getElementById('slide-description');
-    this.slideButton = document.getElementById('slide-button');
-    this.containerImage = document.getElementById('container__image');
+        // Configurações de autoplay
+        this.autoPlayInterval = autoPlayInterval;
+        this.autoPlayTimer = null;
 
+        // Inicializa o carrossel
+        this.init();
+    }
 
-    this.createIndicators();
-    this.updateSlide(this.currentIndex);
-    this.startAutoSlide();
+    init() {
+        // Renderiza slides e indicadores
+        this.renderSlides();
+        this.renderIndicators();
 
-    this.addListeners();
-  }
+        // Configura eventos de navegação
+        this.prevButton.addEventListener('click', () => this.prevSlide());
+        this.nextButton.addEventListener('click', () => this.nextSlide());
 
-  createIndicators() {
-      this.indicatorsContainer.innerHTML = ''; // Limpa os indicadores anteriores
-      
-      this.items.forEach((_, index) => {
-          const indicator = document.createElement('span');
-          indicator.classList.add('indicator'); // Adiciona a classe "indicator" ao elemento
+        // Configura indicadores
+        this.setupIndicators();
 
-          // Verifique se o indicador deve ser ativo e adicione a classe "active" se necessário
-          if (index === 0) {
-              indicator.classList.add('active'); // Marca o primeiro indicador como ativo
-          }
+        // Inicia autoplay
+        this.startAutoPlay();
 
-          // Adiciona o evento de clique para cada indicador
-          indicator.addEventListener('click', () => {
-              this.goToSlide(index); // Vai para o slide correspondente
-          });
+        // Pausa autoplay em hover
+        this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+        this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+    }
 
-          // Adiciona o indicador ao container de indicadores
-          this.indicatorsContainer.appendChild(indicator);
-      });
-  }
+    renderSlides() {
+        // Limpa conteúdo anterior
+        this.content.innerHTML = '';
 
-  updateSlide(index) {
-    const item = this.items[index];  // Pega o item atual
-    
-    this.slideTitle.textContent = item.titulo;
-    this.slideDescription.textContent = item.descricao;
-    this.slideButton.innerHTML = ` 
-      &#9733
-      Saiba mais
-    `;
+        // Renderiza slides atuais
+        const currentItem = this.items[this.currentIndex];
 
-    this.slideButton.onclick = () => {
-      window.location.replace(item.location);
-    };
-      
-    this.containerImage.innerHTML = `<img src='${item.img}' alt='imagem do slide ${item.slide}' style="width: 100%; height: 100%; object-fit: cover;">`;
+        const slideContainer = document.createElement('div');
+        slideContainer.classList.add('slide', 'w-full', 'h-full', 'relative', 'transition-opacity', 'duration-500');
 
-    const indicators = this.indicatorsContainer.querySelectorAll('.indicator');
-    indicators.forEach((ind, i) => ind.classList.toggle('active', i === index));
-  }
+        const img = document.createElement('img');
+        img.src = currentItem.img;
+        img.alt = currentItem.titulo;
+        img.classList.add('w-full', 'h-full', 'object-cover');
 
-  goToSlide(index) {
-    this.currentIndex = index;
-    this.updateSlide(index);
-    this.restartAutoSlide();
-  }
+        const textOverlay = document.createElement('div');
+        textOverlay.classList.add(
+            'absolute', 'bottom-0', 'left-0', 'w-full',
+            'bg-black/50', 'text-white', 'p-4', 'text-center'
+        );
 
-  nextSlide() {
-    const nextIndex = (this.currentIndex + 1) % this.items.length;
-    this.goToSlide(nextIndex);
-  }
+        const title = document.createElement('h2');
+        title.textContent = currentItem.titulo;
+        title.classList.add('text-2xl', 'font-bold', 'mb-2');
 
-  prevSlide() {
-    const prevIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
-    this.goToSlide(prevIndex);
-  }
+        const description = document.createElement('p');
+        description.textContent = currentItem.descricao;
+        description.classList.add('text-sm');
 
-  startAutoSlide() {
-    this.autoSlideIntervalId = setInterval(() => this.nextSlide(), this.autoSlideInterval);
-  }
+        const link = document.createElement('a');
+        link.href = currentItem.location;
+        link.textContent = 'Saiba mais';
+        link.classList.add(
+            'inline-block', 'mt-2', 'px-4', 'py-2',
+            'bg-blue-500', 'text-white', 'rounded'
+        );
 
-  restartAutoSlide() {
-    clearInterval(this.autoSlideIntervalId);
-    this.startAutoSlide();
-  }
+        textOverlay.appendChild(title);
+        textOverlay.appendChild(description);
+        textOverlay.appendChild(link);
 
-  addListeners() {
-    this.prevButton.addEventListener('click', () => this.prevSlide());
-    this.nextButton.addEventListener('click', () => this.nextSlide());
-  }
+        slideContainer.appendChild(img);
+        slideContainer.appendChild(textOverlay);
+
+        this.content.appendChild(slideContainer);
+    }
+
+    renderIndicators() {
+        // Limpa indicadores anteriores
+        this.indicators.innerHTML = '';
+
+        // Cria indicadores
+        this.items.forEach((_, index) => {
+            
+            const indicator = document.createElement('button');
+            indicator.classList.add(
+                'w-4', 'h-4', 'rounded-full',
+                'transition-colors', 'duration-300'
+            );
+
+            // Destaca o slide atual
+            if (index === this.currentIndex) {
+                indicator.classList.add('bg-blue-500');
+            } else {
+                indicator.classList.add('bg-white/80');
+            }
+
+            indicator.dataset.slide = index;
+            this.indicators.appendChild(indicator);
+        });
+    }
+
+    setupIndicators() {
+        // Adiciona evento de clique nos indicadores
+        const indicatorButtons = this.indicators.querySelectorAll('button');
+        indicatorButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const slideIndex = parseInt(e.target.dataset.slide);
+                this.goToSlide(slideIndex);
+            });
+        });
+    }
+
+    nextSlide() {
+        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+        this.renderSlides();
+        this.renderIndicators();
+    }
+
+    prevSlide() {
+        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+        this.renderSlides();
+        this.renderIndicators();
+    }
+
+    goToSlide(index) {
+        this.currentIndex = index;
+        this.renderSlides();
+        this.renderIndicators();
+    }
+
+    startAutoPlay() {
+        this.autoPlayTimer = setInterval(() => {
+            this.nextSlide();
+        }, this.autoPlayInterval);
+    }
+
+    stopAutoPlay() {
+        if (this.autoPlayTimer) {
+            clearInterval(this.autoPlayTimer);
+        }
+    }
+
+    // Método para adicionar slides dinamicamente
+    addSlide(slide) {
+        this.items.push(slide);
+        this.totalSlides = this.items.length;
+        this.renderIndicators();
+    }
+
+    // Método para remover slides
+    removeSlide(index) {
+        if (index >= 0 && index < this.totalSlides) {
+            this.items.splice(index, 1);
+            this.totalSlides = this.items.length;
+
+            // Ajusta o índice atual se necessário
+            if (this.currentIndex >= this.totalSlides) {
+                this.currentIndex = this.totalSlides - 1;
+            }
+
+            this.renderSlides();
+            this.renderIndicators();
+        }
+    }
 }

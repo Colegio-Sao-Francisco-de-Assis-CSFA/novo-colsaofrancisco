@@ -1,26 +1,26 @@
 ---
+import Layout from "../layouts/SiteLayout.astro";
 
-	import Layout from '../layouts/SiteLayout.astro';
-	import '../styles/assets.css'
-	import '../styles/variaveis.css';
-	import '../styles/globals.css';
-	import SectionDiferenciais from '@/components/Site/Sections/SectionDiferenciais.astro';
-	import SectionHeroBanner from '@/components/Site/Sections/SectionHeroBanner.astro';
+import "../styles/assets.css";
+import "../styles/variaveis.css";
+import "../styles/globals.css";
 
-	
-	import Teste from './Site/Teste.astro';
-
-
-	const layout ={
-		title: 'Colégio São Francisco de Assis',
-		description: 'descrição'
-	}
-
+import SectionHeroBanner from "../../src/components/Site/Sections/SectionHeroBanner.astro";
+import SectionSegmentos from "../../src/components/Site/Sections/SectionSegmentos.astro";
+import SectionSobre from "../../src/components/Site/Sections/SectionSobre.astro";
+import SectionDiferenciais from "../../src/components/Site/Sections/SectionDiferenciais.astro";
+import SectionNoticias from "../../src/components/Site/Sections/SectionNoticias.astro";
+import SectionContato from "../../src/components/Site/Sections/SectionContato.astro";
 ---
 
-<Layout title={layout.title} description={layout.description}>
+<Layout title="Colégio São Francisco de Assis" description="">
 
-	<SectionHeroBanner></SectionHeroBanner>
-	<!-- <SectionDiferenciais /> -->
- 
+	<!-- <SectionHeroBanner /> -->
+	<!-- <SectionSegmentos /> -->
+	<!-- <SectionSobre /> -->
+	<SectionDiferenciais />
+	<!-- <SectionNoticias /> -->
+	<!-- <SectionContato />  -->
+
+
 </Layout>

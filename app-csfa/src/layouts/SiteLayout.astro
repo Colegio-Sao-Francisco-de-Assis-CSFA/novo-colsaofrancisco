@@ -1,11 +1,8 @@
 ---
 import logoImage from '../../public/logo-cfsa.svg';
-
-
-interface Props{
-	title: string;
-	description: string;
-}
+import HeaderMenu from '@/components/Site/Sections/HeaderMenu.astro';
+import Footer from '@/components/Site/Sections/Footer.astro';
+import FloatLinks from '@/components/Site/FloatContent/FloatLinks/FloatLinks.astro';
 
 const {
 	title,
@@ -30,9 +27,14 @@ const {
 	</head>
 	<body class="bg-slate-800">		
 
-		<div class="container mx-auto max-w-[1980px]">
+		<HeaderMenu />
+
+		<div class="container mx-auto max-w-[1980px] relative">
+			<FloatLinks/>
 			<slot/>
 		</div>
+		
+		<Footer />
 
 	</body>
 </html>

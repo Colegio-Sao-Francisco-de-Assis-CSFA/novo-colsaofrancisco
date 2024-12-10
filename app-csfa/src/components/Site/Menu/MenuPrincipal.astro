@@ -62,109 +62,104 @@
     ]
 
 ---
-{/*----------------------------- */}
-{/*-----   HTML COMPONENT  ----- */}
-{/*----------------------------- */}
 
-<header class="container__nav fixed top-0 left-0 flex flex-1  flex-row w-[100dvw] h-24 p-6 z-[999] shadow-lg">
+<header class="container__nav fixed top-0 left-0 flex flex-1  flex-row w-[100dvw] h-24 p-6 z-[99]">
 
     {/* Content Menu*/} 
     <div class="w-full h-20 bg-white rounded-full flex flex-row items-center justify-between p-4">
         
         {/* Content Navigation Desktop*/} 
-        <div>
+       
             
-            <Logo />
-            
-            {/*Links de Navegção */} 
-            <nav class="nav hidden lg:flex h-20 items-center justify-center">
-                <menu class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
-                    {navItems.map((item) => (
+        <Logo />
+        
+        {/*Links de Navegção */} 
+        <nav class="nav hidden lg:flex h-20 items-center justify-center">
+            <menu class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
+                {navItems.map((item) => (
 
-                        <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
-                            {item.dropdownItems ? (
+                    <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
+                        {item.dropdownItems ? (
 
-                                <Button.Root offdecoration type='button' classes='btn-to-drop text-csfa_font_lsm' theme='offdecoration' size='off'> 
-                                    {item.label}
-                                    <Button.Icon iconName='mdi:chevron-down' size='sm' classes='w-5 h-5 transition-transform'/>
-                                </Button.Root>
-                    
+                            <Button.Root offdecoration type='button' classes='btn-to-drop text-csfa_font_lsm' theme='offdecoration' size='off'> 
+                                {item.label}
+                                <Button.Icon iconName='mdi:chevron-down' size='sm' classes='w-5 h-5 transition-transform'/>
+                            </Button.Root>
+                
 
-                                <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
-                                    {item.dropdownItems.map((dropItem) => (
-                                    <li class="nav__list__drop-item border-transparent w-full text-gray-400 hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
-                                        <a class="block w-full h-full p-4" href={dropItem.href}>
-                                            {dropItem.label}
-                                        </a>
-                                    </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <a href={item.href}>{item.label}</a>
-                            )}
-                        </li>
-
-                    ))}
-                </menu>
-            </nav>
-
-            {/* Right Content */} 
-            <div class="flex items-center h-20">
-                {/* Area Restrita */} 
-                <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0">
-                    
-                    <!-- Btn Area Restrita -->
-                    <Button.Root id='restrict' theme='primary' type='button' isfilled size='md' classes='rounded-md'> 
-                        <Button.Icon iconName='mdi:lock' size='md' classes='text-white'/>
-                        Área Restrita
-                    </Button.Root>
-
-                    <!-- Drop list Btn -->
-                    <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
-                        {restrictContent.map((item) => (
-                            
-                                <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
-                                    <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2 text-gray-700 `}>
-                                        <Icon name={`${item.iconName}`} size={25} />
-                                        <span class="mx-auto">{item.label}</span>
+                            <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
+                                {item.dropdownItems.map((dropItem) => (
+                                <li class="nav__list__drop-item border-transparent w-full text-gray-400 hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
+                                    <a class="block w-full h-full p-4" href={dropItem.href}>
+                                        {dropItem.label}
                                     </a>
                                 </li>
-                                
-                            )
-                        )
-                        }
-                    </ul>  
-                </div>
+                                ))}
+                            </ul>
+                        ) : (
+                            <a href={item.href}>{item.label}</a>
+                        )}
+                    </li>
+
+                ))}
+            </menu>
+        </nav>
+
+        {/* Right Content */} 
+        <div class="flex items-center h-20">
+            {/* Area Restrita */} 
+            <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0 ">
                 
-                {/* Botão Menu Mobile */} 
-                <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
-                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
-                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
-                    <span class="block w-6 h-0.5 bg-slate-50 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
-                </button>
+                <!-- Btn Area Restrita -->
+                <Button.Root id='restrict' type='button' isfilled size='md' classes='rounded-md bg-csfa_blue_300 p-4 text-white mr-2'> 
+                    <Button.Icon iconName='mdi:lock' size='md' classes='text-white'/>
+                    <span class="hidden sm:block">Área Restrita</span>
+                </Button.Root>
+
+                <!-- Drop list Btn -->
+                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
+                    {restrictContent.map((item) => (
+                        
+                            <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
+                                <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2 text-gray-700 `}>
+                                    <Icon name={`${item.iconName}`} size={25} />
+                                    <span class="mx-auto">{item.label}</span>
+                                </a>
+                            </li>
+                            
+                        )
+                    )
+                    }
+                </ul>  
             </div>
+            
+            {/* Botão Menu Mobile */} 
+            <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
+            </button>
         </div>
         
         {/* Content Navigation Mobile - Full Width*/} 
         <nav id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
-            <div class="p-4 pt-16">
+            <div class="p-4 pt-16 flex items-center justify-center">
                 <menu class="space-y-4 flex flex-col justify-center items-center">
-
-                    <!-- <li><a href="#" class="block text-white hover:text-blue-500">Inicio</a></li> -->
 
                     {navItems.map(
                             (item) => (
 
-                                <li class={`block text-gray-700 hover:text-blue-500 ${item.dropdownItems ? 'relative' : ''}`}>
+                                <li class={`inline-flex justify-center items-center flex-col text-gray-700 text-csfa_font_md hover:text-blue-500 ${item.dropdownItems ? 'relative' : ''}`}>
                                     {item.dropdownItems ? (
                                         
                                         <button class="mobileDropItem flex flex-row items-center justify-center text-gray-700 hover:text-blue-500" type="button">
                                             <span>{item.label}</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                            </svg>                                </button>
+                                            </svg>                                
+                                        </button>
             
-                                        <ul class="mt-2 space-y-2 pl-4 hidden">
+                                        <ul class="mt-2 space-y-2 flex flex-col items-center justify-center hidden">
                                             {item.dropdownItems.map((dropItem) => (
                                             <li>
                                                 <a class="block text-gray-700 hover:text-blue-500" href={dropItem.href}>
@@ -178,13 +173,11 @@
                                         <a class="block ttext-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
                                     )}
                                 </li>
-    
-                                 )
+
+                                    )
                             )  
                     }
-                    
-                    
-
+                
                 </menu>
             </div>
         </nav>
@@ -198,8 +191,6 @@
 {/*----------------------------- */}
 
 <script>
-
-    // Menu Desktop  {(+) 769px}
 
         // Setup dropdown config
         function setupDropdowns() {
