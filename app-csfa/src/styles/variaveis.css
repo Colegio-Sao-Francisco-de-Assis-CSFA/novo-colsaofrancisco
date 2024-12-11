@@ -1,27 +1,5 @@
 :root{
 
-    /* Cores do projeto */
-    /* Dark Mode */
-    --csfa-clr-d-scale-blue-900:#121B3D;
-    --csfa-clr-darkscaleblue-900-80:hsla(227, 54%, 15%, 0.80);
-    /* Light Mode */
-    --csfa-clr-l-scale-blue-300: #486EDB;
-    --csfa-clr-l-scale-blue-600: #2C3C94;
-
-    /* Assets design */
-    --csfa-style-cyan-700: #08B0D1; 
-    --csfa-style-pink-100:#E87EA1;
-    --csfa-style-pink-700:#F6337F;
-    --csfa-style-yellow-700:#FFC826;
-
-    /* Geral Colors */
-    --csfa-clr-gray-100:#F5F7F5;
-    --csfa-clr-gray-200:#E0E0E0;
-    --csfa-clr-gray-600:#646464;
-    --csfa-clr-gray-700:#4e4e4e;
-    --csfa-clr-white: #fff;
-    --csfa-clr-softblack: rgb(31, 31, 31);
-
     /* Tamanhos de fontes */
     --csfafont-ssm: 10px;
     --csfafont-sm: 12px;
@@ -33,13 +11,30 @@
     --csfafont-lg: 32px;
     --csfafont-llg: 42px;
 
-     /* Button themes */
-
-    --primary: #007bff;
+     /* Themes */
+    --primary: #0154D4;
+    --primary-menu: #b4d2ff;
+    --primary-hover: #002D73;
+    --primary-dark: #011776;
     --danger: #dc3545;
-    --info: #6c757d;
+    --dange-hoverr: #a70011;
+    --danger-dark: #a3303b;
+    --info: #FFC827;
+    --info-hover: #eaaf00;
+    --info-dark: #b88a00;
+    --disable: #C7C9CB;
+    --disable-hover: #EAEAEA;
+    --transparent: #ffffff00;
     --light: #f8f9fa;
-    --dark: #343a40;
-    --offdecoration: #646464:
+    --dark: #333333;
+
+    --saseducation: #051B4A;
+    --gdscantina: #2D76A3;
+    --classroom: #388E3C;
+    
+    --design-1: #FFC827;
+    --design-2: #F6337F;
+    --design-3: #08B1D2;
 
 }
+

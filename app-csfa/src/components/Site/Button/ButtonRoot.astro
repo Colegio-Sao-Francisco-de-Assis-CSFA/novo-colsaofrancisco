@@ -1,99 +1,106 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-    
-    interface Props extends HTMLAttributes<"button">{
-        type?: "button" | "submit";
-        size?: "sm" | "md" | "lg" | "off";
-        isfilled?: boolean;
-        offdecoration?: boolean;
-        theme?:
-            | "primary"
-            | "danger"
-            | "info"
-            | "light"
-            | "dark"
-            | "offdecoration";
-        classes?: string; 
-     }
+import type { HTMLAttributes } from "astro/types";
 
-    const{
-        type = "button",
-        size = "md",
-        isfilled,
-        theme = "light",
-        classes,
-        offdecoration,
-        ...rest
-    } = Astro.props
-    
-    const background = `var(--${theme})`;
-    const foreground = theme === "light" ? "var(--primary)" : "var(--light)";
+interface Props extends HTMLAttributes<"button"> {
+    type?: "button" | "submit";
+    size?: "sm" | "md" | "lg" | "normal";
+    isfilled?: boolean;
+    offdecoration?: boolean;
+    theme?:
+        | "primary"
+        | "primary-menu"
+        | "primary-hover"
+        | "primary-dark"
+        | "danger"
+        | "danger-hover"
+        | "danger-dark"
+        | "info"
+        | "info-hover"
+        | "info-dark"
+        | "disable"
+        | "disable-hover"
+        | "transparent"
+        | "light"
+        | "dark"
+        | "saseducation"
+        | "gdscantina"
+        | "classroom"
+        | "design-1"
+        | "design-2"
+        | "design-3";
+    classes?: string;
+}
+
+const {
+    type = "button",
+    size = "md",
+    isfilled, 
+    theme = "light",
+    classes,
+    ...rest
+} = Astro.props;
+
+const background = `var(--${theme})`;
+    const color = theme === "primary" ? "light" : `var(--${theme})`;
+const border =  `var(--${theme})`;
 
 ---
 
-
-
-<button 
-    {type} 
-    data-size={size} 
-    class:list={[classes, {filled: isfilled }, {decoration: offdecoration}]}
-    {...rest}    
-> 
+<button
+    {type}
+    data-size={size}
+    class:list={[classes, { filled: isfilled }]}
+    {...rest}
+>
     <slot />
 </button>
 
-
-
-<style define:vars={{
-    foreground,
-    background,
-}}>
-
-    :where(button){
+<style
+    define:vars={{
+        color,
+        border,
+        background,
+    }}
+>
+    :where(button) {
 
         font-family: "Open Sans", serif;
-        
+
         /* resets */
         cursor: pointer;
-        
+
         /* variaveis */
         --bkg: var(--background);
-        --color: var(--foreground);
+        --brd: var(--border);
+        --clr: var(--color);
 
         /* default styles */
         display: flex;
-        gap: 0.5em;
+        gap: 0.6em;
         align-items: center;
-        background-color: var(--light);
+        background-color: var(--transparent);
         color: var(--bkg);
-        border: 0.2em solid var(--bkg);
+        border: 0.2em solid var(--clr);
+        border-radius: 1.2rem;
         padding: 0.4em 1.2em;
     }
-    :where(button.filled){
+
+    :where(button.filled) {
         background-color: var(--bkg);
-        color: var(--foreground);
-        border: none;
+        color: var(--clr);
+        border: var(--brd);
     }
-    :where(button.decoration){
-        background-color: transparent;
-        color: var(--bkg);
-        border: none;
-        padding: 0;
-    }
-    button:hover{
-        opacity: 0.8;
-    }
-    [data-size="off"]{
+
+    [data-size="normal"] {
         font-size: 1rem;
     }
-    [data-size="sm"]{
+    [data-size="sm"] {
         font-size: 0.8rem;
     }
-    [data-size="md"]{
+    [data-size="md"] {
         font-size: 1.2rem;
     }
-    [data-size="lg"]{
+    [data-size="lg"] {
         font-size: 1.6rem;
     }
-     
 </style>

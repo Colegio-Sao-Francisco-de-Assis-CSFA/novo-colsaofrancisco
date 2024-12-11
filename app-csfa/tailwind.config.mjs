@@ -19,8 +19,6 @@ export default {
     			csfa_gray_700: '#4e4e4e',
     			csfa_white: ' white',
     			csfa_soft_black: 'rgb(31, 31, 31)',
-    			background: 'hsl(var(--background))',
-    			foreground: 'hsl(var(--foreground))',
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))'

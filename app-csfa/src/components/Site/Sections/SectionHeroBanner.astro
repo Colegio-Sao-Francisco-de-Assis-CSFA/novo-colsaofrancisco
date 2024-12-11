@@ -43,37 +43,46 @@ import { Carousel } from "../Carousel/index.astro";
     import Carousel from "/scripts/Carousel/carousel-class.js";
 
     const items = [
+        // Banner imagem 1
         {
             slide: 1,
             img: "../../../../public/images/banner1.jpeg",
             titulo: "Robótica Educacional",
             id: 1,
-            descricao: `Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-                anim id est laborum`,
+            descricao: "",
 
             location: "https://stackoverflow.com",
         },
+        // Banner imagem 2
         {
             slide: 2,
             img: "../../../../public/images/banner2.jpeg",
             titulo: "Título 2",
             id: 2,
-            descricao: "Descrição do slide 2",
+            descricao: "",
             location: "https://stackoverflow.com",
         },
+        // Banner imagem 3
         {
             slide: 3,
             img: "../../../../public/images/banner3.jpeg",
             titulo: "Título 3",
             id: 3,
-            descricao: "Descrição do slide 3",
+            descricao: "",
             location: "https://stackoverflow.com",
         },
+        //Para adicionar mais imagens ao carrossel copiar a estutura acima e 
+        // colocar as informações de acordo com o novo slide seguindo sempre a ordem
+        
+        // {
+        //     slide: numero de posição do slide,
+        //     img: "caminho da imagem",
+        //     titulo: "Titulo do slide",
+        //     id: codigo de identificação unica,
+        //     descricao: "Descrição do slide",
+        //     location: "Link de redirecionamento",
+        // },
+
     ];
 
     new Carousel(

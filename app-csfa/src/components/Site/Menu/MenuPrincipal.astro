@@ -81,8 +81,8 @@
                     <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
                         {item.dropdownItems ? (
 
-                            <Button.Root offdecoration type='button' classes='btn-to-drop text-csfa_font_lsm' theme='offdecoration' size='off'> 
-                                {item.label}
+                            <Button.Root type='button' classes='btn-to-drop text-csfa_font_lsm text-csfa_gray_600 p-0 border-none hover:text-blue-500' size='normal'> 
+                                {item.label} 
                                 <Button.Icon iconName='mdi:chevron-down' size='sm' classes='w-5 h-5 transition-transform'/>
                             </Button.Root>
                 
@@ -111,24 +111,24 @@
             <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0 ">
                 
                 <!-- Btn Area Restrita -->
-                <Button.Root id='restrict' type='button' isfilled size='md' classes='rounded-md bg-csfa_blue_300 p-4 text-white mr-2'> 
+                <Button.Root id='restrict' type='button' size='md' classes='bg-csfa_blue_300 p-4 text-white mr-4 rounded-md'> 
                     <Button.Icon iconName='mdi:lock' size='md' classes='text-white'/>
                     <span class="hidden sm:block">Área Restrita</span>
                 </Button.Root>
 
                 <!-- Drop list Btn -->
-                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2 border-solid border-2 border-gray-400">
+                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2">
                     {restrictContent.map((item) => (
                         
-                            <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
-                                <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2 text-gray-700 `}>
-                                    <Icon name={`${item.iconName}`} size={25} />
-                                    <span class="mx-auto">{item.label}</span>
-                                </a>
-                            </li>
-                            
+                                <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
+                                    <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2`}>
+                                        <Icon name={`${item.iconName}`} size={25} />
+                                        <span class="mx-auto">{item.label}</span>
+                                    </a>
+                                </li>
+                                
+                            )
                         )
-                    )
                     }
                 </ul>  
             </div>
@@ -170,7 +170,7 @@
                                         </ul>
                                     ) : (
 
-                                        <a class="block ttext-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
+                                        <a class="block text-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
                                     )}
                                 </li>
 
@@ -311,7 +311,7 @@
         max-height: 100vh;
     }
     #mobileMenuButton.text-red-500 span {
-        background-color: #EF4444;
+        background-color: var(--danger);
     }
     #closeMenuButton {
         transition: transform 0.3s ease-in-out;
@@ -320,7 +320,7 @@
         transform: rotate(90deg);
     }
     #droprestrictlist li{
-        transition: all cubic-bezier(0.19, 1, 0.22, 1);
+        transition: all ease-in-out;
     }
     #droprestrictlist li:hover{
         scale: 1.05;
@@ -328,19 +328,19 @@
                 drop-shadow(10px 10px 20px black);
     }
     #droprestrictlist li:nth-child(1){
-        border: solid 1px var(--csfa-clr-gray-200);
+        border: solid 1px var(--disable-hover);
     }
     #droprestrictlist li:nth-child(7){
         background: linear-gradient(white, white) padding-box,
-                    linear-gradient(to right, var(--csfa-style-pink-700), var(--csfa-style-cyan-700)) border-box;
+                    linear-gradient(to right, var(--design-2), var(--design-3)) border-box;
         border: 1px solid transparent;
     }
-    #droprestrictlist li:nth-child(2) a,
-    #droprestrictlist li:nth-child(3) a,
-    #droprestrictlist li:nth-child(4) a,
-    #droprestrictlist li:nth-child(5) a,
-    #droprestrictlist li:nth-child(6) a{
-        color: var(--csfa-clr-white) !important; 
+    #droprestrictlist li:nth-child(2) a span,
+    #droprestrictlist li:nth-child(3) a span,
+    #droprestrictlist li:nth-child(4) a span,
+    #droprestrictlist li:nth-child(5) a span
+    {
+        color: var(--light) !important; 
     }
 
 </style>
