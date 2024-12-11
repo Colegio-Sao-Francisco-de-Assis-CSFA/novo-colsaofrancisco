@@ -1,0 +1,42 @@
+---
+interface Props {
+    size: string;
+    title: string;
+    theme?:
+            | "primary"
+            | "danger"
+            | "info"
+            | "light"
+            | "dark"
+    ;
+    color: 
+            | "primary"
+            | "danger"
+            | "info"
+            | "light"
+            | "dark"
+            | "offdecoration"
+    ;
+}
+
+const { size, title , color} = Astro.props;
+
+const clr = `var(--${theme})`;
+---
+
+<h2 class:list={["title", {font__color: color}]} data-size={size}>
+    {title}
+</h2>
+
+
+<style define:vars={{
+     
+    }}>
+
+    .title{
+        font-family: inherit;
+        color: ;
+    }
+
+
+</style>
