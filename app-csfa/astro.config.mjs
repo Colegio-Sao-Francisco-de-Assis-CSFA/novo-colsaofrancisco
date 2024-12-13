@@ -21,11 +21,22 @@ export default defineConfig({
 
   adapter: netlify(),
 
-  integrations: [tailwind({
-    applyBaseStyles: false,
-  }), react({
+  integrations: [ 
+    tailwind({
+       applyBaseStyles: false,
+  }), 
+  
+  react({
     experimentalReactChildren: true,
     include: ['**/react/*'],
-  }), icon(), alpinejs()],
+  }), 
+  
+  icon(), 
+  
+  alpinejs()],
+  
+  alias: {
+    '@': './src', // Define o alias '@' apontando para 'src'
+  },
 
 });
