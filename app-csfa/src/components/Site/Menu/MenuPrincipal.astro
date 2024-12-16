@@ -17,6 +17,7 @@
 //------------------------------- //
 
     // Navigation Items
+    const currentYear = new Date().getFullYear();
     const navItems = [
 
     { label: 'Inicio', href: '#' },
@@ -24,28 +25,27 @@
     {
         label: 'Colégio',
         dropdownItems: [
-        { label: 'Nossa História', href: '/Nossa-historia' },
-        { label: 'Metodologia de Ensino', href: '/Metodologia-de-ensino' },
-        { label: 'Sobre o Colégio', href: '/Sobre-o-colegio' },
-        { label: 'Escola de Esportes', href: 'Escola-de-esportes' },
-        { label: 'Fale Conosco', href: '/Fale-conosco' },
+        { label: 'Nossa História', href: '/Site/colegio' },
+        { label: 'Metodologia de Ensino', href: '/Site/metodologia-de-ensino' },
+        { label: 'Escola de Esportes', href: '/Site/escola-de-esportes' },
+        { label: `Calendário ${currentYear}`, href: '/Site/agenda' },
+        { label: 'Fale Conosco', href: '/Site/contato' },
         ],
     },
     {
         label: 'Segmentos',
         dropdownItems: [
-        { label: 'Anos Finais', href: 'Segmentos/Anos-Finais' },
-        { label: 'Anos Iniciais', href: 'Segmentos/Anos-Iniciais' },
-        { label: 'Ensino Fundamental', href: 'Segmentos/Ensino-Fundamental' },
-        { label: 'Ensino Médiol', href: 'Segmentos/Ensino-Medio' },
+        { label: 'Anos Finais', href: '/Site/segmentos/Anos-Finais' },
+        { label: 'Anos Iniciais', href: '/Site/segmentos/Anos-Iniciais' },
+        { label: 'Ensino Fundamental', href: '/Site/segmentos/Ensino-Fundamental' },
+        { label: 'Ensino Médio', href: '/Site/segmentos/Ensino-Medio' },
         ],
     },
     {
         label: 'Acontece no CSFA',
         dropdownItems: [
-        { label: 'Item 1', href: '#' },
-        { label: 'Item 2', href: '#' },
-        { label: 'Item 3', href: '#' },
+        { label: 'Blog', href: '/Site/blog' },
+        { label: 'Notícias', href: '/Site/noticias' },
         ],
     },
     ]
