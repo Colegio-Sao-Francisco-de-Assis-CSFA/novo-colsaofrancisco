@@ -1,7 +1,6 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
 
-import node from '@astrojs/node';
+import { defineConfig } from 'astro/config';
 
 import tailwind from '@astrojs/tailwind';
 
@@ -15,7 +14,6 @@ import alpinejs from '@astrojs/alpinejs';
 
 
 
-// https://astro.build/config
 export default defineConfig({
   output: 'server',
 
@@ -23,20 +21,14 @@ export default defineConfig({
 
   integrations: [ 
     tailwind({
-       applyBaseStyles: false,
-  }), 
+      applyBaseStyles: false,
+    }), 
+    react({
+      experimentalReactChildren: true,
+      include: ['**/react/*'],
+    }), 
+    icon(), 
+    alpinejs()
+  ],
   
-  react({
-    experimentalReactChildren: true,
-    include: ['**/react/*'],
-  }), 
-  
-  icon(), 
-  
-  alpinejs()],
-  
-  alias: {
-    '@': './src', // Define o alias '@' apontando para 'src'
-  },
-
 });

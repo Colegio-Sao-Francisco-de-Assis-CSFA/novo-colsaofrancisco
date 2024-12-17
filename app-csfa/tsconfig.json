@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "strict": true,
+      "types": ["astro/client"]
+    }
+  }
+  
