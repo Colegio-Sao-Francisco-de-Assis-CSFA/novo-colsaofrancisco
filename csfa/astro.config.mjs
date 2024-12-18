@@ -7,8 +7,10 @@ import tailwind from '@astrojs/tailwind';
 
 import netlify from '@astrojs/netlify';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), tailwind()],
+  integrations: [mdx(), tailwind(), icon()],
   adapter: netlify()
 });

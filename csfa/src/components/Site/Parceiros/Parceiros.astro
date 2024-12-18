@@ -1,0 +1,90 @@
+---
+const parceiros = [
+    {
+        src: "/images/parceiros/GoogleEducation.png",
+        alt: "Google Education logo",
+    },
+    {
+        src: "/images/parceiros/Kumon.png",
+        alt: "Kumon logo",
+    },
+    {
+        src: "/images/parceiros/NotasDeOuro.png",
+        alt: "NotasDeOuro logo",
+    },
+    {
+        src: "/images/parceiros/SasEducation.png",
+        alt: "SasEducation logo",
+    },
+    {
+        src: "/images/parceiros//ViaMaker.png",
+        alt: "ViaMaker logo",
+    },
+    {
+        src: "/images/parceiros/Yazigi.png",
+        alt: "Yazigi logo",
+    },
+    {
+        src: "/images/parceiros/RaiaLivre.png",
+        alt: "RaiaLivre logo",
+    },
+];
+---
+
+<div class="parceiros">
+    <div class="cs-container">
+        {
+            parceiros.map((item) => (
+                <img
+                    class="cs-logo"
+                    src={`${item.src}`}
+                    alt={`${item.alt}`}
+                    width="287"
+                    height="65"
+                    loading="lazy"
+                    decoding="async"
+                />
+            ))
+        }
+    </div>
+</div>
+
+<style type="scss">
+    /* Mobile - 360px */
+    @media only screen and (min-width: 0rem) {
+        .parceiros {
+            /* 60px - 130px */
+            display: flex;
+            overflow: hidden;
+            flex-direction: row;
+            padding: clamp(3.75rem, 8vw, 8.125rem) calc(16 / 16 * 1rem);
+            background-color: white;
+
+            .cs-container {
+                align-items: center;
+                /* 48px - 64px */
+                gap: clamp(2rem, 5vw, 4rem);
+            }
+
+            .cs-logo {
+                width: auto;
+                max-width: 60%;
+                height: auto;
+                margin: 0;
+            }
+        }
+    }
+
+    /* Tablet - 768px */
+    @media only screen and (min-width: 48rem) {
+        .parceiros {
+            .cs-logo {
+                width: auto;
+                /* the max width becomes whatever the actual width of the image is */
+                max-width: 40%;
+                height: auto;
+                display: block;
+            }
+        }
+    }
+</style>

@@ -1,0 +1,319 @@
+---
+
+    import { Icon } from 'astro-icon/components';
+    import Logo from '../Logo/Logo.astro';
+
+    const currentYear = new Date().getFullYear();
+    const navItems = [
+
+    { label: 'Inicio', href: '/' },
+    { label: 'Matrículas', href: '/Site/matriculas/info' },
+    {
+        label: 'Colégio',
+        dropdownItems: [
+        { label: 'Nossa História', href: '/Site/colegio' },
+        { label: 'Metodologia de Ensino', href: '/Site/metodologia-de-ensino' },
+        { label: 'Escola de Esportes', href: '/Site/escola-de-esportes' },
+        { label: `Calendário ${currentYear}`, href: '/Site/agenda' },
+        { label: 'Fale Conosco', href: '/Site/contato' },
+        ],
+    },
+    {
+        label: 'Segmentos',
+        dropdownItems: [
+        { label: 'Anos Finais', href: '/Site/segmentos/Anos-Finais' },
+        { label: 'Anos Iniciais', href: '/Site/segmentos/Anos-Iniciais' },
+        { label: 'Ensino Fundamental', href: '/Site/segmentos/Ensino-Fundamental' },
+        { label: 'Ensino Médio', href: '/Site/segmentos/Ensino-Medio' },
+        ],
+    },  
+    {
+        label: 'Acontece no CSFA',
+        dropdownItems: [
+        { label: 'Blog', href: '/Site/blog' },
+        { label: 'Notícias', href: '/Site/noticias' },
+        ],
+    },
+    ]
+    const restrictContent = [
+        { label: 'E-mail Aluno', href: '#', iconName:'mail', color:'#fff'},
+        { label: 'Classroom', href: '#', iconName:'classroom', color:'#388E3C' },
+        { label: 'Sas Educação', href: '#', iconName:'sas', color:'#051B4A'},
+        { label: 'Activesoft', href: '#', iconName:'activesoft', color:'#0154D4'},
+        { label: 'Cantina', href: '#', iconName:'gds', color:'#2D76A3'},
+        { label: 'Coorporativo', href: '#', iconName:'mdi:google', color:'#97989A'},
+        { label: 'Interno Apdges', href: '#', iconName:'apadges', color:'#fff'}
+    ]
+
+---
+
+<header class="container__nav fixed top-0 left-0 flex flex-1 flex-row w-[100dvw] h-24 px-6 py-2 z-[99]">
+
+    {/* Content Menu*/} 
+    <div class="w-[80%] mx-auto h-16 bg-white rounded-full flex flex-row items-center justify-between p-4 shadow-md shadow-black/20">
+        
+        {/* Content Navigation Desktop*/} 
+       
+            
+        <Logo />
+        
+        {/*Links de Navegção */} 
+        <nav class="nav hidden lg:flex h-20 items-center justify-center">
+            <menu class="nav__list flex flex-row items-center justify-center gap-8 h-full w-full">
+                {navItems.map((item) => (
+
+                    <li class={`nav__list-item item flex flex-row items-center justify-center text-csfa_font_lsm text-csfa_gray_600 h-full transition hover:text-blue-500 ${item.dropdownItems ? 'item-drop relative' : ''}`}>
+                        {item.dropdownItems ? (
+
+                            <button ='button' class='flex items-center justify-center btn-to-drop text-csfa_font_lsm text-csfa_gray_600 p-0 border-none hover:text-blue-500' > 
+                                {item.label} 
+                                <Icon name='mdi:chevron-down' size='sm' class='w-5 h-5 transition-transform'/>
+                            </button>
+                  
+
+                            <ul class="nav__list__drop absolute top-full w-52 bg-white border-b-2 border-b-blue-500 rounded-b-md flex flex-1 flex-col shadow-md hidden">
+                                {item.dropdownItems.map((dropItem) => (
+                                <li class="nav__list__drop-item border-transparent w-full text-gray-400 hover:bg-blue-100 hover:text-blue-500 hover:border-l-blue-500 hover:border-l-4">
+                                    <a class="block w-full h-full p-4" href={dropItem.href}>
+                                        {dropItem.label}
+                                    </a>
+                                </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <a href={item.href}>{item.label}</a>
+                        )}
+                    </li>
+
+                ))}
+            </menu>
+        </nav>
+
+        {/* Right Content */} 
+        <div class="flex items-center h-20">
+            {/* Area Restrita */} 
+            <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0 ">
+                
+                <!-- Btn Area Restrita -->
+                <button id='restrict' type='button' class='bg-blue-500 flex p-2 space-x-2 text-white mr-4 rounded-md'> 
+                    <Icon name='mdi:lock' class='text-white w-6 h-6'/>
+                    <span class="hidden sm:block">Área Restrita</span>
+                </button>
+
+                <!-- Drop list Btn -->
+                <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2">
+                    {restrictContent.map((item) => (
+                        
+                                <li class={`${item.iconName} w-full rounded-md`} style={`background-color:${item.color}`}>
+                                    <a href={`${item.href}`} class={`flex items-center justify-between text-csfa_font_lsm rounded-md px-4 py-2`}>
+                                        <Icon name={`${item.iconName}`} size={25} />
+                                        <span class="mx-auto">{item.label}</span>
+                                    </a>
+                                </li>
+                                
+                            )
+                        )
+                    }
+                </ul>  
+            </div>
+            
+            {/* Botão Menu Mobile */} 
+            <button id="mobileMenuButton" class="relative h-10 w-10 flex flex-col justify-center items-center rounded-lg p-2 lg:hidden z-[60]" aria-label="Toggle menu">
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full transition-all duration-300 ease-in-out" id="line1"></span>
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full my-1.5 transition-all duration-300 ease-in-out" id="line2"></span>
+                <span class="block w-6 h-0.5 bg-slate-400 rounded-full transition-all duration-300 ease-in-out" id="line3"></span>
+            </button>
+        </div>
+        
+        {/* Content Navigation Mobile - Full Width*/} 
+        <nav id="mobileMenu" class="fixed inset-0 z-50 bg-white lg:hidden hidden overflow-y-auto">
+            <div class="p-4 pt-16 flex items-center justify-center">
+                <menu class="space-y-4 flex flex-col justify-center items-center">
+
+                    {navItems.map(
+                            (item) => (
+
+                                <li class={`inline-flex justify-center items-center flex-col text-gray-700 text-csfa_font_md hover:text-blue-500 ${item.dropdownItems ? 'relative' : ''}`}>
+                                    {item.dropdownItems ? (
+                                        
+                                        <button class="mobileDropItem flex flex-row items-center justify-center text-gray-700 hover:text-blue-500" type="button">
+                                            <span>{item.label}</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                            </svg>                                
+                                        </button>
+            
+                                        <ul class="mt-2 space-y-2 flex flex-col items-center justify-center hidden">
+                                            {item.dropdownItems.map((dropItem) => (
+                                            <li>
+                                                <a class="block text-gray-700 hover:text-blue-500" href={dropItem.href}>
+                                                    {dropItem.label}
+                                                </a>
+                                            </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+
+                                        <a class="block text-gray-700 hover:text-blue-500" href={item.href}>{item.label}</a>
+                                    )}
+                                </li>
+
+                                    )
+                            )  
+                    }
+                
+                </menu>
+            </div>
+        </nav>
+    </div>
+
+</header>
+
+<script>
+
+        // Setup dropdown config
+        function setupDropdowns() {
+                const dropdowns = document.querySelectorAll('.item-drop');
+                
+                dropdowns.forEach((dropdown) => {
+                    const button = dropdown.querySelector('.btn-to-drop');
+                    const list = dropdown.querySelector('.nav__list__drop');
+                    const icon = button?.querySelector('svg');
+                                 
+                    button?.addEventListener('click', () => {
+                        list?.classList.toggle('hidden');
+                        icon?.classList.toggle('rotate-180');
+                    });
+                    
+                    document.addEventListener('click', (event) => {
+                        
+                        const targetNode = event.target as Node;       
+
+                        if (!dropdown.contains(targetNode)){
+                            list?.classList.add('hidden');
+                            icon?.classList.remove('rotate-180');
+                        }
+                    });
+                });
+        }
+
+    // Run the setupDropdown function when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', setupDropdowns);
+
+    // Menu Mobile {(-) 768px}
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileDropItems = document.getElementsByClassName('mobileDropItem');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        function toggleMenu() {
+            mobileMenu?.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+            mobileMenuButton?.classList.toggle('text-red-500');
+            line1?.classList.toggle('rotate-45');
+            line1?.classList.toggle('translate-y-2');
+            line2?.classList.toggle('opacity-0');
+            line3?.classList.toggle('-rotate-45');
+            line3?.classList.toggle('-translate-y-2');
+        }
+
+        mobileMenuButton?.addEventListener('click', toggleMenu);
+
+        Array.from(mobileDropItems).forEach(item => {
+         item.addEventListener('click', (event) => {
+                event.preventDefault();
+                const dropList = item.nextElementSibling;
+                if (dropList) {
+                // Close all other dropdowns
+                Array.from(mobileDropItems).forEach(otherItem => {
+                    if (otherItem !== item) {
+                    otherItem.nextElementSibling?.classList.add('hidden');
+                    }
+                });
+                // Toggle the clicked dropdown
+                dropList.classList.toggle('hidden');
+                }
+            });
+        });
+        
+   // Restrict Area
+        const buttonRestrict = document.getElementById('restrict');
+        const listRestrict = document.getElementById('droprestrictlist');
+
+        function toggleRestrict() {
+        listRestrict?.classList.toggle('hidden'); // Efficiently toggle hidden class
+        }
+
+        buttonRestrict?.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent event bubbling
+        toggleRestrict();
+        });
+
+        document.addEventListener('click', (event) => {
+        // Check if event target is a valid Node (prevents unnecessary type checks)
+        if (!(event.target instanceof Node)) {
+            return;
+        }
+
+        const targetNode = event.target as Node;
+
+        // Alternatively, use contains for broader compatibility (might be less performant)
+        if (!buttonRestrict?.contains(targetNode) && !listRestrict?.contains(targetNode)) {
+            listRestrict?.classList.add('hidden');
+        }
+        });
+
+</script>
+
+<style>
+
+    body.overflow-hidden{
+        overflow: hidden;
+    }
+    .activeClass{
+        top: 10%;
+        width: 95vw;
+        background-color: var(--);
+        transition: all .2s ease-in-out;
+        border-radius: 100px;
+    }
+    #mobileMenu {
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    #mobileMenuButton.text-red-500 span {
+        background-color: var(--danger);
+    }
+    #closeMenuButton {
+        transition: transform 0.3s ease-in-out;
+    }
+    #closeMenuButton:hover {
+        transform: rotate(90deg);
+    }
+    #droprestrictlist li{
+        transition: all ease-in-out;
+    }
+    #droprestrictlist li:hover{
+        scale: 1.05;
+        filter: contrast(120%),
+                drop-shadow(10px 10px 20px black);
+    }
+    #droprestrictlist li:nth-child(1){
+        border: solid 1px var(--disable-hover);
+    }
+    #droprestrictlist li:nth-child(7){
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(to right, var(--design-2), var(--design-3)) border-box;
+        border: 1px solid transparent;
+    }
+    #droprestrictlist li:nth-child(2) a span,
+    #droprestrictlist li:nth-child(3) a span,
+    #droprestrictlist li:nth-child(4) a span,
+    #droprestrictlist li:nth-child(5) a span
+    {
+        color: var(--light) !important; 
+    }
+
+</style>

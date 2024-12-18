@@ -1,0 +1,38 @@
+---
+// You may need to adjust these import paths based on your project structure
+import { Icon } from 'astro-icon/components';
+---
+
+<nav class="fixed left-[50%] -translate-x-[50%] bottom-4 flex flex-row items-center justify-center bg-white p-2 rounded-full w-44 md:left-[unset] md:w-10 -translate-x-[unset] right-0">
+  <ul class="flex flex-row gap-2 md:flex-col">
+    <li>
+      <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" class="block">
+         <Icon class={ "text-pink-500 md:text-zinc-700  transition-colors hover:text-pink-500"} size={30} name="ri:instagram-fill"/>
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" class="block text-blue-600 md:text-zinc-700 transition-colors hover:text-blue-600">
+         <Icon size={30} name="mingcute:facebook-fill"/>
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" class="block text-red-500 md:text-zinc-700 transition-colors hover:text-red-500">
+         <Icon size={28} name="simple-icons:youtubeshorts"/>
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" class="block text-green-500 md:text-zinc-700 transition-colors hover:text-green-500">
+         <Icon size={30} name="ri:whatsapp-fill"/>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  nav {
+    z-index: 1000;
+  }
+</style>

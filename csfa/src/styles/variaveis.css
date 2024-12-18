@@ -1,0 +1,40 @@
+:root{
+
+    /* Tamanhos de fontes */
+    --csfafont-ssm: 10px;
+    --csfafont-sm: 12px;
+    --csfafont-lsm: 16px;
+    --csfafont-smd: 18px;
+    --csfafont-md: 20px;
+    --csfafont-lmd: 24px;
+    --csfafont-slg: 28px;
+    --csfafont-lg: 32px;
+    --csfafont-llg: 42px;
+
+     /* Themes */
+    --primary: #0154D4;
+    --primary-menu: #b4d2ff;
+    --primary-hover: #002D73;
+    --primary-dark: #011776;
+    --danger: #dc3545;
+    --dange-hoverr: #a70011;
+    --danger-dark: #a3303b;
+    --info: #FFC827;
+    --info-hover: #eaaf00;
+    --info-dark: #b88a00;
+    --disable: #C7C9CB;
+    --disable-hover: #EAEAEA;
+    --transparent: #ffffff00;
+    --light: #f8f9fa;
+    --dark: #333333;
+
+    --saseducation: #051B4A;
+    --gdscantina: #2D76A3;
+    --classroom: #388E3C;
+    
+    --design-1: #FFC827;
+    --design-2: #F6337F;
+    --design-3: #08B1D2;
+
+}
+

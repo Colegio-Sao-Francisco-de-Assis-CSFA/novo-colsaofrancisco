@@ -1,0 +1,28 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  imageUrl: string;
+  link: string;
+}
+
+const { title, description, link, imageUrl } = Astro.props;
+---
+
+<a href={link} class="block bg-blue-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-64 h-64 group">
+  <div class="relative w-full h-full">
+    <img src={imageUrl} alt={title} class="w-full h-full object-cover" />
+
+    <div class="absolute top-0 right-0 m-4 bg-white text-white rounded-full text-sm">
+        <Icon class="-rotate-45 text-black " name="mdi:arrow-right" />
+    </div>
+
+    <div class="p-4 absolute bottom-0 text-start text-white bg-gradient-to-t from-[#121B3D] via-blue-600/50 to-blue-300/10">
+      <h3 class="text-lg font-bold mb-2">{title}</h3>
+      <p class= "text-sm">{description}</p>
+    </div>
+
+  </div>
+</a>

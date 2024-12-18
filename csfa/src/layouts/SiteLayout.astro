@@ -1,0 +1,63 @@
+---
+import logoImage from '../../public/logo-cfsa.svg';
+import HeaderMenu from '../components/Site/Sections/HeaderMenu.astro';
+import Footer from '../components/Site/Sections/Footer.astro';
+import FloatLinks from '../components/Site/FloatLinks/FloatLinks.astro';
+
+const {
+	title,
+	description
+} = Astro.props;
+
+
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+		<link rel="shortcut icon" href={logoImage.src} type="image/svg">
+		<title>{title}</title>
+	</head>
+	<body class="bg-slate-800">		
+
+		<HeaderMenu />
+
+		<div class="container mx-auto max-w-[1980px] relative">
+			<FloatLinks/>
+			<slot/>
+		</div>
+		
+		<Footer />
+
+	</body>
+</html>
+
+<!-- <script>
+	// Armazena o caminho relativo atual
+	const currentPath = window.location.pathname; // Exemplo: "/pagina-anterior"
+
+	// Extrai apenas o segmento final da URL
+	const newSegment = window.location.href.split('/').pop(); // Exemplo: "Ensino-Fundamental"
+
+	// Constrói a nova URL
+	const newUrl = `/${newSegment}`;
+
+	// Substitui a URL no navegador e adiciona o estado atual ao histórico
+	history.pushState({ previousPath: currentPath }, '', newUrl);
+
+	// Evento para capturar o clique no botão "voltar" do navegador
+	window.addEventListener('popstate', (event) => {
+	if (event.state && event.state.previousPath) {
+		console.log('Caminho anterior:', event.state.previousPath);
+		// Faça algo com o caminho anterior, como redirecionar ou carregar conteúdo
+		window.location.pathname = event.state.previousPath;
+	}
+	});
+</script> -->
