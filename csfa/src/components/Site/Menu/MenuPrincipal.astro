@@ -1,5 +1,270 @@
 ---
 
+import { Icon } from 'astro-icon/components';
+    import Logo from '../Logo/Logo.astro';
+
+    const currentYear = new Date().getFullYear();
+    const navItems = [
+
+    { label: 'Inicio', href: '/' },
+    { label: 'Matrículas', href: '/Site/matriculas/info' },
+    {
+        label: 'Colégio',
+        dropdownItems: [
+        { label: 'Nossa História', href: '/Site/colegio' },
+        { label: 'Metodologia de Ensino', href: '/Site/metodologia-de-ensino' },
+        { label: 'Escola de Esportes', href: '/Site/escola-de-esportes' },
+        { label: `Calendário ${currentYear}`, href: '/Site/agenda' },
+        { label: 'Fale Conosco', href: '/Site/contato' },
+        ],
+    },
+    {
+        label: 'Segmentos',
+        dropdownItems: [
+        { label: 'Anos Finais', href: '/Site/segmentos/Anos-Finais' },
+        { label: 'Anos Iniciais', href: '/Site/segmentos/Anos-Iniciais' },
+        { label: 'Ensino Fundamental', href: '/Site/segmentos/Ensino-Fundamental' },
+        { label: 'Ensino Médio', href: '/Site/segmentos/Ensino-Medio' },
+        ],
+    },  
+    {
+        label: 'Acontece no CSFA',
+        dropdownItems: [
+        { label: 'Blog', href: '/Site/blog' },
+        { label: 'Notícias', href: '/Site/noticias' },
+        ],
+    },
+    ]
+    const restrictContent = [
+        { label: 'E-mail Aluno', href: '#', iconName:'mail', color:'#fff'},
+        { label: 'Classroom', href: '#', iconName:'classroom', color:'#388E3C' },
+        { label: 'Sas Educação', href: '#', iconName:'sas', color:'#051B4A'},
+        { label: 'Activesoft', href: '#', iconName:'activesoft', color:'#0154D4'},
+        { label: 'Cantina', href: '#', iconName:'gds', color:'#2D76A3'},
+        { label: 'Coorporativo', href: '#', iconName:'mdi:google', color:'#97989A'},
+        { label: 'Interno Apdges', href: '#', iconName:'apadges', color:'#fff'}
+    ]
+
+---
+
+<header
+    class="container__nav fixed top-0 left-0 w-full h-24 px-6 py-2 z-50"
+>
+    {/* Conteúdo principal do menu */}
+    <div
+        class="w-[80%] mx-auto h-16 bg-white rounded-full flex justify-between items-center px-4 shadow-lg"
+    >
+        {/* Logo */}
+        <Logo />
+
+        {/* Navegação Desktop */}
+        <nav class="hidden lg:flex items-center">
+            <ul class="flex gap-8">
+                {
+                    navItems.map((item) => (
+                        <li
+                            class={`relative ${item.dropdownItems ? "has-dropdown" : ""}`}
+                        >
+                            {item.dropdownItems ? (
+                                <>
+                                    <button
+                                        class="dropdown-toggle flex items-center gap-1 text-gray-600 hover:text-blue-500 transition"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        {item.label}
+                                        <Icon
+                                            name="mdi:chevron-down"
+                                            class="w-5 h-5"
+                                        />
+                                    </button>
+                                    <ul class="dropdown-menu absolute hidden mt-2 w-48 bg-white shadow-md rounded-md">
+                                        {item.dropdownItems.map((dropItem) => (
+                                            <li>
+                                                <a
+                                                    href={dropItem.href}
+                                                    class="block px-4 py-2 text-gray-600 hover:bg-blue-100 hover:text-blue-500"
+                                                >
+                                                    {dropItem.label}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : (
+                                <a
+                                    href={item.href}
+                                    class="text-gray-600 hover:text-blue-500 transition"
+                                >
+                                    {item.label}
+                                </a>
+                            )}
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+
+        {/* Botões e Menu Mobile */}
+        <div class="flex items-center gap-4">
+            {/* Área Restrita */}
+            <div class="relative">
+                <button
+                    id="restrict"
+                    class="bg-blue-500 flex items-center gap-2 px-4 py-2 text-white rounded-md hover:bg-blue-600 transition"
+                >
+                    <Icon name="mdi:lock" class="w-5 h-5" />
+                    <span class="hidden sm:inline">Área Restrita</span>
+                </button>
+                <ul
+                    id="droprestrictlist"
+                    class="hidden absolute right-0 mt-2 bg-white shadow-md rounded-md w-56 py-2"
+                >
+                    {
+                        restrictContent.map((item) => (
+                            <li
+                                class="flex items-center gap-2 px-4 py-2 rounded-md"
+                                style={`background-color: ${item.color}`}
+                            >
+                                <Icon
+                                    name={item.iconName}
+                                    class="w-5 h-5 text-white"
+                                />
+                                <a
+                                    href={item.href}
+                                    class="flex-grow text-white"
+                                >
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            {/* Botão Mobile */}
+            <button
+                id="mobileMenuButton"
+                class="flex flex-col items-center justify-center w-10 h-10 rounded-md bg-gray-200 lg:hidden"
+                aria-label="Toggle menu"
+            >
+                <span class="block w-6 h-0.5 bg-gray-600"></span>
+                <span class="block w-6 h-0.5 bg-gray-600 mt-1.5"></span>
+                <span class="block w-6 h-0.5 bg-gray-600 mt-1.5"></span>
+            </button>
+        </div>
+    </div>
+
+    {/* Menu Mobile */}
+    <nav
+        id="mobileMenu"
+        class="hidden fixed inset-0 bg-white z-50 overflow-y-auto"
+    >
+        <ul class="p-8 space-y-4">
+            {
+                navItems.map((item) => (
+                    <li>
+                        {item.dropdownItems ? (
+                            <details>
+                                <summary class="flex items-center justify-between">
+                                    {item.label}
+                                    <Icon
+                                        name="mdi:chevron-down"
+                                        class="w-5 h-5"
+                                    />
+                                </summary>
+                                <ul class="mt-2 pl-4">
+                                    {item.dropdownItems.map((dropItem) => (
+                                        <li>
+                                            <a
+                                                href={dropItem.href}
+                                                class="block py-2 text-gray-600 hover:text-blue-500"
+                                            >
+                                                {dropItem.label}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </details>
+                        ) : (
+                            <a
+                                href={item.href}
+                                class="block text-gray-600 hover:text-blue-500"
+                            >
+                                {item.label}
+                            </a>
+                        )}
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Dropdowns
+        document
+            .querySelectorAll(".has-dropdown .dropdown-toggle")
+            .forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const menu = btn.nextElementSibling;
+                    menu?.classList.toggle("hidden");
+                });
+            });
+
+        // Área Restrita
+        const restrictButton = document.getElementById("restrict");
+        const restrictList = document.getElementById("droprestrictlist");
+
+        restrictButton?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            restrictList?.classList.toggle("hidden");
+        });
+
+        document.addEventListener("click", () =>
+            restrictList?.classList.add("hidden"),
+        );
+
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById("mobileMenuButton");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        mobileMenuButton?.addEventListener("click", () => {
+            mobileMenu?.classList.toggle("hidden");
+            mobileMenuButton?.classList.toggle("active");
+            document.body.classList.toggle("overflow-hidden");
+        });
+    });
+</script>
+
+<style>
+    .has-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    #mobileMenuButton span {
+        transition:
+            transform 0.3s,
+            opacity 0.3s;
+    }
+
+    #mobileMenuButton.active span:nth-child(1) {
+        transform: rotate(45deg) translateY(0.5rem);
+    }
+
+    #mobileMenuButton.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #mobileMenuButton.active span:nth-child(3) {
+        transform: rotate(-45deg) translateY(-0.5rem);
+    }
+</style>
+
+<!-- ---
+
     import { Icon } from 'astro-icon/components';
     import Logo from '../Logo/Logo.astro';
 
@@ -94,13 +359,13 @@
             {/* Area Restrita */} 
             <div class="flex flex-row items-center relative mr-2 h-20 lg:mr-0 ">
                 
-                <!-- Btn Area Restrita -->
+                 Btn Area Restrita 
                 <button id='restrict' type='button' class='bg-blue-500 flex p-2 space-x-2 text-white mr-4 rounded-md'> 
                     <Icon name='mdi:lock' class='text-white w-6 h-6'/>
                     <span class="hidden sm:block">Área Restrita</span>
                 </button>
 
-                <!-- Drop list Btn -->
+                Drop list Btn 
                 <ul id="droprestrictlist" class="hidden absolute right-0 top-full space-y-1 mt-1 z-20 min-w-[230px] rounded-lg bg-white p-2">
                     {restrictContent.map((item) => (
                         
@@ -316,4 +581,4 @@
         color: var(--light) !important; 
     }
 
-</style>
+</style> -->

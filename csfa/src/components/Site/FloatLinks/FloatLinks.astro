@@ -1,4 +1,140 @@
 ---
+// Ajuste os caminhos de importação com base na sua estrutura de projeto
+import { Icon } from 'astro-icon/components';
+---
+
+<nav class="social-nav">
+  <ul class="social-list">
+    <!-- Instagram -->
+    <li>
+      <a 
+        href="https://www.instagram.com/yourprofile" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-link instagram" 
+        aria-label="Acessar Instagram"
+      >
+        <Icon size={30} name="ri:instagram-fill" />
+      </a>
+    </li>
+
+    <!-- Facebook -->
+    <li>
+      <a 
+        href="https://www.facebook.com/yourprofile" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-link facebook" 
+        aria-label="Acessar Facebook"
+      >
+        <Icon size={30} name="mingcute:facebook-fill" />
+      </a>
+    </li>
+
+    <!-- YouTube Shorts -->
+    <li>
+      <a 
+        href="https://www.youtube.com/yourprofile" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-link youtube" 
+        aria-label="Acessar YouTube Shorts"
+      >
+        <Icon size={28} name="simple-icons:youtubeshorts" />
+      </a>
+    </li>
+
+    <!-- WhatsApp -->
+    <li>
+      <a 
+        href="https://wa.me/yournumber" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="social-link whatsapp" 
+        aria-label="Iniciar conversa no WhatsApp"
+      >
+        <Icon size={30} name="ri:whatsapp-fill" />
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .social-nav {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 9999px;
+    width: 11rem;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  @media (min-width: 768px) {
+    .social-nav {
+      left: unset;
+      right: 1rem;
+      width: 2.5rem;
+      transform: unset;
+    }
+  }
+
+  .social-list {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .social-list {
+      flex-direction: column;
+    }
+  }
+
+  .social-link {
+    display: block;
+    color: #6b7280; /* Text-zinc-700 */
+    transition: color 0.3s ease-in-out;
+  }
+
+  .social-link:hover {
+    color: inherit;
+  }
+
+  .instagram:hover {
+    color: #E1306C; /* Pink Instagram */
+  }
+
+  .facebook:hover {
+    color: #1877F2; /* Blue Facebook */
+  }
+
+  .youtube:hover {
+    color: #FF0000; /* Red YouTube */
+  }
+
+  .whatsapp:hover {
+    color: #25D366; /* Green WhatsApp */
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<!-- ---
 // You may need to adjust these import paths based on your project structure
 import { Icon } from 'astro-icon/components';
 ---
@@ -35,4 +171,4 @@ import { Icon } from 'astro-icon/components';
   nav {
     z-index: 1000;
   }
-</style>
+</style> -->

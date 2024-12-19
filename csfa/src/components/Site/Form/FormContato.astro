@@ -1,6 +1,284 @@
+---
+import { Icon } from "astro-icon/components";
+
+const inputs = [
+  { name: "Nome", label: "nome", placeholder: "Digite seu nome" },
+  { name: "E-mail", label: "email", placeholder: "Digite seu e-mail" },
+  { name: "Telefone", label: "telefone", placeholder: "Digite seu telefone" },
+  { name: "Assunto", label: "assunto", placeholder: "Digite o assunto" },
+];
+
+const icons = [
+  { name: "mdi:telephone-in-talk", title: "Telefone" },
+  { name: "mdi:google-maps", title: "Localização" },
+  { name: "mdi:email", title: "E-mail" },
+];
+
+const redes = [
+  { name: "instagram", icon: "mdi:instagram", title: "Instagram" },
+  { name: "facebook", icon: "mdi:facebook", title: "Facebook" },
+  { name: "linkedin", icon: "mdi:linkedin", title: "Linkedin" },
+];
+---
+
+<div class="container">
+  <div class="content-grid">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="info-section">
+        <h2 class="title">Entre em contato</h2>
+        <p class="description">
+          Estamos prontos para ajudar. Preencha o formulário ou entre em contato conosco por outros meios.
+        </p>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="contact-info">
+        {icons.map((item) => (
+          <div class="info-item">
+            <Icon name={item.name} title={item.title} class="icon" />
+            <div>
+              <h3 class="info-title">{item.title}</h3>
+              <p class="info-description">
+                Entre em contato pelo canal {item.title.toLowerCase()}.
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Social Media -->
+      <div class="social-media">
+        <p class="social-title">Siga nossas redes sociais</p>
+        <div class="social-icons">
+          {redes.map((rede) => (
+            <div id={rede.name} class="social-icon" title={rede.title}>
+              <Icon name={rede.icon} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Form Section -->
+    <section class="form-section">
+      <form class="form">
+        <h2 class="form-title">Envie sua mensagem</h2>
+        {inputs.map((input) => (
+          <div class="form-group">
+            <label for={input.label} class="form-label">{input.name}</label>
+            <input 
+              id={input.label} 
+              type="text" 
+              placeholder={input.placeholder} 
+              class="form-input" 
+            />
+          </div>
+        ))}
+        <div class="form-group">
+          <label for="message" class="form-label">Mensagem</label>
+          <textarea 
+            id="message" 
+            placeholder="Digite sua mensagem aqui" 
+            class="form-textarea"
+          ></textarea>
+        </div>
+        <button type="submit" class="form-button">Enviar</button>
+      </form>
+    </section>
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  .container {
+    max-width: 80rem;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .content-grid {
+      grid-template-columns: 400px 1fr;
+    }
+  }
+
+  .sidebar {
+    background: #2563EB;
+    color: white;
+    padding: 2rem;
+  }
+
+  .title, .form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    color: #BFDBFE;
+    line-height: 1.5;
+  }
+
+  .contact-info {
+    margin-top: 2rem;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+  }
+
+  .info-title {
+    font-weight: 600;
+  }
+
+  .info-description {
+    font-size: 0.875rem;
+    color: #BFDBFE;
+  }
+
+  .social-media {
+    margin-top: 2rem;
+  }
+
+  .social-title {
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+
+  .social-icon:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .form-section {
+    padding: 2rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #2563EB;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #BFDBFE;
+    border-radius: 0.375rem;
+    background: #F3F4F6;
+    outline: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+  }
+
+  .form-button {
+    background: #2563EB;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .form-button:hover {
+    background: #1E40AF;
+  }
+</style>
+
+
+<!-- ---
+import { Icon } from "astro-icon/components"
+
+const inputs = [
+  {
+    name: 'Nome',
+    label: 'nome'
+  },
+  {
+    name: 'E-mail',
+    label: 'email'
+  },
+  {
+    name: 'Telefone',
+    label: 'telefone'
+  },
+  {
+    name: 'Assunto',
+    label: 'assunto'
+  },
+  
+  
+]
+const icons = [
+  {
+    name: 'mdi:telephone-in-talk',
+  },
+  {
+    name: 'mdi:google-maps',
+  },
+  {
+    name: 'mdi:email',
+  }
+]
+const redes = [
+  {
+    name: 'instagram',
+    icon: 'mdi:instagram'
+  }
+]
+---
+
+
+
 <div class="w-full max-w-6xl mx-auto rounded-md overflow-hidden bg-white shadow-lg">
     <div class="grid md:grid-cols-[400px_1fr]">
-      <!-- Left Sidebar -->
+      Left Sidebar 
       <div class="bg-blue-600 p-8 text-white">
         <div class="space-y-8">
           <div>
@@ -11,10 +289,10 @@
             </p>
           </div>
   
-          <!-- Contact Info Sections -->
-          {[1, 2, 3].map(() => (
+          Contact Info Sections 
+          {icons.map((item) => (
             <div class="flex items-start space-x-4">
-              <div class="w-10 h-10 rounded-full bg-white/20 flex-shrink-0"></div>
+              <Icon name={item.name} />
               <div>
                 <h3 class="font-semibold mb-1">Get in touch</h3>
                 <p class="text-sm text-blue-100">
@@ -24,26 +302,30 @@
             </div>
           ))}
   
-          <!-- Social Media Icons -->
+           Social Media Icons 
           <div class="pt-4">
             <p class="mb-4 font-medium">Follow our social media</p>
             <div class="flex space-x-3">
-              {[1, 2, 3, 4, 5].map(() => (
-                <div class="w-8 h-8 rounded-full bg-white/20"></div>
+              {redes.map((rede) => (
+                <div id={rede.name} class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <Icon name={rede.icon} />
+                </div>
               ))}
             </div>
           </div>
         </div>
       </div>
   
-      <!-- Right Form Section -->
+       Right Form Section
       <div class="p-8">
         <form class="space-y-4">
           <h2>Envie sua mensagem</h2>
-          {[1, 2, 3, 4].map(() => (
+          {inputs.map((inp) => (
             <div>
-              <label class="block text-md font-semibold mb-1 text-blue-500">Name</label>
-              <input type="text" placeholder="Name" class="w-full bg-blue-50/80 rounded-md px-3 py-2 text-blue-600 outline-blue-500"/>
+              <label for={inp.label} class="block text-md font-semibold mb-1 text-blue-500">
+                  {inp.name}
+                 <input id={inp.label} type="text" placeholder="Name" class="w-full bg-blue-50/80 rounded-md px-3 py-2 text-blue-600 outline-blue-500"/>
+              </label>
             </div>
           ))}
           <div>
@@ -56,5 +338,5 @@
         </form>
       </div>
     </div>
-</div>
+</div> -->
   

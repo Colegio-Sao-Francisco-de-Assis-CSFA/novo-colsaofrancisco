@@ -8,6 +8,112 @@ interface Props {
   link: string;
 }
 
+// Extraindo propriedades para clean code
+const { title, description, link, imageUrl } = Astro.props;
+---
+
+<a 
+  href={link} 
+  class="card-container"
+  rel="noopener noreferrer"
+>
+  <div class="card">
+    <!-- Imagem com Lazy Loading -->
+    <img 
+      src={imageUrl} 
+      alt={`Imagem de ${title}`} 
+      class="card-image" 
+      loading="lazy" 
+    />
+
+    <!-- Ícone de ação -->
+    <div class="card-icon">
+      <Icon class="icon-rotate" name="mdi:arrow-right" />
+    </div>
+
+    <!-- Conteúdo descritivo -->
+    <div class="card-content">
+      <h3 class="card-title">{title}</h3>
+      <p class="card-description">{description}</p>
+    </div>
+  </div>
+</a>
+
+<!-- Estilos otimizados -->
+<style>
+  .card-container {
+    display: block;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #1E3A8A;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    text-decoration: none;
+  }
+
+  .card-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    color: black;
+    border-radius: 50%;
+    padding: 0.5rem;
+    transform: rotate(-45deg);
+  }
+
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, #121B3D, rgba(30, 58, 138, 0.5), rgba(0, 0, 0, 0.1));
+    color: white;
+    text-align: left;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-description {
+    font-size: 0.875rem;
+  }
+</style>
+
+
+
+
+<!-- ---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  title: string;
+  description: string;
+  imageUrl: string;
+  link: string;
+}
+
 const { title, description, link, imageUrl } = Astro.props;
 ---
 
@@ -25,4 +131,4 @@ const { title, description, link, imageUrl } = Astro.props;
     </div>
 
   </div>
-</a>
+</a> -->

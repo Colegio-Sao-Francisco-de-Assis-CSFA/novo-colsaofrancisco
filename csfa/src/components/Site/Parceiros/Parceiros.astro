@@ -30,8 +30,26 @@ const parceiros = [
     },
 ];
 ---
-
 <div class="parceiros">
+    <div class="cs-container">
+        {
+            parceiros.map((item) => (
+                <img
+                    class="cs-logo"
+                    src={item.src} 
+                    alt={item.alt} 
+                    width="287"
+                    height="65"
+                    loading="lazy"
+                    decoding="async"
+                />
+            ))
+        }
+    </div>
+</div>
+
+
+<!-- <div class="parceiros">
     <div class="cs-container">
         {
             parceiros.map((item) => (
@@ -47,7 +65,7 @@ const parceiros = [
             ))
         }
     </div>
-</div>
+</div>-->
 
 <style type="scss">
     /* Mobile - 360px */
@@ -87,4 +105,4 @@ const parceiros = [
             }
         }
     }
-</style>
+</style> 

@@ -1,17 +1,13 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-
-import mdx from '@astrojs/mdx';
+import icon from 'astro-icon';
 
 import tailwind from '@astrojs/tailwind';
 
-import netlify from '@astrojs/netlify';
-
-import icon from 'astro-icon';
+import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), tailwind(), icon()],
-  output: 'server',
-  adapter: netlify()
+
+  integrations: [icon(), tailwind(), mdx()]
+
 });

@@ -1,11 +1,27 @@
 ---
-    import { Image } from 'astro:assets';
-    import CSFA from '../../../../public/logo-cfsa.svg';
+import { Image } from 'astro:assets';
+import CSFA from '../../../../public/logo-cfsa.svg';
 ---
 
+<!-- Logo -->
+<div class="logo-container">
+  <Image 
+    src={CSFA} 
+    alt="Logotipo do Colégio CFSA" 
+    class="logo-image" 
+  />
+</div>
 
-{/* Logo */} 
+<!-- Styles -->
+<style>
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    <div>
-        <Image src={CSFA} alt="Logo colégio" class="h-[70px] w-auto" />
-    </div>
+  .logo-image {
+    height: 70px;
+    width: auto;
+  }
+</style>
