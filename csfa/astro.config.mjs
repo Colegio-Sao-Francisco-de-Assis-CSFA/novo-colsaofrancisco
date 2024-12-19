@@ -12,5 +12,8 @@ import icon from 'astro-icon';
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx(), tailwind(), icon()],
-  adapter: netlify()
+  output: 'server',
+  adapter: netlify(
+    {edgeMiddleware: true}
+  )
 });
