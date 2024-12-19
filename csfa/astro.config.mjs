@@ -13,7 +13,5 @@ import icon from 'astro-icon';
 export default defineConfig({
   integrations: [mdx(), tailwind(), icon()],
   output: 'server',
-  adapter: netlify(
-    {edgeMiddleware: true}
-  )
+  adapter: netlify()
 });
