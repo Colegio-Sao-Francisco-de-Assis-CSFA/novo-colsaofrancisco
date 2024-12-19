@@ -1,3 +1,55 @@
-<section class="sobre w-full h-[50dvh] bg-red-500 text-center">
-    sobre o col
+---
+
+import { Icon } from "astro-icon/components";
+import Title from "../Title/Title.astro";
+import Video from "../Video/Video.astro";
+
+const button = [
+    {
+        text:'Entre em contato',
+        icon: 'mdi:email',
+    },
+    {
+        text:'Entre em contato',
+        icon: 'material-symbols:account-balance-rounded',
+    }
+]
+
+---
+
+
+
+<section class="sobre w-full h-[60dvh] flex flex-col gap-4 md:flex-row gap-2 bg-gradient-to-t from-[--primary-hover] to-[--primary]">
+    <aside class="w-[50%] h-full p-6">
+        <article class="w-full h-full flex flex-col items-start">
+
+            <Title title="O Colégio"/>
+
+            <p class="text-sm text-slate-200 w-[70%]">
+                No Colégio São Francisco de Assis, acreditamos que a educação é a chave para a transformação social. 
+                Nossa missão é formar jovens protagonistas, prontos para enfrentar os desafios do mundo com ética e criatividade.
+                Aqui, oferecemos um ambiente acolhedor e uma educação de qualidade, desenvolvendo não apenas habilidades acadêmicas,
+                mas também valores essenciais para construir um futuro melhor.
+                Se você deseja que seu filho faça parte de uma comunidade que inspira e empodera, venha conhecer mais sobre nós!
+            </p>
+
+            <div class="w-full flex flex-row gap-2 items-start justify-center">
+                {
+                    button.map(btn => (
+                    
+                        <button class="space-x-2 p-2 text-sm font-medium text-blue-500 bg-white">
+                            <Icon class="w-4 h-4" name={btn.icon} />
+                            {btn.text}
+                        </button>
+                
+                    ))
+                }
+            </div>
+
+        </article>
+    </aside>
+
+    <div class="w-[50%] h-full p-4">
+        <Video src="/videos/o-colegio/colsaofrancisco.mp4" />
+    </div>
 </section>
