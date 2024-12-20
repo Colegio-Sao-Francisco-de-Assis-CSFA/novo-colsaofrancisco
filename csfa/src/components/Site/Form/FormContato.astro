@@ -9,9 +9,10 @@ const inputs = [
 ];
 
 const icons = [
-  { name: "mdi:telephone-in-talk", title: "Telefone" },
-  { name: "mdi:google-maps", title: "Localização" },
-  { name: "mdi:email", title: "E-mail" },
+  { name: "mdi:telephone-in-talk", title: "Telefone", text: "Entre em contato pelo telefone:", link:"#", add:"(11) 95555-7777"},
+  { name: "mdi:whatsapp", title: "Whatsapp", text: "Entre em contato pelo whatsapp:", link:"#", add:"(11) 95577-7755"},
+  { name: "mdi:email", title: "E-mail", text: "Entre em contato pelo nosso e-mail:", link:"#", add:"contato@colsaofrancisco.com.br"},
+  { name: "mdi:shop-location", title: "Localização", text: "Visite nosso colégio ou agende sua visita.", link:"#", add: "R Luis Pardini - 104, Cidade Ademar - Sp"},
 ];
 
 const redes = [
@@ -21,10 +22,10 @@ const redes = [
 ];
 ---
 
-<div class="container">
-  <div class="content-grid">
+<div class="container w-full max-w-7xl mx-auto my-0 rounded-lg overflow-hidden bg-white shadow-md">
+  <div class="content-grid grid grid-cols-2 grid-rows-1 gap-0">
     <!-- Left Sidebar -->
-    <aside class="sidebar">
+    <aside class="sidebar w-96 bg-blue-500 text-white p-8">
       <div class="info-section">
         <h2 class="title">Entre em contato</h2>
         <p class="description">
@@ -36,11 +37,14 @@ const redes = [
       <div class="contact-info">
         {icons.map((item) => (
           <div class="info-item">
-            <Icon name={item.name} title={item.title} class="icon" />
+            <Icon name={item.name} title={item.title} class="icon w-4 h-4" />
             <div>
               <h3 class="info-title">{item.title}</h3>
               <p class="info-description">
-                Entre em contato pelo canal {item.title.toLowerCase()}.
+                <a href={item.link} class="flex flex-col space-y-2 text-sm">
+                  {item.text}<br/>
+                  {item.add}
+                </a>
               </p>
             </div>
           </div>
@@ -61,27 +65,32 @@ const redes = [
     </aside>
 
     <!-- Right Form Section -->
-    <section class="form-section">
+    <section class="form-section max-w-max">
       <form class="form">
         <h2 class="form-title">Envie sua mensagem</h2>
         {inputs.map((input) => (
           <div class="form-group">
-            <label for={input.label} class="form-label">{input.name}</label>
-            <input 
-              id={input.label} 
-              type="text" 
-              placeholder={input.placeholder} 
-              class="form-input" 
-            />
+            <label for={input.label} class="form-label">
+              {input.name}
+              <input 
+                id={input.label} 
+                type="text" 
+                placeholder={input.placeholder} 
+                class="form-input" 
+              />
+
+            </label>
           </div>
         ))}
         <div class="form-group">
-          <label for="message" class="form-label">Mensagem</label>
-          <textarea 
-            id="message" 
-            placeholder="Digite sua mensagem aqui" 
-            class="form-textarea"
-          ></textarea>
+          <label for="message" class="form-label">    
+            Mensagem
+            <textarea 
+              id="message" 
+              placeholder="Digite sua mensagem aqui" 
+              class="form-textarea resize-none w-full h-12"
+            ></textarea>
+        </label>
         </div>
         <button type="submit" class="form-button">Enviar</button>
       </form>
@@ -91,32 +100,6 @@ const redes = [
 
 <!-- Styles -->
 <style>
-  .container {
-    max-width: 80rem;
-    margin: 0 auto;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .content-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 768px) {
-    .content-grid {
-      grid-template-columns: 400px 1fr;
-    }
-  }
-
-  .sidebar {
-    background: #2563EB;
-    color: white;
-    padding: 2rem;
-  }
-
   .title, .form-title {
     font-size: 1.5rem;
     font-weight: bold;
@@ -139,9 +122,6 @@ const redes = [
     margin-bottom: 1.5rem;
   }
 
-  .icon {
-    font-size: 1.5rem;
-  }
 
   .info-title {
     font-weight: 600;
