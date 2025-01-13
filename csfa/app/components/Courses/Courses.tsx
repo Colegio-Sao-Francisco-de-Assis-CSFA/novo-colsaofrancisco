@@ -8,17 +8,42 @@ import { Icon } from '@iconify/react';
 
 export default function Cards() {
 
-const features = [
-    {src:'/images/courses/infantil.webp', alt:'ensino-infantil', href:'#', title:'Ensino Infantil', description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'},
-    {src:'/images/courses/iniciais.webp', alt:'anos-iniciais', href:'#', title:'Anos Finais', description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.' },
-    {src:'/images/courses/finais.webp', alt:'anos-finais', href:'#', title:'Anos Finais', description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'},
-    {src:'/images/courses/medio.webp', alt:'ensino-médio', href:'#', title:'Ensino Médio', description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'},
+const courses = [
+    
+    {
+        src:'/images/courses/infantil.webp', 
+        alt:'ensino-infantil', 
+        href:'#', 
+        title:'Ensino Infantil', 
+        description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'
+    },
+    {
+        src:'/images/courses/iniciais.webp', 
+        alt:'anos-iniciais', 
+        href:'#', 
+        title:'Anos Finais', 
+        description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.' 
+    },
+    {
+        src:'/images/courses/finais.webp', 
+        alt:'anos-finais', 
+        href:'#', 
+        title:'Anos Finais', 
+        description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'
+    },
+    {
+        src:'/images/courses/medio.webp',
+        alt:'ensino-médio', 
+        href:'#',
+        title:'Ensino Médio', 
+        description:'Nossos alunos terminam esta etapa preparados para o ingresso no Ensino Fundamental.'
+    },
 ] 
   return (
 
     <>
         <section className=" w-dvw h-dvh flex justify-center space-x-4 gap-4 p-6">
-            {features.map((item) => (
+            {courses.map((item) => (
                 <Card className="w-72 h-72 relative flex items-end justify-start">
                     <img src={item.src} alt={item.alt} className="absolute left-0 top-0 w-full h-full object-cover"/>
                     
