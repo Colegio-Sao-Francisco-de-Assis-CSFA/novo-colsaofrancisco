@@ -8,6 +8,7 @@ export default function HeroCarousel() {
 
   interface ItemProps {
     id: number;
+    bg: string;
     src: string;
     title: string;
     description: string;
@@ -16,24 +17,28 @@ export default function HeroCarousel() {
   const items: ItemProps[] = [
     {
       id: 1,
+      bg: 'bg-orange-500',
       src: '/images/courses/infantil.webp',
       title: 'Ensino infantil',
       description: 'Desenvolvendo habilidades essenciais e promovendo o aprendizado por meio de atividades lúdicas e interativas.',
     },
     {
       id: 2,
+      bg: 'bg-green-500',
       src: '/images/courses/iniciais.webp',
       title: 'Ensino iniciais',
       description: 'Foco na alfabetização e construção de uma base sólida em leitura, escrita e matemática.',
     },
     {
       id: 3,
+      bg: 'bg-purple-500',
       src: '/images/courses/finais.webp',
       title: 'Ensino finais',
       description: 'Preparação para os desafios futuros com ênfase em pensamento crítico e resolução de problemas.',
     },
     {
       id: 4,
+      bg: 'bg-red-500',
       src: '/images/courses/medio.webp',
       title: 'Ensino médio',
       description: 'Formação integral para ingresso no ensino superior e desenvolvimento de competências profissionais',
@@ -54,19 +59,19 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[1000px] h-full bg-orange-300">
-      <div className="relative w-full h-full overflow-hidden md:h-full">
+    <div className="relative w-full max-w-[1000px] h-full">
+      <div className="relative rounded-md w-full h-full overflow-hidden md:h-full">
         {items.map((item, index) => (
           <div
             key={item.id}
-            className={`absolute w-full h-full flex duration-700 ease-in-out transform bg-purple-500 ${
+            className={`absolute w-full h-full flex duration-700 ease-in-out transform ${item.bg} ${
               activeItem === index ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <aside className="w-[50%] h-full flex items-center justify-center text-white">
-              <div>
-                <h2 className="text-xl font-bold">{item.title}</h2>
-                <p>{item.description}</p>
+              <div className='w-[80%] h-full flex flex-col p-2 items-start justify-center space-y-4'>
+                <h2 className="text-2xl font-bold">{item.title}</h2>
+                <p className='text-xl font-light'>{item.description}</p>
               </div>
             </aside>
             <div className="w-[50%] h-full">
@@ -82,20 +87,20 @@ export default function HeroCarousel() {
 
       <button
         onClick={prevSlide}
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
       >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <ChevronLeft className="w-4 h-4 text-white dark:text-gray-800" />
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full ">
+          <ChevronLeft className="w-8 h-8 text-white" />
           <span className="sr-only">Previous</span>
         </span>
       </button>
 
       <button
         onClick={nextSlide}
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
       >
-        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-          <ChevronRight className="w-4 h-4 text-white dark:text-gray-800" />
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:outline-none">
+          <ChevronRight className="w-8 h-8 text-white" />
           <span className="sr-only">Next</span>
         </span>
       </button>

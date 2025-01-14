@@ -1,5 +1,5 @@
 
-"use client";
+'use client';
 
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
 import { Mail } from "lucide-react";

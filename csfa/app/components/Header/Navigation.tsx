@@ -36,6 +36,8 @@ export default function Component() {
           <img src="/logo.webp" className="h-14" alt="Logo" />
         </a>
 
+      
+
         <div className='w-full space-x-4 px-4 flex justify-end items-center md:justify-between'>
 
           <div className="hidden  w-full md:flex items-center justify-center" id="navbar-user">
@@ -43,9 +45,9 @@ export default function Component() {
               
               {navMenu.map((item)=>(
                   <li>
-                      <a href={item.href} className="block py-2 px-3 text-white bg-blue-700 font-medium md:bg-transparent md:text-slate-400 md:p-0 hover:text-blue-600" aria-current="page">
-                        {item.name}
-                      </a>
+                    <Link href={item.href} className="block py-2 px-3 text-white bg-blue-700 font-medium md:bg-transparent md:text-slate-400 md:p-0 hover:text-blue-600" aria-current="page">
+                       {item.name}
+                    </Link>
                   </li>
               ))}
             </ul>

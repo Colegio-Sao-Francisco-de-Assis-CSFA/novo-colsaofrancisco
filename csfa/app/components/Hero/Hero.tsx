@@ -7,10 +7,23 @@ export default function HeroCarousel () {
 
   const [activeItem, setActiveItem] = useState(0);
 
+  // Definindo as imagens para diferentes tamanhos de tela
   const images = [
-    "/images/herobanner/banner1.webp",
-    "/images/herobanner/banner2.webp",
-    "/images/herobanner/banner3.webp",
+    {
+      sm: "/images/courses/finais.webp",
+      md: "/images/courses/finais.webp",
+      lg: "/images/herobanner/banner1.webp",
+    },
+    {
+      sm: "/images/courses/iniciais.webp",
+      md: "/images/courses/iniciais.webp",
+      lg: "/images/herobanner/banner2.webp",
+    },
+    {
+      sm: "/images/courses/medio.webp",
+      md: "/images/courses/medio.webp",
+      lg: "/images/herobanner/banner3.webp",
+    },
   ];
 
   const nextSlide = () => {
@@ -27,20 +40,33 @@ export default function HeroCarousel () {
   }, []);
 
   return (
-    <div className="relative w-full h-full bg-orange-300">
-      <div className="relative w-full h-56 overflow-hidden md:h-full">
-        {images.map((src, index) => (
+    <div className="relative full h-full lg:h-[80dvh]">
+      <div className="relative w-full h-full overflow-hidden">
+        {images.map((imageSet, index) => (
           <div
             key={index}
-            className={`absolute w-full h-full duration-700 ease-in-out transform bg-purple-500 ${
-              activeItem === index ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute w-full h-full duration-700 ease-in-out transform ${activeItem === index ? 'opacity-100' : 'opacity-0'}`}
           >
-            <img
-              src={src}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-full"
-            />
+            <picture>
+              {/* Imagem para telas pequenas */}
+              <source
+                media="(max-width: 580px)"
+                srcSet={imageSet.sm}
+                className="w-full h-full object-cover"
+              />
+              {/* Imagem para telas médias */}
+              <source
+                media="(max-width: 960px)"
+                srcSet={imageSet.md}
+                className="w-full h-full object-cover"
+              />
+              {/* Imagem para telas grandes */}
+              <img 
+                src={imageSet.lg} 
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </picture>
           </div>
         ))}
       </div>
@@ -67,4 +93,3 @@ export default function HeroCarousel () {
     </div>
   );
 };
-

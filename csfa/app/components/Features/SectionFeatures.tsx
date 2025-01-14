@@ -4,7 +4,7 @@ import {carouselItems} from './Caroussel/CarouselItem';
 
 export default function SectionFeatures(){
     return(
-        <section id="feature" className='w-full h-[80vh] flex items-center justify-center p-6 bg-blue-500'>
+        <section id="feature" className='w-full h-[80vh] flex items-center justify-center p-6 bg-white'>
             <CarouselFeature />
         </section>
     )
