@@ -21,10 +21,10 @@ export default function Component() {
 
   const navMenu = [
     { name: 'Inicio', href: '/'},
-    { name: 'Segmentos', href: '/pages/courses'},
-    { name: 'Sobre nós', href: '/pages/about'},
-    { name: 'Diferenciais', href: '/pages/features'},
-    { name: 'Contato', href: '/pages/contact'}
+    { name: 'Segmentos', href: '/courses'},
+    { name: 'Sobre nós', href: '/about'},
+    { name: 'Diferenciais', href: '/features'},
+    { name: 'Contato', href: '/contact'}
   ];
 
   return (
