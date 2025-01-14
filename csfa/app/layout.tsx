@@ -21,7 +21,7 @@ export default function RootLayout({
       </head>
       <body>
           <Header />
-          <div className="container">
+          <div className="container max-w-screen-2xl flex flex-col items-center justify-center">
               {children}
           </div>
       </body>

@@ -1,156 +1,104 @@
 'use client';
 
-import { createContext, useContext, ReactNode, HTMLAttributes } from 'react';
-import {carouselItems} from './CarouselItem'; 
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+export default function HeroCarousel() {
+  const [activeItem, setActiveItem] = useState(0);
 
-const carouselClasses = {
-  slideItem: "hidden duration-700 ease-in-out",
-  slideImage: "absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2",
-  slideContainer: "relative h-56 overflow-hidden rounded-lg md:h-96",
-  indicators: {
-    wrapper: "absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse",
-    button: "w-3 h-3 rounded-full"
-  },
-  controls: {
-    button: "absolute top-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none",
-    previous: "start-0",
-    next: "end-0",
-    buttonWrapper: "inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none",
-    icon: "w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+  interface ItemProps {
+    id: number;
+    src: string;
+    title: string;
+    description: string;
   }
-} as const;
 
-// Root Element
-interface RootProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
-function Root({ children, className, ...props }: RootProps) {
-  
-  interface CarouselContextType {}
-  const CarouselContext = createContext<CarouselContextType>({});
+  const items: ItemProps[] = [
+    {
+      id: 1,
+      src: '/images/courses/infantil.webp',
+      title: 'Ensino infantil',
+      description: 'Desenvolvendo habilidades essenciais e promovendo o aprendizado por meio de atividades lúdicas e interativas.',
+    },
+    {
+      id: 2,
+      src: '/images/courses/iniciais.webp',
+      title: 'Ensino iniciais',
+      description: 'Foco na alfabetização e construção de uma base sólida em leitura, escrita e matemática.',
+    },
+    {
+      id: 3,
+      src: '/images/courses/finais.webp',
+      title: 'Ensino finais',
+      description: 'Preparação para os desafios futuros com ênfase em pensamento crítico e resolução de problemas.',
+    },
+    {
+      id: 4,
+      src: '/images/courses/medio.webp',
+      title: 'Ensino médio',
+      description: 'Formação integral para ingresso no ensino superior e desenvolvimento de competências profissionais',
+    },
+  ];
+
+  const nextSlide = () => {
+    setActiveItem((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setActiveItem((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 6000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <CarouselContext.Provider value={{}}>
-      <div className={className} {...props}>
-        {children}
+    <div className="relative w-full max-w-[1000px] h-full bg-orange-300">
+      <div className="relative w-full h-full overflow-hidden md:h-full">
+        {items.map((item, index) => (
+          <div
+            key={item.id}
+            className={`absolute w-full h-full flex duration-700 ease-in-out transform bg-purple-500 ${
+              activeItem === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <aside className="w-[50%] h-full flex items-center justify-center text-white">
+              <div>
+                <h2 className="text-xl font-bold">{item.title}</h2>
+                <p>{item.description}</p>
+              </div>
+            </aside>
+            <div className="w-[50%] h-full">
+              <img
+                src={item.src}
+                alt={`Slide ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    </CarouselContext.Provider>
-  );
 
-}
+      <button
+        onClick={prevSlide}
+        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      >
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <ChevronLeft className="w-4 h-4 text-white dark:text-gray-800" />
+          <span className="sr-only">Previous</span>
+        </span>
+      </button>
 
-// Container Element
-interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  children: ReactNode;
-}
-// Class : slideContainer
-function Container({ children, className, ...props }: ContainerProps) {
-  return (
-    <div className={carouselClasses.slideContainer}>
-      {children}
+      <button
+        onClick={nextSlide}
+        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+      >
+        <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <ChevronRight className="w-4 h-4 text-white dark:text-gray-800" />
+          <span className="sr-only">Next</span>
+        </span>
+      </button>
     </div>
   );
 }
-
-// Item Element
-interface ItemProps {
-  src: string;
-  id: number;
-}
-function Item({ src, id }: ItemProps) {
-  return (
-    <div className={carouselClasses.slideItem} data-carousel-item>
-      <img src={src} className={carouselClasses.slideImage} alt={`Slide ${id}`} />
-    </div>
-  );
-}
-
-// Indicators Element
-interface IndicatorProps{
-  className?: string;
-}
-function Indicators({ className, ...props }: IndicatorProps) {
-  return (
-    <div className={carouselClasses.indicators.wrapper} >
-
-      {carouselItems.map((_, index) => (
-        <button
-          key={index}
-          type="button"
-          className={carouselClasses.indicators.button}
-          aria-current={index === 0}
-          aria-label={`Slide ${index + 1}`}
-          data-carousel-slide-to={index}
-        />
-      ))}
-
-    </div>
-  );
-}
-
-function ButtonLeft() {
-  return (
-    <button 
-      type="button" 
-      className={`${carouselClasses.controls.button} ${carouselClasses.controls.previous}`} 
-      data-carousel-prev
-    >
-      <span className={carouselClasses.controls.buttonWrapper}>
-        <svg 
-          className={carouselClasses.controls.icon} 
-          aria-hidden="true" 
-          xmlns="http://www.w3.org/2000/svg" 
-          fill="none" 
-          viewBox="0 0 6 10"
-        >
-          <path 
-            stroke="currentColor" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2" 
-            d="M5 1 1 5l4 4"
-          />
-        </svg>
-        <span className="sr-only">Previous</span>
-      </span>
-    </button>
-  );
-}
-function  ButtonRight() {
-  return (
-    <button 
-      type="button" 
-      className={`${carouselClasses.controls.button} ${carouselClasses.controls.next}`} 
-      data-carousel-next
-    >
-      <span className={carouselClasses.controls.buttonWrapper}>
-        <svg 
-          className={carouselClasses.controls.icon} 
-          aria-hidden="true" 
-          xmlns="http://www.w3.org/2000/svg" 
-          fill="none" 
-          viewBox="0 0 6 10"
-        >
-          <path 
-            stroke="currentColor" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth="2" 
-            d="m1 9 4-4-4-4"
-          />
-        </svg>
-        <span className="sr-only">Next</span>
-      </span>
-    </button>
-  );
-}
-
-export default {
-  Root,
-  Container,
-  Item,
-  Indicators,
-  ButtonLeft,
-  ButtonRight
-};

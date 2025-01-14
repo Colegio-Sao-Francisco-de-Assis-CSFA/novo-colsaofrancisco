@@ -1,6 +1,4 @@
-
 'use client';
-
 import React, { useState } from 'react';
 import { Dropdown } from "flowbite-react";
 import { Icon } from '@iconify/react';
@@ -22,11 +20,11 @@ export default function Component() {
   ];
 
   const navMenu = [
-    { name: 'Home', href: '#'},
-    { name: 'About', href: '#'},
-    { name: 'Services', href: '#'},
-    { name: 'Pricing', href: '#'},
-    { name: 'Contact', href: '#'}
+    { name: 'Inicio', href: '/'},
+    { name: 'Segmentos', href: '/pages/courses'},
+    { name: 'Sobre nós', href: '/pages/about'},
+    { name: 'Diferenciais', href: '/pages/features'},
+    { name: 'Contato', href: '/pages/contact'}
   ];
 
   return (
