@@ -53,7 +53,7 @@ const courses = [
                         <Icon className="rotate-90 text-2xl text-blue-600" icon="material-symbols:arrow-insert-rounded" />
                     </div>
 
-                    <div className="absolute left-0 bottom-0 w-full flex-co gap-2 p-2.5 space-y-2 text-white bg-gradient-to-t from-blue-950 via-blue-900/90 to-blue-800/rounded-b-lg 
+                    <div className="absolute left-0 bottom-0 w-full flex-co gap-2 p-2.5 text-white bg-gradient-to-t from-blue-900 via-blue-700/80 to-blue-800/rounded-b-lg 
                                     md:w-[50%] 
                                     md:h-full 
                                     md:flex-col
