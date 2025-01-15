@@ -1,0 +1,11 @@
+h1::before{
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transform: translateX(-15px);
+    border-radius: 100px;
+    width: 30%;
+    height: 4px;
+    background-color: #F6337F;
+}
