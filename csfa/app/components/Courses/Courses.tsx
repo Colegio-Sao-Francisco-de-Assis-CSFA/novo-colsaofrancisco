@@ -43,7 +43,7 @@ const courses = [
 
     <>
         {courses.map((item, index) => (
-                <Card key={index} className= "relative bg-blue-600 w-[60%] h-64 flex items-end justify-start overflow-hidden xl:w-64 xl:h-64">
+                <Card key={index} className= "relative bg-blue-600 w-64 h-64 flex items-end justify-start overflow-hidden md:w-[65%] max-w-[500px] xl:w-64 xl:h-64">
                     <img src={item.src} alt={item.alt} className="absolute left-0 top-0 w-full h-full object-cover 
                                                                 md:w-[50%]
                                                                 xl:w-full

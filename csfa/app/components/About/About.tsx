@@ -28,12 +28,14 @@ export default function About() {
           </p>
 
           {/* Wrap-Button action link */}
-          <div className="flex flex-row justify-center items-center gap-4 lg:justify-start">
+          <div className="flex flex-col justify-center items-center gap-4 
+                          sm:flex-row
+                          lg:justify-start">
             
             {/* btn - contact */}
             <a
               href="#"
-              className="transition-all border inline-flex justify-center items-center py-3 px-5 gap-4 text-lg font-medium text-center text-blue-600 rounded-lg bg-white w-56 hover:text-white hover:bg-blue-700 hover:border hover:border-white"
+              className="transition-all border inline-flex justify-center items-center py-3 px-5 gap-4 text-lg font-medium text-center text-blue-600 rounded-lg bg-white w-full hover:text-white hover:bg-blue-700 hover:border hover:border-white md:w-56"
             >
               <Icon className="text-2xl" icon="ic:outline-email" />
               Entre em contato
@@ -42,7 +44,7 @@ export default function About() {
             {/* btn - see more */}
             <a
               href="#"
-              className="transition-all border inline-flex justify-center items-center py-3 px-5 gap-4 text-lg font-medium text-center text-blue-600 rounded-lg bg-white w-56 hover:text-white hover:bg-blue-700 hover:border hover:border-white"
+              className="transition-all border inline-flex justify-center items-center py-3 px-5 gap-4 text-lg font-medium text-center text-blue-600 rounded-lg bg-white w-full hover:text-white hover:bg-blue-700 hover:border hover:border-white md:w-56"
             >
               <Icon className="text-2xl" icon="material-symbols:account-balance-outline-rounded" />
               Saiba mais
