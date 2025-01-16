@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="light">
       <head>
           <ThemeModeScript />
           <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
