@@ -113,6 +113,7 @@ export default function Component() {
               <h2 className="text-xl font-bold">Menu</h2>
               <button onClick={toggleMenu} className="p-2 text-gray-500 hover:text-gray-800">
                 <Icon icon="mdi:close" className="text-2xl" />
+                <span className="hidden">button close</span>
               </button>
             </div>
 
