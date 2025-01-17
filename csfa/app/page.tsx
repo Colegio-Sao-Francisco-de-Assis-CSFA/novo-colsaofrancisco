@@ -2,9 +2,10 @@
 import SectionHeroCarousel from "./components/Hero/SectionHero";
 import SectionCourses from "./components/Courses/SectionCourses";
 import SectionAbout from "./components/About/About";
-import SectionNews from "./components/News/News";
+import SectionNews from "./components/News/SectionNews";
 import SectionContact from "./components/Contact/Form";
 import SectionFeatures from "./components/Features/SectionFeatures";
+import Footer from "./components/Footer/Footer";
 
 export default function PaginaInicial() {
   return (
@@ -12,9 +13,10 @@ export default function PaginaInicial() {
         <SectionHeroCarousel/>
         <SectionCourses />
         <SectionAbout/>
-        {/* <SectionFeatures/> */}
-        {/* <SectionNews/> */}
-        {/* <SectionContact/> */}
+        <SectionFeatures/>
+        <SectionNews/>
+        <SectionContact/>
+        <Footer/>
       </>    
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeModeScript } from "flowbite-react";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,9 +20,9 @@ export default function RootLayout({
           <ThemeModeScript />
           <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
       </head>
-      <body>
+      <body className="bg-blue-900">
           <Header />
-          <div className="container max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
+          <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
               {children}
           </div>
       </body>
