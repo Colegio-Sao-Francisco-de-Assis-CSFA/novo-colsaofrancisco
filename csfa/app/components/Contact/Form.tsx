@@ -1,55 +1,127 @@
-
 'use client';
 
-import { Button, Label, TextInput, Textarea } from "flowbite-react";
-import { Mail } from "lucide-react";
+import { Button, Label, TextInput, Textarea, Select } from "flowbite-react";
 
 export default function Form() {
   return (
-    <form className="flex max-w-md flex-col gap-4">
-
-      {/* Wrap */}
-      <div>
-        <div>
-            <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your name" />
-            </div>
-            <TextInput id="password1" type="text" placeholder="Fulano de Tal" required icon={Mail} />
-        </div>
-        <div>
-        <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your email" />
-            </div>
-            <TextInput id="email1" type="email" placeholder="name@flowbite.com" required />
-        </div>
-      </div>
-     
-       {/* Wrap */}
-       <div>
+    <form 
+      className="w-full h-full bg-white flex p-6 flex-col gap-4" 
+      method="POST" 
+      action="/submit-form"
+    >
+      {/* Nome */}
       <div>
         <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your phone" />
-            </div>
-            <TextInput id="email1" type="tel" placeholder="(xx) x xxxx-xxxx" required />
+          <Label 
+            htmlFor="name" 
+            value="Nome" 
+            className="text-lg text-blue-700" // Estilo do título e label
+          />
         </div>
-        <div>
-            <div className="mb-2 block">
-            <Label htmlFor="password1" value="Your password" />
-            </div>
-            <TextInput id="password1" type="password" required />
-        </div>
+        <TextInput 
+          id="name" 
+          name="name" 
+          type="text" 
+          placeholder="Fulano de Tal" 
+          required 
+          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
+        />
       </div>
 
-       {/* Wrap */}
+      {/* Email */}
+      <div>
+        <div className="mb-2 block">
+          <Label 
+            htmlFor="email" 
+            value="Seu email" 
+            className="text-lg text-blue-700" 
+          />
+        </div>
+        <TextInput 
+          id="email" 
+          name="email" 
+          type="email" 
+          placeholder="name@flowbite.com" 
+          required 
+          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700 border"
+        />
+      </div>
+
+      {/* Telefone */}
+      <div>
+        <div className="mb-2 block">
+          <Label 
+            htmlFor="phone" 
+            value="Seu telefone" 
+            className="text-lg text-blue-700" 
+          />
+        </div>
+        <TextInput 
+          id="phone" 
+          name="phone" 
+          type="tel" 
+          placeholder="(xx) x xxxx-xxxx" 
+          required 
+          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
+        />
+      </div>
+
+      {/* Categoria de Dúvida */}
+      <div>
+        <div className="mb-2 block">
+          <Label 
+            htmlFor="category" 
+            value="Selecione uma categoria" 
+            className="text-lg text-blue-700" 
+          />
+        </div>
+        <Select 
+          id="category" 
+          name="category" 
+          required 
+          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
+        >
+          <option value="..." className="text-blue-600">. . .</option>
+          <option value="matricula">Matrícula</option>
+          <option value="academico">Acadêmico</option>
+          <option value="financeiro">Financeiro</option>
+          <option value="elogios">Elogios</option>
+          <option value="reclamacoes">Reclamações</option>
+          <option value="outras_duvidas">Outras Dúvidas</option>
+        </Select>
+      </div>
+
+      {/* Mensagem */}
       <div className="max-w-md">
         <div className="mb-2 block">
-            <Label htmlFor="comment" value="Your message" />
+          <Label 
+            htmlFor="comment" 
+            value="Sua mensagem" 
+            className="text-lg text-blue-700" 
+          />
         </div>
-        <Textarea className="resize-none" id="comment" placeholder="Leave a comment..." required rows={6} />
-     </div>
+        <Textarea
+          id="comment"
+          name="comment"
+          placeholder="Deixe seu comentário..."
+          required
+          rows={6}
+          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700 border border-blue-700/80 resize-none"
+        />
+      </div>
 
-
-      <Button type="submit">Submit</Button>
+      {/* Botão de envio */}
+      <Button type="submit">Enviar</Button>
     </form>
   );
 }
+
+
+//Estrutura de POST do Backend
+// {
+//   "name": "Fulano de Tal",
+//   "email": "name@flowbite.com",
+//   "phone": "(xx) x xxxx-xxxx",
+//   "category": "matricula",
+//   "comment": "Deixe seu comentário..."
+// }
