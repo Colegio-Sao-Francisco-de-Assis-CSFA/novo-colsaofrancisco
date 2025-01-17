@@ -46,21 +46,27 @@ export default function News() {
   ];
   return (
       <>
-        {
+       <div className="w-full h-full flex flex-wrap flex-row items-center justify-center">
+       {
           news.map((item) => (
-            <div key={`news-card-${item.id}`} className="w-full max-w-7xl h-full flex flex-wrap gap-6 p-2">
               <Card
+                key={`news-card-${item.id}`}
                 href={item.href}
-                className='w-full max-w-96 h-full max-h-[600px] bg-white border border-slate-700/10 p-2 overflow-hidden'
+                className='w-96 min-w-80 
+                            xl:h-[640px]
+                            xl:w-96 scale-90
+                            border overflow-hidden bg-white'
                 imgAlt={`Imagem da notícia: ${item.title}`}
                 imgSrc={item.image || "/images/courses/covernaoencontrado.webp"}
               >
-                <h5 className="text-2xl font-bold tracking-tight text-gray-900">
+                <h5 className="text-2xl font-bold tracking-tight text-blue-950">
                   {item.title}
                 </h5>
-                <p className="font-normal text-gray-700">
+
+                <p className="font-normal text-blue-900">
                   {item.description}
                 </p>
+
                 <footer className="w-full flex justify-between items-center pt-2">
                   <div className="w-full flex gap-2">
                     <div
@@ -68,12 +74,12 @@ export default function News() {
                       {item.name_category}
                     </div>
                   </div>
-                  <p className="text-[.8rem] text-gray-500 font-medium">{item.date}</p>
+                  <p className="text-[.8rem] text-blue-950/40 font-medium">{item.date}</p>
                 </footer>
               </Card>
-            </div>
           ))
         }
+       </div>
       </>
       
   );
