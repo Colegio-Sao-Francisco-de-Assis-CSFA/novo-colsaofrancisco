@@ -59,22 +59,31 @@ export default function HeroCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[1000px] h-full">
-      <div className="relative rounded-md w-full h-full overflow-hidden md:h-full">
+    <div className="relative w-full min-w-[300px] max-w-[1000px] h-full">
+      <div className="relative w-full h-full overflow-hidden rounded-md md:h-full">
         {items.map((item, index) => (
           <div
             key={item.id}
-            className={`absolute w-full h-full flex duration-700 ease-in-out transform ${item.bg} ${
+            className={`absolute w-full h-full flex flex-col duration-700 ease-in-out transform lg:flex-row ${item.bg} ${
               activeItem === index ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <aside className="w-[50%] h-full flex items-center justify-center text-white">
-              <div className='w-[80%] h-full flex flex-col p-2 items-start justify-center space-y-4'>
-                <h2 className="text-2xl font-bold">{item.title}</h2>
-                <p className='text-xl font-light'>{item.description}</p>
-              </div>
+            <aside className={`w-full h-full absolute flex items-center justify-center bg-blue-700/50 
+                              lg:relative
+                              lg:bg-transparent
+                              lg:w-[50%] 
+                              lg:h-full text-white`
+                              }>
+
+                <div className='w-[80%] h-full flex flex-col p-2 items-start justify-center space-y-4'>
+                  <h2 className="text-2xl font-bold">{item.title}</h2>
+                  <p className='text-xl font-normal'>{item.description}</p>
+                </div>
             </aside>
-            <div className="w-[50%] h-full">
+
+            <div className="w-full h-full 
+                            lg:w-[50%] 
+                            lg:h-full">
               <img
                 src={item.src}
                 alt={`Slide ${index + 1}`}
@@ -87,7 +96,7 @@ export default function HeroCarousel() {
 
       <button
         onClick={prevSlide}
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
+        className="absolute top-0 -left-5 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full ">
           <ChevronLeft className="w-8 h-8 text-white" />
@@ -97,7 +106,7 @@ export default function HeroCarousel() {
 
       <button
         onClick={nextSlide}
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
+        className="absolute top-0 -right-5 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none hover:bg-white/10"
       >
         <span className="inline-flex items-center justify-center w-10 h-10 rounded-full group-focus:outline-none">
           <ChevronRight className="w-8 h-8 text-white" />
