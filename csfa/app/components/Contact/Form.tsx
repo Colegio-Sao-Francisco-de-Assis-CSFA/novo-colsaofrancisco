@@ -1,127 +1,117 @@
 'use client';
 
-import { Button, Label, TextInput, Textarea, Select } from "flowbite-react";
+import React, { useState } from "react";
 
-export default function Form() {
-  return (
-    <form 
-      className="w-full h-full bg-white flex p-6 flex-col gap-4" 
-      method="POST" 
-      action="/submit-form"
-    >
-      {/* Nome */}
-      <div>
-        <div className="mb-2 block">
-          <Label 
-            htmlFor="name" 
-            value="Nome" 
-            className="text-lg text-blue-700" // Estilo do título e label
-          />
+
+export default function Form(){
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    assunto: '',
+    message: ''
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    assunto: '',
+    message: ''
+  });
+
+  const validate = () => {
+    const newErrors = { name: '', email: '', assunto: '', message: '' };
+
+    if (!formData.name) {
+      newErrors.name = 'O nome é obrigatório';
+    }
+
+    if (!formData.email) {
+      newErrors.email = 'O e-mail é obrigatório';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Insira um e-mail válido';
+    }
+
+    if (!formData.assunto) {
+      newErrors.assunto = 'O assunto é obrigatório';
+    }
+
+    if (!formData.message) {
+      newErrors.message = 'A mensagem é obrigatória';
+    }
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      console.log('Form Data:', formData);
+      alert('Formulário enviado com sucesso!');
+      setFormData({ name: '', email: '', assunto: '', message: '' });
+    }
+  };
+
+  return(
+    <form className="w-full h-auto flex flex-col p-12 justify-center bg-blue-6000 md:w-[60%] md:h-full" onSubmit={handleSubmit}>
+
+        <div className="w-full flex flex-col gap-2 md:flex-row">
+          {/* Nome */}
+          <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="nome" className="text-blue-600 font-medium text-lg capitalize">Nome</label>
+              <input id="nome" type="text" className="rounded-md border-blue-600 text-blue-700  capitalize"/>
+          </div>
+          {/* Email */}
+          <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="email" className="text-blue-600 font-medium text-lg">E-mail</label>
+              <input id="email" type="email" className="rounded-md border-blue-600 text-blue-700"/>
+          </div>
+
         </div>
-        <TextInput 
-          id="name" 
-          name="name" 
-          type="text" 
-          placeholder="Fulano de Tal" 
-          required 
-          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
-        />
-      </div>
 
-      {/* Email */}
-      <div>
-        <div className="mb-2 block">
-          <Label 
-            htmlFor="email" 
-            value="Seu email" 
-            className="text-lg text-blue-700" 
-          />
+        
+        <div className="w-full flex flex-col gap-2 md:flex-row">
+            {/* Telefone */}
+            <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="tel" className="text-blue-600 font-medium text-lg">Tel</label>
+                <input id="tel" type="tel" className="rounded-md border-blue-600 text-blue-700" />
+            </div>
+            {/* Assunto */}
+            <div className="flex flex-col gap-2 w-full">
+                <label htmlFor="assunto" className="text-blue-600 font-medium text-lg">Assunto:</label>
+                <select name="assunto" id="assunto" className="rounded-md border-blue-600 text-blue-700">
+                    <option value="">Selecione um assunto</option>
+                    <option value="duvida">Dúvida</option>
+                    <option value="sugestao">Sugestão</option>
+                    <option value="reclamacao">Reclamação</option>
+                </select>
+            </div>
         </div>
-        <TextInput 
-          id="email" 
-          name="email" 
-          type="email" 
-          placeholder="name@flowbite.com" 
-          required 
-          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700 border"
-        />
-      </div>
+          
 
-      {/* Telefone */}
-      <div>
-        <div className="mb-2 block">
-          <Label 
-            htmlFor="phone" 
-            value="Seu telefone" 
-            className="text-lg text-blue-700" 
-          />
+        {/* Mensagem */}
+        <div className="flex flex-col gap-2">
+            <label htmlFor="message" className="text-blue-600 font-medium text-lg">Mensagem:</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="resize-none w-full rounded-md border-blue-600"
+            />
+            {errors.message && <span>{errors.message}</span>}
         </div>
-        <TextInput 
-          id="phone" 
-          name="phone" 
-          type="tel" 
-          placeholder="(xx) x xxxx-xxxx" 
-          required 
-          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
-        />
-      </div>
 
-      {/* Categoria de Dúvida */}
-      <div>
-        <div className="mb-2 block">
-          <Label 
-            htmlFor="category" 
-            value="Selecione uma categoria" 
-            className="text-lg text-blue-700" 
-          />
+        <div className="w-full flex items-end justify-end mt-2">
+            {/* Botão de Enviar */}
+            <button type="submit" className="bg-blue-600 w-32 h-12 rounded-md text-white text-lg font-medium">Enviar</button>
         </div>
-        <Select 
-          id="category" 
-          name="category" 
-          required 
-          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700"
-        >
-          <option value="..." className="text-blue-600">. . .</option>
-          <option value="matricula">Matrícula</option>
-          <option value="academico">Acadêmico</option>
-          <option value="financeiro">Financeiro</option>
-          <option value="elogios">Elogios</option>
-          <option value="reclamacoes">Reclamações</option>
-          <option value="outras_duvidas">Outras Dúvidas</option>
-        </Select>
-      </div>
-
-      {/* Mensagem */}
-      <div className="max-w-md">
-        <div className="mb-2 block">
-          <Label 
-            htmlFor="comment" 
-            value="Sua mensagem" 
-            className="text-lg text-blue-700" 
-          />
-        </div>
-        <Textarea
-          id="comment"
-          name="comment"
-          placeholder="Deixe seu comentário..."
-          required
-          rows={6}
-          className="text-blue-800 placeholder-gray-400 p-2 outline-blue-700 border border-blue-700/80 resize-none"
-        />
-      </div>
-
-      {/* Botão de envio */}
-      <Button type="submit">Enviar</Button>
     </form>
-  );
+  )
 }
-
-
-//Estrutura de POST do Backend
-// {
-//   "name": "Fulano de Tal",
-//   "email": "name@flowbite.com",
-//   "phone": "(xx) x xxxx-xxxx",
-//   "category": "matricula",
-//   "comment": "Deixe seu comentário..."
-// }
