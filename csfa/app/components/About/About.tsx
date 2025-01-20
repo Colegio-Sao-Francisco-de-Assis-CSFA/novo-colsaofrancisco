@@ -15,9 +15,10 @@ export default function About() {
                         xl:w-[50%]">
 
           {/* Title */}
-          <h1 className="relative mb-4 font-extrabold tracking-tight leading-none text-white
+          <h1 className="relative w-[85%] mx-auto mb-4 font-extrabold tracking-tight leading-none text-white
                         text-3xl 
                         sm:text-start
+                        md:w-full
                         md:text-5xl">
             Educação com Propósito: Valores que Transformam
           </h1>
