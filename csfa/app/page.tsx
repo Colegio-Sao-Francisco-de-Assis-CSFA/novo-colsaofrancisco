@@ -10,10 +10,10 @@ import Footer from "./components/Footer/Footer";
 export default function PaginaInicial() {
   return (
       <>
-        {/* <SectionHeroCarousel/> */}
-        {/* <SectionCourses /> */}
-        {/* <SectionAbout/> */}
-        {/* <SectionFeatures/> */}
+        <SectionHeroCarousel/>
+        <SectionCourses />
+        <SectionAbout/>
+        <SectionFeatures/>
         <SectionNews/>
         <SectionContact/>
         <Footer/>
