@@ -14,7 +14,7 @@ export default function Component() {
     { name: 'SAS Educação', icon: '', href:'#', bg: 'bg-red-500' },
     { name: 'Diário Eletrônico', icon: '', href:'#', bg: 'bg-purple-500' },
     { name: 'Email Coorporativo', icon: '', href:'#', bg: 'bg-yellow-500' },
-    { name: 'Apadges', icon: '', href:'#', bg: 'bg-blue-500' }
+    { name: 'Apadges', icon: '', href:'/auth/sign-in', bg: 'bg-blue-500' }
   ];
 
   const navMenu = [

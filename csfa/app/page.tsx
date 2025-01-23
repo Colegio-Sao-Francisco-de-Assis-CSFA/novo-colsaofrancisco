@@ -1,20 +1,23 @@
 
-import SectionHeroCarousel from "./components/Hero/SectionHero";
-import SectionCourses from "./components/Courses/SectionCourses";
-import SectionAbout from "./components/About/About";
-import SectionNews from "./components/News/SectionNews";
-import SectionContact from "./components/Contact/SectionContact";
-import SectionFeatures from "./components/Features/SectionFeatures";
-import Footer from "./components/Footer/Footer";
+import SectionHeroCarousel from "../components/site/Hero/SectionHero";
+import SectionCourses from "../components/site/Courses/SectionCourses";
+import SectionAbout from "../components/site/About/About";
+import SectionNews from "../components/site/News/SectionNews";
+import SectionContact from "../components/site/Contact/SectionContact";
+import SectionFeatures from "../components/site/Features/SectionFeatures";
+import Footer from "../components/shared/Footer/Footer";
+import Header from "../components/shared/Header/Header";
+
 
 export default function PaginaInicial() {
   return (
       <>
+        <Header />
         {/* <SectionHeroCarousel/> */}
         {/* <SectionCourses /> */}
         {/* <SectionAbout/> */}
         {/* <SectionFeatures/> */}
-        <SectionNews/>
+        {/* <SectionNews/> */}
         <SectionContact/>
         <Footer/>
       </>    
