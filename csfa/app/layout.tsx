@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import React from "react";
-import "../styles/globals.css";
+import "./globals.css";
 import { ThemeModeScript } from "flowbite-react";
+// import { SessionProvider } from "next-auth/react"
+
 
 
 export const metadata: Metadata = {
@@ -10,21 +12,20 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children, } :Readonly< { children: React.ReactNode; } >) {
   return (
-    <html lang="en" suppressHydrationWarning className="light">
-      <head>
-          <ThemeModeScript />
-          <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
-      </head>
-          <body className="bg-blue-900">
-              <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
-                  {children}
-              </div>  
-          </body>
-    </html>
+    // <SessionProvider>
+        <html lang="en" suppressHydrationWarning className="light">
+          <head>
+              <ThemeModeScript />
+              <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
+          </head>
+              <body className="bg-blue-900">
+                  <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
+                      {children}
+                  </div>  
+              </body>
+        </html>
+    // </SessionProvider>
   );
 }
