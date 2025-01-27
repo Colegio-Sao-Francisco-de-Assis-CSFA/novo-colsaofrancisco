@@ -1,0 +1,338 @@
+[
+    {
+      "id": 1,
+      "nome": "ADRIANA MARIA DE SOUZA SANDES",
+      "email": "adrianamaria@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 2,
+      "nome": "ALINE MACEDO LOPES GUTLER",
+      "email": "aline.macedo@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 3,
+      "nome": "ALINE MIGUEL SANCHES LONGO",
+      "email": "aline.miguel@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 5,
+      "nome": "ANA PAULA CECOTTE ALVES",
+      "email": "anapaula@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 45,
+      "nome": "ANANDA CRISTINA LINS SILVA DE SOUZA",
+      "email": "ananda@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 6,
+      "nome": "ANDERSON KUCMUS SOBREIRO",
+      "email": "anderson.sobreiro@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 61,
+      "nome": "ANDRÉ SOUZA DA SILVA",
+      "email": "andre.souza@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 8,
+      "nome": "CLAUDIA SILVA DE OLIVEIRA",
+      "email": "claudia@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 44,
+      "nome": "COLABTESTE",
+      "email": "teste@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 55,
+      "nome": "CRISTIANO GARCIA DE OLIVEIRA SANTOS",
+      "email": "cristiano.santos@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 9,
+      "nome": "EDUARDO RODRIGUES RIGHETTE GREEN",
+      "email": "eduardo.green@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 10,
+      "nome": "ELDES DE MELLO FABRO",
+      "email": "eldes@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 11,
+      "nome": "ELISABETE JERONIMO ALBUQUERQUE PORTO",
+      "email": "elisabete.porto@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 13,
+      "nome": "ELY DONIZETE DOS SANTOS",
+      "email": "ely@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 15,
+      "nome": "FLÁVIO LOPES DE MENEZES",
+      "email": "flavio@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 16,
+      "nome": "GRACIMEIRE BARBIERI ITO",
+      "email": "gracimeire@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 51,
+      "nome": "IRENE MARIA RODRIGUES COSTA NUNES",
+      "email": "irene@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 17,
+      "nome": "JAMILLE QUERINO GHIDOTTI",
+      "email": "jamille@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 12,
+      "nome": "José Roberto Rodrigues Costa",
+      "email": "beto@colsaofrancisco.com.br",
+      "setor": "Tecnologia da informação"
+    },
+    {
+      "id": 19,
+      "nome": "JULIANA FERNANDES DA SILVA",
+      "email": "juliana.fernandes@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 49,
+      "nome": "LUCIANA TEIXEIRA DO NASCIMENTO",
+      "email": "luciana.nascimento@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 22,
+      "nome": "NADIR APARECIDA DE SOUZA MOREIRA",
+      "email": "nadir@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 48,
+      "nome": "NATÁLIA SANTOS ROCHA",
+      "email": "natalia.rocha@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 52,
+      "nome": "PAULO PEDRO FELIPE",
+      "email": "paulo.felipe@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 50,
+      "nome": "PHELLIPE PONTES MODESTO",
+      "email": "phellipe@colsaofrancisco.com.br",
+      "setor": "Tecnologia da informação"
+    },
+    {
+      "id": 23,
+      "nome": "REGIANE REIS DE OLIVEIRA",
+      "email": "regiane@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 59,
+      "nome": "RENATA SCHNABEL LOPES BARBOSA",
+      "email": "renata.barbosa@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 25,
+      "nome": "ROSANGELA LOPES MACHADO PIVANTI",
+      "email": "rosangela@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 26,
+      "nome": "SABRINA AMANO",
+      "email": "sabrina@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 27,
+      "nome": "SANDRA APARECIDA RINALDO MACHADO",
+      "email": "sandra@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 29,
+      "nome": "SOLANGE APARECIDA DE LIMA RUIZ",
+      "email": "solange@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 31,
+      "nome": "TATIANA LOPES GONÇALVES DOS SANTOS",
+      "email": "tatiana.lopes@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 36,
+      "nome": "TATIANA VAZ CARDOZO",
+      "email": "tatiana.cardozo@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 32,
+      "nome": "VANESSA DE OLIVEIRA XAVIER",
+      "email": "vanessa.xavier@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 34,
+      "nome": "VILMA CONCEIÇÃO DE OLIVEIRA PINHEIRO SANTOS",
+      "email": "mimapinheiro@gmail.com",
+      "setor": "Professor"
+    },
+    {
+      "id": 41,
+      "nome": "WALLACE DA SILVA PALEARI",
+      "email": "wallace.paleari@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 35,
+      "nome": "WENDER TOMAZ DOS REIS",
+      "email": "wender@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 66,
+      "nome": "William Paulino",
+      "email": "william.paulino@colsaofrancisco.com.br",
+      "setor": "Professor"
+    },
+    {
+      "id": 294,
+      "nome": "Maria Helena Vital",
+      "email": "mariahelena@colsaofrancisco.com.br",
+      "setor": "Recursos Humanos"
+    },
+    {
+      "id": 295,
+      "nome": "João de Assunção Andrade Nunes",
+      "email": "joaoassuncao@uol.com.br",
+      "setor": "Contabilidade"
+    },
+    {
+      "id": 299,
+      "nome": "Neide do Nascimento Silva",
+      "email": "neide@colsaofrancisco.com.br",
+      "setor": "Secretaria"
+    },
+    {
+      "id": 301,
+      "nome": "Adriana Aparecida Gaspar Saheb",
+      "email": "adrianagaspar@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 302,
+      "nome": "Carla Maria Rodrigues Gonçalves",
+      "email": "carla@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 303,
+      "nome": "Leila Barcha Borghese",
+      "email": "leila@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 305,
+      "nome": "Vanessa Simoa Sousa",
+      "email": "vanessa@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 306,
+      "nome": "Irene Maria Rodrigues Costa Nunes",
+      "email": "irene@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 310,
+      "nome": "Maria Avany da Silva Pimentel",
+      "email": "avany@colsaofrancisco.com.br",
+      "setor": "Portaria ou Recepção"
+    },
+    {
+      "id": 344,
+      "nome": "Ana Lúcia De Oliveira Silva",
+      "email": "ana.silva@colsaofrancisco.com.br",
+      "setor": "Tesouraria"
+    },
+    {
+      "id": 378,
+      "nome": "Marcelo Sorrentino",
+      "email": "marcelo.sorrentino@colsaofrancisco.com.br",
+      "setor": "Coordenação"
+    },
+    {
+      "id": 390,
+      "nome": "Rosana Rodrigues Costa Funari de Castro",
+      "email": "rosanacosta@colsaofrancisco.com.br",
+      "setor": "Direção ou Vice-Direção"
+    },
+    {
+      "id": 392,
+      "nome": "Cinara de Souza Cochar",
+      "email": "cinara.cochar@colsaofrancisco.com.br",
+      "setor": "Marketing, Comunicação ou Eventos"
+    },
+    {
+      "id": 394,
+      "nome": "Cloves Rodrigues de Souza Neto",
+      "email": "cloves.neto@colsaofrancisco.com.br",
+      "setor": "Tecnologia da informação"
+    },
+    {
+      "id": 398,
+      "nome": "Isabela Coelho Costa",
+      "email": "isabela.costa@colsaofrancisco.com.br",
+      "setor": "Financeiro"
+    },
+    {
+      "id": 399,
+      "nome": "Meira Fernandes - Contas a Pagar",
+      "email": "jonilson.evangelista@meirafernandes.com.br",
+      "setor": "Financeiro"
+    },
+    {
+      "id": 403,
+      "nome": "Andre Richard Pereira Silva dos Santos",
+      "email": "andre.santos@colsaofrancisco.com.br",
+      "setor": "Tecnologia da informação"
+    },
+    {
+      "id": 404,
+      "nome": "Gabriel Batista Santos",
+      "email": "gabriel.santos@colsaofrancisco.com.br",
+      "setor": "Comercial"
+    }
+  ]

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import React from "react";
-import "./globals.css";
+import "./styles/globals.css";
 import { ThemeModeScript } from "flowbite-react";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+
 // import { SessionProvider } from "next-auth/react"
 
 
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children, } :Readonly< { children: React.ReactNode; } >) {
   return (
-    // <SessionProvider>
+    <UserProvider>
         <html lang="en" suppressHydrationWarning className="light">
           <head>
               <ThemeModeScript />
@@ -26,6 +28,6 @@ export default function RootLayout({
                   </div>  
               </body>
         </html>
-    // </SessionProvider>
+    </UserProvider>
   );
 }
