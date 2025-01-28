@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Conexão ao banco de dados
+  // Garantir que o banco de dados seja configurado para utf8mb4
+}
+
+model Usuario {
+  id            String   @id @default(cuid()) @db.Char(5) // Limite para UTF-8
+  nome          String  
+  email         String   @unique @db.Char(100)  // Limite de 191 caracteres
+  setor         String  
+  emailVerified DateTime?      
+  token         String?  @db.Char(10) // Limite de 191 caracteres
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Banner {
+  id             Int      @id @default(autoincrement())
+  titulo         String   @db.VarChar(255) // Tamanho ajustado
+  imagemUrl      String   @db.VarChar(255) // Tamanho ajustado
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+}
+
+model Noticia {
+  id             Int      @id @default(autoincrement())
+  titulo         String   @db.VarChar(255) // Tamanho ajustado
+  conteudo       String   @db.Text // Usando Text para conteúdo maior
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+}
+
+model Prova {
+  id             Int      @id @default(autoincrement())
+  titulo         String   @db.VarChar(255) // Tamanho ajustado
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier     String   @db.Char(191) // Limite de 191 caracteres
+  token          String   @unique @db.Char(191) // Limite de 191 caracteres
+  expires        DateTime
+
+  @@unique([identifier, token])
+}

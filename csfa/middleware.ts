@@ -1,27 +1,44 @@
-import { NextResponse } from 'next/server';
-import { getSession } from '@auth0/nextjs-auth0';
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export default async function middleware(req) {
-  const session = await getSession(req, new Response());
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  if (!session?.user && pathname.startsWith('/dashboard')) {
-    // Se não estiver logado, redireciona para o login
-    return NextResponse.redirect(new URL('/api/auth/login', req.url));
+  // Permitir acesso público às rotas de login e API
+  if (pathname.startsWith('/sistema/login') || pathname.startsWith('/api')) {
+    return NextResponse.next();
   }
 
-  // Verifica se o usuário tem permissão para acessar o dashboard
-  if (pathname.startsWith('/dashboard/administrativo') && session.user.setor !== 'administrativo') {
-    return NextResponse.redirect(new URL('/403', req.url)); // Acesso negado
+  // Bloquear acesso a rotas protegidas sem um token
+  if (!token) {
+    const loginUrl = new URL('/sistema/login', req.url);
+    return NextResponse.redirect(loginUrl);
   }
 
-  if (pathname.startsWith('/dashboard/designer') && session.user.setor !== 'designer') {
-    return NextResponse.redirect(new URL('/403', req.url)); // Acesso negado
+  // Adicione lógica para redirecionar com base no setor, se necessário
+  if (pathname.startsWith('/sistema/dashboard')) {
+    const setor = token?.setor;
+
+    if (setor === 'admin') {
+      return NextResponse.rewrite(new URL('/sistema/dashboard/admin', req.url));
+    }
+    if (setor === 'designer') {
+      return NextResponse.rewrite(
+        new URL('/sistema/dashboard/designer', req.url)
+      );
+    }
+    if (setor === 'professor') {
+      return NextResponse.rewrite(
+        new URL('/sistema/dashboard/professor', req.url)
+      );
+    }
   }
 
-  if (pathname.startsWith('/dashboard/professor') && session.user.setor !== 'professor') {
-    return NextResponse.redirect(new URL('/403', req.url)); // Acesso negado
-  }
-
+  // Se a lógica do setor não se aplicar, apenas continue com a resposta padrão
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/sistema/:path*'], // Aplica o middleware apenas a rotas dentro de `/sistema`
+};
