@@ -1,15 +1,23 @@
-// next-auth.d.ts
+import NextAuth, { DefaultSession, DefaultUser } from 'next-auth';
 
-import { DefaultSession } from "next-auth";
-
-// Extende a tipagem do usuário e da sessão
-declare module "next-auth" {
-  interface User {
-    id: string; // Adiciona o campo `id` ao usuário
-    setor: string; // Adiciona o campo `setor` ao usuário
+// Define um tipo personalizado para o usuário com a propriedade `setor`
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      setor?: string;
+    } & DefaultSession["user"];
   }
 
-  interface Session {
-    user: User; // Agora a sessão contém o campo `user` com `id` e `setor`
+  interface User extends DefaultUser {
+    id: string;
+    setor?: string;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id: string;
+    setor?: string;
   }
 }

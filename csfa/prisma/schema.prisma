@@ -1,51 +1,50 @@
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL") // Conexão ao banco de dados
-  // Garantir que o banco de dados seja configurado para utf8mb4
+  url      = env("DATABASE_URL") // Conexão com o banco de dados
 }
 
-model Usuario {
-  id            String   @id @default(cuid()) @db.Char(5) // Limite para UTF-8
-  nome          String  
-  email         String   @unique @db.Char(100)  // Limite de 191 caracteres
-  setor         String  
-  emailVerified DateTime?      
-  token         String?  @db.Char(10) // Limite de 191 caracteres
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+model User {
+  id            String   @id @default(cuid()) // Identificador único do usuário
+  email         String   @unique // Email do usuário (deve ser único)
+  emailVerified DateTime? // Verificação do email (opcional)
+  name          String?  // Nome do usuário
+  image         String?  // Imagem do usuário (perfil)
+  setor         String?  // Setor do usuário (por exemplo, 'Informática', 'Designer', etc.)
+  createdAt     DateTime @default(now()) // Data de criação
+  updatedAt     DateTime @updatedAt // Data de atualização (automática)
+
+  // Relacionamento com Account (contas de login como o Google)
+  accounts      Account[]
+  
+  // Relacionamento com Session (sessões de autenticação)
+  sessions      Session[]
 }
 
-model Banner {
-  id             Int      @id @default(autoincrement())
-  titulo         String   @db.VarChar(255) // Tamanho ajustado
-  imagemUrl      String   @db.VarChar(255) // Tamanho ajustado
-  criadoEm       DateTime @default(now())
-  atualizadoEm   DateTime @updatedAt
+model Account {
+  id                 String   @id @default(cuid()) // Identificador único da conta
+  userId             String   // Relacionamento com o usuário
+  provider           String   // Provedor (por exemplo, 'google')
+  providerAccountId  String   // ID único da conta no provedor
+  refresh_token      String?  // Token de atualização (opcional)
+  access_token       String?  // Token de acesso (opcional)
+  token_type         String?  // Tipo do token (opcional)
+  expires_at         Int?     // Expiração do token (opcional)
+  scope              String?  // Escopo do token (opcional)
+  id_token           String?  // ID do token (opcional)
+  session_state      String?  // Estado da sessão (opcional)
+
+  user               User     @relation(fields: [userId], references: [id]) // Relacionamento com o modelo User
 }
 
-model Noticia {
-  id             Int      @id @default(autoincrement())
-  titulo         String   @db.VarChar(255) // Tamanho ajustado
-  conteudo       String   @db.Text // Usando Text para conteúdo maior
-  criadoEm       DateTime @default(now())
-  atualizadoEm   DateTime @updatedAt
+model Session {
+  id           String   @id @default(cuid()) // Identificador único da sessão
+  userId       String   // Relacionamento com o usuário
+  expires      DateTime // Expiração da sessão
+  user         User     @relation(fields: [userId], references: [id]) // Relacionamento com o modelo User
 }
 
-model Prova {
-  id             Int      @id @default(autoincrement())
-  titulo         String   @db.VarChar(255) // Tamanho ajustado
-  criadoEm       DateTime @default(now())
-  atualizadoEm   DateTime @updatedAt
-}
-
-model VerificationToken {
-  identifier     String   @db.Char(191) // Limite de 191 caracteres
-  token          String   @unique @db.Char(191) // Limite de 191 caracteres
-  expires        DateTime
-
-  @@unique([identifier, token])
-}

@@ -1,115 +1,50 @@
-import NextAuth, { NextAuthOptions, User, Session, DefaultSession } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from '@/lib/prisma/prisma';
-import { JWT } from 'next-auth/jwt';
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "@/lib/prisma/prisma"; // Certifique-se de que o caminho está correto
 
-// Estende o tipo User do NextAuth para incluir setor
-interface CustomUser extends User {
-  setor: string;
-}
-
-// Estende o tipo Session do NextAuth
-declare module 'next-auth' {
-  interface Session extends DefaultSession {
-    user: {
-      setor?: string;
-    } & DefaultSession['user']
-  }
-
-  interface User {
-    setor: string;
-  }
-}
-
-export const authOptions: NextAuthOptions = {
+export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: '/sistema/login', // Personalize a URL de login, se necessário
+    error: '/sistema/login',   // Caso haja erro, redireciona para a página de login
+  },
+  session: {
+    jwt: true,  // Usando JSON Web Tokens para sessão
+  },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      const emailDomain = user.email?.split('@')[1];
+    async jwt({ token, account, profile }) {
+      if (account?.provider === 'google') {
+        // Preenchendo o token com os dados da conta
+        token.id = account.id;
+        token.email = account.email;
 
-      if (emailDomain !== 'colsaofrancisco.com.br') {
-        return false;
-      }
-
-      const existingUser = await prisma.usuario.findUnique({
-        where: {
-          email: user.email!,
-        },
-      });
-
-      if (!existingUser) {
-        return false;
-      }
-
-      (user as CustomUser).setor = existingUser.setor;
-
-      return true;
-    },
-
-    async session({ session, token, user }) {
-      if (token?.sub) {
-        const dbUser = await prisma.usuario.findUnique({
-          where: {
-            email: session.user.email!,
-          },
+        // Verificando se o perfil já existe e adicionando o "setor" no token
+        const user = await prisma.usuario.findUnique({
+          where: { email: account.email },
         });
 
-        if (dbUser) {
-          session.user.setor = dbUser.setor;
+        // Adicionando o setor do usuário ao token, caso encontrado
+        if (user?.setor) {
+          token.setor = user.setor;
         }
-      }
-      return session;
-    },
-
-    async jwt({ token, user }) {
-      if (user) {
-        token.setor = (user as CustomUser).setor;
       }
       return token;
     },
-
-    async redirect({ url, baseUrl }) {
-      const userEmail = url.includes('?') ? 
-        new URLSearchParams(url.split('?')[1]).get('email') : 
-        null;
-
-      if (!userEmail) return baseUrl;
-
-      const user = await prisma.usuario.findUnique({
-        where: {
-          email: userEmail,
-        },
-      });
-
-      if (user?.setor === 'admin') {
-        return `${baseUrl}/sistema/dashboard/admin`;
+    async session({ session, token }) {
+      // Garantindo que a sessão também tenha o setor e id
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.email = token.email as string;
+        session.user.setor = token.setor as string;
       }
-
-      if (user?.setor === 'designer') {
-        return `${baseUrl}/sistema/dashboard/designer`;
-      }
-
-      if (user?.setor === 'professor') {
-        return `${baseUrl}/sistema/dashboard/professor`;
-      }
-
-      return baseUrl;
+      return session;
     },
   },
-  pages: {
-    signIn: '/sistema/login',
-    error: '/sistema/login',
-  },
-  session: {
-    strategy: 'jwt',
-  },
-};
-
-export default NextAuth(authOptions);
+});

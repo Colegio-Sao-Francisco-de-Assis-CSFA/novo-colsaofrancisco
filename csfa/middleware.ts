@@ -5,40 +5,35 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  // Permitir acesso público às rotas de login e API
+  // Permitir acesso livre a login e API
   if (pathname.startsWith('/sistema/login') || pathname.startsWith('/api')) {
     return NextResponse.next();
   }
 
-  // Bloquear acesso a rotas protegidas sem um token
-  if (!token) {
-    const loginUrl = new URL('/sistema/login', req.url);
-    return NextResponse.redirect(loginUrl);
+  // Se o usuário não estiver autenticado, redireciona para login
+  if (!token?.email) {
+    return NextResponse.redirect(new URL('/sistema/login', req.url));
   }
 
-  // Adicione lógica para redirecionar com base no setor, se necessário
+  // Se o usuário não está cadastrado, redireciona para a página de solicitação
+  if (!token.setor) {
+    return NextResponse.redirect(new URL('/sistema/solicite-ao-administrador', req.url));
+  }
+
+  // Redirecionamento com base no setor
+  const setorRoutes: Record<string, string> = {
+    'Informática': '/sistema/dashboard/admin',
+    'Designer': '/sistema/dashboard/designer',
+    'Professor': '/sistema/dashboard/professor',
+  };
+
   if (pathname.startsWith('/sistema/dashboard')) {
-    const setor = token?.setor;
-
-    if (setor === 'admin') {
-      return NextResponse.rewrite(new URL('/sistema/dashboard/admin', req.url));
-    }
-    if (setor === 'designer') {
-      return NextResponse.rewrite(
-        new URL('/sistema/dashboard/designer', req.url)
-      );
-    }
-    if (setor === 'professor') {
-      return NextResponse.rewrite(
-        new URL('/sistema/dashboard/professor', req.url)
-      );
-    }
+    return NextResponse.redirect(new URL(setorRoutes[token.setor] || '/sistema/dashboard', req.url));
   }
 
-  // Se a lógica do setor não se aplicar, apenas continue com a resposta padrão
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/sistema/:path*'], // Aplica o middleware apenas a rotas dentro de `/sistema`
+  matcher: ['/sistema/:path*'],
 };

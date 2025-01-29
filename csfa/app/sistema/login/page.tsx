@@ -10,37 +10,48 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      // Redireciona o usuário com base no setor
-      switch (session.user?.setor) {
-        case 'admin':
-          router.push('/sistema/dashboard/admin');
-          break;
-        case 'designer':
-          router.push('/sistema/dashboard/designer');
-          break;
-        case 'professor':
-          router.push('/sistema/dashboard/professor');
-          break;
-        default:
-          router.push('/sistema/dashboard');
+      const setor = (session?.user as { setor?: string })?.setor;
+
+      if (!setor) {
+        router.push('/sistema/solicite-ao-administrador');
+      } else {
+        const setorRoutes: Record<string, string> = {
+          'Informática': '/sistema/dashboard/admin',
+          'Designer': '/sistema/dashboard/designer',
+          'Professor': '/sistema/dashboard/professor',
+        };
+
+        router.push(setorRoutes[setor] || '/sistema/dashboard');
       }
     }
   }, [status, session, router]);
 
-  // Aguardar o carregamento de status
   if (status === 'loading') {
-    return <p>Carregando...</p>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg">Carregando...</p>
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold mb-4">Login no Sistema</h1>
-      <button
-        onClick={() => signIn('google')}
-        className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
-      >
-        Login com Google
-      </button>
+    <div className="flex flex-col items-center justify-center h-screen gap-6">
+      <div>
+        <img title="image-logo" src="/logo.webp" className="w-11" alt="Logo" />
+      </div>
+
+      <p className="text-lg font-semibold">CSFA - Sistema Apadges</p>
+
+      <div className="flex flex-col items-center gap-4">
+        <h1 className="text-2xl font-bold">Fazer Login no Sistema</h1>
+
+        <button
+          onClick={() => signIn('google')}
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+        >
+          Login com Google
+        </button>
+      </div>
     </div>
   );
 }
