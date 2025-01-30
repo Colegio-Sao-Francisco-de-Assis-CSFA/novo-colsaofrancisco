@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly <{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className="light"> {/* Alterado para pt-BR */}
+    <html lang="pt-BR" suppressHydrationWarning className="light">
       <head>
         <ThemeModeScript />
         <link rel="shortcut icon" href="/logo.webp" type="image/webp" />

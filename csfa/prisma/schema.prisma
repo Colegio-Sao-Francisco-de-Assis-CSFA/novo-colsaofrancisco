@@ -1,4 +1,3 @@
-// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,7 +18,7 @@ model User {
   updatedAt     DateTime @updatedAt // Data de atualização (automática)
 
   // Relacionamento com Account (contas de login como o Google)
-  accounts      Account[]
+  accounts      Account[] // Cada usuário pode ter várias contas de autenticação (Google, Facebook, etc.)
   
   // Relacionamento com Session (sessões de autenticação)
   sessions      Session[]
@@ -39,6 +38,9 @@ model Account {
   session_state      String?  // Estado da sessão (opcional)
 
   user               User     @relation(fields: [userId], references: [id]) // Relacionamento com o modelo User
+
+  // Chave composta para garantir que a conta de um provedor seja única para um usuário
+  @@unique([provider, providerAccountId]) 
 }
 
 model Session {
@@ -47,4 +49,3 @@ model Session {
   expires      DateTime // Expiração da sessão
   user         User     @relation(fields: [userId], references: [id]) // Relacionamento com o modelo User
 }
-

@@ -1,10 +1,17 @@
-export default function SoliciteAcesso() {
-    return (
-      <div className="text-center m-auto">
-        <h1>Acesso Restrito</h1>
-        <p>Seu email não está cadastrado no sistema.</p>
-        <p>Por favor, solicite acesso ao administrador.</p>
-      </div>
-    );
-  }
+import { useRouter } from 'next/router';
+
+export default function SolicitaAoAdministrador() {
   
+  const router = useRouter();
+  const { error } = router.query; 
+
+  return (
+    <div>
+      <h1>Erro de Login</h1>
+      {/* <p>{error ? error : 'Houve um erro. Tente novamente mais tarde.'}</p> */}
+      <p>Contate o administrador para cadastro.</p>
+    </div>
+  );
+};
+
+

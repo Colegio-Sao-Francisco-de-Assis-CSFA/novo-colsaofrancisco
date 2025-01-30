@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import prisma from "@/lib/prisma/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "../../lib/prisma/prisma";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -9,60 +9,96 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      // authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&prompt=consent',
     }),
   ],
   callbacks: {
-    async signIn({ user }) {
-      try {
-        // Verifica se o usuário existe no banco de dados
-        const dbUser = await prisma.usuario.findUnique({
-          where: { email: user.email || "" },
+    // SignIn Function
+    async signIn({ user, account }) {
+      if (account?.provider === 'google') {
+        console.log('Account:', account); // Verifique a estrutura da conta
+
+        if (!account.providerAccountId) {
+          console.error('Error: account.providerAccountId is missing');
+          return false; // Retorne falso para evitar o login caso `account.providerAccountId` esteja ausente
+        }
+
+        const providerAccountId = account.providerAccountId as string;
+
+        // Garante que o usuário é criado ou atualizado
+        const dbUser = await prisma.user.upsert({
+          where: { email: user.email ?? "" },
+          update: {
+            name: user.name ?? "",
+            image: user.image ?? "",
+          },
+          create: {
+            email: user.email ?? "",
+            name: user.name ?? "",
+            image: user.image ?? "",
+          },
         });
 
-        if (!dbUser) {
-          throw new Error(
-            "Usuário não encontrado. Contate o administrador para ser cadastrado."
-          );
-        }
-
-        if (!dbUser.emailVerified) {
-          throw new Error("E-mail não verificado. Verifique sua caixa de entrada.");
-        }
-
-        // Adiciona o id e setor ao usuário
-        user.id = dbUser.id;
-        user.setor = dbUser.setor;
-
-        return true; // Permite o login
-      } catch (error) {
-        console.error("Erro no login:", error);
-        return false; // Bloqueia o login em caso de erro
+        // Vincula a conta Google
+        await prisma.account.upsert({
+          where: {
+            provider_providerAccountId: {
+              provider: 'google',
+              providerAccountId: providerAccountId,
+            },
+          },
+          update: {},
+          create: {
+            userId: dbUser.id,
+            provider: 'google',
+            providerAccountId: providerAccountId,
+            access_token: account.access_token,
+            refresh_token: account.refresh_token,
+            expires_at: account.expires_at,
+            id_token: account.id_token,
+          },
+        });
       }
+      return true; // Permite a continuação do login
     },
 
+    // JWT Function
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.setor = user.setor || '';
+      }
+      return token;
+    },
+
+    // Session verify function
     async session({ session, token }) {
-      // Verifica se o token contém dados do usuário
       if (token) {
-        session.user.id = token.id as string; // Adiciona o ID do usuário à sessão
-        session.user.setor = token.setor as string; // Adiciona o setor à sessão
+        session.user.id = token.id;
+        session.user.setor = token.setor || '';
       }
       return session;
     },
 
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id; // Adiciona o ID do usuário ao token JWT
-        token.setor = user.setor; // Adiciona o setor ao token JWT
+    // Redirect Function
+    async redirect({ url, baseUrl }) {
+      // Evitar redirecionamento para URLs externas
+      if (url.startsWith(baseUrl)) {
+       
+        return url;
       }
-      return token;
-    },
+      return `${baseUrl}/api/auth/callback?callbackUrl=${encodeURIComponent(url)}`;
+    }
+
+
+
+  },
+  session: {
+    strategy: "jwt", // ou "database" dependendo de como você configura
   },
   pages: {
-    signIn: "/sistema/login", // Página de login personalizada
-    error: "/sistema/login",  // Redireciona para a página de login em caso de erro
+    signIn: "/sistema/login",
+    error: "/sistema/solicite-ao-administrador",
   },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET, // Configura o segredo do JWT
-  },
-  secret: process.env.NEXTAUTH_SECRET, // Define o segredo geral do NextAuth
+  secret: process.env.NEXTAUTH_SECRET,
 };

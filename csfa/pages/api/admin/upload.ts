@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
 import csvParser from 'csv-parser';
 import fs from 'fs';
-import prisma from '@/lib/prisma/prisma';
+import { prisma } from '../../../lib/prisma/prisma';
 import { getSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import { Request, Response } from 'express';

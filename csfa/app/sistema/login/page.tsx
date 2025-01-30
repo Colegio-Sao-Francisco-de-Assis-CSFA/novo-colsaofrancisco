@@ -1,56 +1,62 @@
-'use client';
+"use client";
 
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Image from "next/image";
+import { Icon } from "@iconify/react";
+import Loading from "../../components/shared/Loading/Loading";
 
 export default function LoginPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      const setor = (session?.user as { setor?: string })?.setor;
+    console.log("Session status:", status);
+    console.log("Session data:", session);
 
-      if (!setor) {
-        router.push('/sistema/solicite-ao-administrador');
-      } else {
-        const setorRoutes: Record<string, string> = {
-          'Informática': '/sistema/dashboard/admin',
-          'Designer': '/sistema/dashboard/designer',
-          'Professor': '/sistema/dashboard/professor',
-        };
-
-        router.push(setorRoutes[setor] || '/sistema/dashboard');
-      }
+    if (status === "authenticated" && session?.user?.setor) {
+      router.push(`/sistema/dashboard/${session.user.setor}`);
+    } 
+    else if (status === "authenticated" && !session?.user?.setor) {
+      router.push("/sistema/solicite-ao-administrador");
     }
   }, [status, session, router]);
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg">Carregando...</p>
+      <div className="flex items-center justify-center w-full h-screen bg-white">
+        <Loading />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-6">
-      <div>
-        <img title="image-logo" src="/logo.webp" className="w-11" alt="Logo" />
-      </div>
+    <div className="flex flex-col items-center justify-center gap-6 w-dvw h-dvh bg-white overflow-hidden">
+      {/* Conteúdo do login */}
+      <div className="w-full max-w-[400px] p-12 bg-slate-50/10 gap-4 border border-slate-400/20 shadow-sm-light rounded-lg flex flex-col items-center justify-center">
+        {/* Logo */}
+        <figure className="w-full flex flex-col items-center justify-center gap-2">
+          <Image src="/logo.webp" alt="Logo CSFA" width={128} height={128} />
+          <figcaption className="text-sm text-center text-slate-500 w-full">
+            CSFA - Sistema Apadges
+          </figcaption>
+        </figure>
 
-      <p className="text-lg font-semibold">CSFA - Sistema Apadges</p>
+        {/* Área de login */}
+        <div className="flex flex-col items-center gap-4">
+          <h1 className="text-xl font-bold text-slate-600">
+            Fazer Login no Sistema
+          </h1>
 
-      <div className="flex flex-col items-center gap-4">
-        <h1 className="text-2xl font-bold">Fazer Login no Sistema</h1>
-
-        <button
-          onClick={() => signIn('google')}
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
-        >
-          Login com Google
-        </button>
+          <button
+            onClick={() => signIn("google")}
+            className="bg-white text-slate-800 px-4 py-2 flex items-center gap-2 rounded-lg border border-slate-300 hover:bg-slate-100 transition"
+          >
+            <Icon icon="flat-color-icons:google" width={24} height={24} />
+            Login com Google
+          </button>
+        </div>
       </div>
     </div>
   );
