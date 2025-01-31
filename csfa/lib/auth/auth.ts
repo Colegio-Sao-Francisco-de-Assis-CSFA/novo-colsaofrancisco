@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma } from "../../lib/prisma/prisma";
+import { prisma } from "../db/prisma";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -9,92 +9,106 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      // authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&prompt=consent',
     }),
   ],
   callbacks: {
-    // SignIn Function
     async signIn({ user, account }) {
-      if (account?.provider === 'google') {
-        console.log('Account:', account); // Verifique a estrutura da conta
-
+      if (account?.provider === "google") {
         if (!account.providerAccountId) {
-          console.error('Error: account.providerAccountId is missing');
-          return false; // Retorne falso para evitar o login caso `account.providerAccountId` esteja ausente
+          return false; // Bloqueia o login se o ID não estiver presente
         }
 
-        const providerAccountId = account.providerAccountId as string;
-
-        // Garante que o usuário é criado ou atualizado
-        const dbUser = await prisma.user.upsert({
-          where: { email: user.email ?? "" },
-          update: {
-            name: user.name ?? "",
-            image: user.image ?? "",
-          },
-          create: {
-            email: user.email ?? "",
-            name: user.name ?? "",
-            image: user.image ?? "",
-          },
+        const providerAccountId = account.providerAccountId;
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email! },
         });
 
-        // Vincula a conta Google
-        await prisma.account.upsert({
-          where: {
-            provider_providerAccountId: {
-              provider: 'google',
-              providerAccountId: providerAccountId,
+        // Se não encontrar o usuário, cria um novo
+        if (!existingUser) {
+          const newUser = await prisma.user.create({
+            data: {
+              email: user.email!,
+              name: user.name!,
+              image: user.image ?? "",
+              setor: user.setor ?? "", // Assumindo que "setor" é um campo adicional
             },
-          },
-          update: {},
-          create: {
-            userId: dbUser.id,
-            provider: 'google',
-            providerAccountId: providerAccountId,
-            access_token: account.access_token,
-            refresh_token: account.refresh_token,
-            expires_at: account.expires_at,
-            id_token: account.id_token,
-          },
-        });
-      }
-      return true; // Permite a continuação do login
-    },
+          });
 
-    // JWT Function
+          await prisma.account.create({
+            data: {
+              userId: newUser.id,
+              provider: "google",
+              providerAccountId: providerAccountId,
+              accessToken: account.access_token,
+              refreshToken: account.refresh_token,
+              expiresAt: account.expires_at,
+              idToken: account.id_token,
+            },
+          });
+
+          return true; // Prosseguir com a autenticação
+        } else {
+          // Se encontrar, atualiza os dados do usuário
+          await prisma.user.update({
+            where: { email: user.email! },
+            data: {
+              name: user.name ?? existingUser.name,
+              image: user.image ?? existingUser.image,
+              setor: user.setor ?? existingUser.setor,
+            },
+          });
+
+          // Garantir que a conta do Google seja associada ao usuário
+          await prisma.account.upsert({
+            where: {
+              provider_providerAccountId: {
+                provider: "google",
+                providerAccountId,
+              },
+            },
+            update: {
+              accessToken: account.access_token,
+              refreshToken: account.refresh_token,
+              expiresAt: account.expires_at,
+              idToken: account.id_token,
+            },
+            create: {
+              userId: existingUser.id,
+              provider: "google",
+              providerAccountId: providerAccountId,
+              accessToken: account.access_token,
+              refreshToken: account.refresh_token,
+              expiresAt: account.expires_at,
+              idToken: account.id_token,
+            },
+          });
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.setor = user.setor || '';
+        token.setor = user.setor ?? token.setor ?? ""; // Mantém o valor existente se já estiver definido
       }
       return token;
     },
-
-    // Session verify function
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id;
-        session.user.setor = token.setor || '';
+        session.user.setor = token.setor ?? ""; // Não sobrescreve valores já existentes
       }
       return session;
     },
-
-    // Redirect Function
     async redirect({ url, baseUrl }) {
-      // Evitar redirecionamento para URLs externas
       if (url.startsWith(baseUrl)) {
-       
         return url;
       }
-      return `${baseUrl}/api/auth/callback?callbackUrl=${encodeURIComponent(url)}`;
-    }
-
-
-
+      return baseUrl;
+    },
   },
   session: {
-    strategy: "jwt", // ou "database" dependendo de como você configura
+    strategy: "jwt",
   },
   pages: {
     signIn: "/sistema/login",
