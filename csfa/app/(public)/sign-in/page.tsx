@@ -44,13 +44,7 @@ export default function LoginPage() {
             Fazer Login no Sistema
           </h1>
 
-          <button
-            onClick={() => signIn("google")}
-            className="bg-white text-slate-800 px-4 py-2 flex items-center gap-2 rounded-lg border border-slate-300 hover:bg-slate-100 transition"
-          >
-            <Icon icon="flat-color-icons:google" width={24} height={24} />
-            Login com Google
-          </button>
+          
         </div>
       </div>
     </div>
