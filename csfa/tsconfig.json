@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "moduleResolution": "node",
     "strict": true,
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
@@ -21,9 +27,26 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/utils/get/getNews.js", "pages/api/news.ts", "pages/about/index.tsx", "pages/api/auth/[...nextauth]/rout.e.ts", "pages/api/users/route.ts", "pages/api/auth/[...nextauth].ts", "middleware.ts", "app/sistema/login/page.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "(frontend)/app/utils/get/getNews.js",
+    "pages/api/news.ts",
+    "pages/about/index.tsx",
+    "pages/api/auth/[...nextauth]/rout.e.ts",
+    "pages/api/users/route.ts",
+    "pages/api/auth/[...nextauth]/route.ts",
+    "middleware.ts",
+    "(frontend)/app/sistema/login/page.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
