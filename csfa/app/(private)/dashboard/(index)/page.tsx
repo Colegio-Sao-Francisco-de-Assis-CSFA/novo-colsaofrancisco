@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
-import Loading from "@/(frontend)/app/components/shared/Loading/Loading";
+import Loading from "@/components/shared/Loading/Loading";
 
 export default async function Dashboard() {
 

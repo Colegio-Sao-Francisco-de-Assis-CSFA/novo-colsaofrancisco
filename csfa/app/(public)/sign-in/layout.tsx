@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
-import "../styles/globals.css";
+import "@/app/styles/globals.css";
 
 
 export const metadata: Metadata = {
@@ -14,7 +14,6 @@ export default function RootLayout({ children }: Readonly <{ children: React.Rea
     <html lang="pt-BR" suppressHydrationWarning className="light">
       <head>
         <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       </head>
       <body className="bg-white">
         {/* Envolvendo o conteúdo com o SessionProvider para que a sessão esteja acessível em toda a aplicação */}

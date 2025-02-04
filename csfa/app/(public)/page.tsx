@@ -14,11 +14,11 @@ export default function PaginaInicial() {
     <>
 
       <Header />
-      <SectionHeroCarousel/>
+      <SectionHeroCarousel />
       <SectionCourses />
-      <SectionAbout/>
-      <SectionFeatures/>
-      <SectionNews/>
+      <SectionAbout />
+      <SectionFeatures />
+      <SectionNews />
       <SectionContact />
       <Footer />
     </>

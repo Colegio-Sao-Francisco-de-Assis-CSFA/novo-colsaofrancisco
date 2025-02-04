@@ -1,5 +1,5 @@
 import Title from "../Title/Title";
-import '@/styles/Title.css';
+import '@/app/styles/Title.css';
 import Courses from "./Courses";
 
 

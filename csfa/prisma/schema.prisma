@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String    @id @default(cuid()) @db.Char(25)
+  nome          String?   @db.VarChar(100)
+  email         String    @unique @db.VarChar(145)
+  emailVerified DateTime?
+  image         String?
+  setor         Setor
+  posts         Post[]
+}
+
+model Post {
+  id      String  @id @default(cuid()) @db.Char(25)
+  title   String  @db.VarChar(100)
+  content String? @db.Text
+  autor   Usuario @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  autorId String  @db.Char(25)
+}
+
+model VerificationToken {
+  identifier String
+  token      String  @unique @db.VarChar(25)
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Setor {
+  COORDENACAO
+  PROFESSOR
+  DESIGNER
+  INFORMATICA
+}
