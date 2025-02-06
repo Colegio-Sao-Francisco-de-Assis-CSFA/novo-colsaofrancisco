@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import React from "react";
 import "../../styles/globals.css";
-
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import AppSidebar from "@/components/apadges/SideBar/SideBar";
 
 
 export const metadata: Metadata = {
@@ -17,12 +18,11 @@ export default function RootLayout({ children }: Readonly <{ children: React.Rea
         <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       </head>
-      <body className="bg-blue-900">
-        {/* Envolvendo o conteúdo com o SessionProvider para que a sessão esteja acessível em toda a aplicação */}
-            <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
-              {children}
-            </div>
-      </body>
+        <body className="bg-white overflow-hidden relative">
+          <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
+            {children}
+          </div>
+        </body>
     </html>
   );
 }
