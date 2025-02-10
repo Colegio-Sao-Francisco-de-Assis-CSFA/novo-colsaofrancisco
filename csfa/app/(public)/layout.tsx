@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import React from "react";
 import "@/app/styles/globals.css";
+import Footer from "@/components/shared/Footer/Footer";
+import Header from "@/components/shared/Header/Header";
 
 
 export const metadata: Metadata = {
@@ -29,9 +31,13 @@ export default function RootLayout({ children }: Readonly <{ children: React.Rea
       </head>
       <body className="bg-blue-900">
         {/* Envolvendo o conteúdo com o SessionProvider para que a sessão esteja acessível em toda a aplicação */}
+        
+        <Header />
             <div className="container h-auto max-w-screen-2xl flex flex-col items-center justify-center overflow-hidden">
               {children}
             </div>
+        <Footer />
+
       </body>
     </html>
   );

@@ -5,6 +5,7 @@ import { Search, Trash2, MoreHorizontal, ArrowLeft } from 'lucide-react';
 import Link  from 'next/link';
 
 const ProvasEscolares = () => {
+    
     const [searchQuery, setSearchQuery] = useState('');
 
     const mockData = [
@@ -43,29 +44,25 @@ const ProvasEscolares = () => {
     return (
         <div className="flex flex-col p-6 mt-20 justify-center">
             {/* Navigation */}
-            <div className="flex items-center gap-2 text-sm mb-6">
+            <nav className="flex items-center gap-2 text-sm mb-6">
                 <Link href="/dashboard" className="text-blue-600 hover:underline flex items-center gap-1">
                     <ArrowLeft className="w-4 h-4" />
                     Página Inicial
                 </Link>
                 <span className="text-gray-400">/</span>
-                <Link href="/dashboard/avaliacoes" className="text-blue-600 hover:underline">
-                    Avaliações
-                </Link>
-                <span className="text-gray-400">/</span>
                 <span className="text-gray-600">Provas</span>
-            </div>
+            </nav>
 
             {/* Header */}
-            <div className="flex justify-between items-center mb-6">
+            <header className="flex justify-between items-center mb-6">
                 <div>
                     <h1 className="text-2xl font-bold mb-2">Provas escolares</h1>
                     <p className="text-gray-600">Gerencie provas criadas para sua escola.</p>
                 </div>
 
-                <Link href={"/dashboard/listagem-provas/criar-prova"} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Criar prova</Link>
+                <Link href={"/dashboard/provas/criar-prova"} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Criar prova</Link>
                 
-            </div>
+            </header>
 
             {/* Search */}
             <div className="relative mb-6">

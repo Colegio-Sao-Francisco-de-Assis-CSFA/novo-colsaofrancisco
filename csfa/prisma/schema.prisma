@@ -39,3 +39,36 @@ enum Setor {
   DESIGNER
   INFORMATICA
 }
+
+model Questao {
+  id        String   @id @default(cuid()) // Identificador único
+  nome      String   // Nome da questão
+  conteudo  String   // Conteúdo da questão
+  tag       String?  // Tag opcional para categorizar a questão
+  type      String   // Tipo da questão
+  createdAt DateTime @default(now()) // Data de criação
+  updatedAt DateTime @updatedAt // Data de atualização
+
+  provas    ProvaQuestao[] // Relação com provas (muitos para muitos)
+}
+
+model Prova {
+  id        String   @id @default(cuid()) // Identificador único
+  nome      String   // Nome da prova
+  tag       String?  // Tag opcional
+  type      String   // Tipo da prova
+  createdAt DateTime @default(now()) // Data de criação
+  updatedAt DateTime @updatedAt // Data de atualização
+
+  questoes  ProvaQuestao[] // Relação com questões (muitos para muitos)
+}
+
+model ProvaQuestao {
+  provaId   String
+  questaoId String
+
+  prova     Prova   @relation(fields: [provaId], references: [id], onDelete: Cascade)
+  questao   Questao @relation(fields: [questaoId], references: [id], onDelete: Cascade)
+
+  @@id([provaId, questaoId]) // Chave composta para garantir unicidade
+}

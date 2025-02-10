@@ -1,6 +1,8 @@
 import React from 'react';
 import { Bell, Calendar, ChevronLeft, ChevronRight, HelpCircle, Book, Box, Plus, Library, BookOpenText, GraduationCap, Bot, CalendarRange, FolderSearch } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface QuickProps {
   icon: React.ReactNode;
@@ -28,47 +30,53 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main className="w-full h-auto p-6 pt-16">
+        
         <div className="p-6 grid grid-cols-6 gap-4">
+
           {/* Content Left */}
-          <div className="h-full col-span-4 flex flex-col">
-            {/* Wrap top */}
-            <div className="w-full flex flex-row gap-2 p-4">
-              {/* Profile Section */}
-              <div className="w-2/6">
-                <div className="bg-blue-800 rounded-xl p-12 text-center text-white">
-                  <div className="w-20 h-20 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-blue-800 text-2xl">C</span>
+          <section className="w-auto h-full col-span-4 flex flex-col">
+
+              {/* Wrap top */}
+              <div className="w-full flex flex-row gap-2 p-4">
+                {/* Profile Section */}
+                <div className="w-2/6">
+                  <div className="bg-blue-800 rounded-xl p-12 text-center text-white">
+                    <div className="w-20 h-20 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <span className="text-blue-800 text-2xl">C</span>
+                    </div>
+                    <h2 className="text-xl font-bold mb-1">CLOVES</h2>
+                    <p className="text-sm mb-2">Coordenador</p>
+                    <p className="text-sm">Colegio São Francisco De Assis</p>
                   </div>
-                  <h2 className="text-xl font-bold mb-1">CLOVES</h2>
-                  <p className="text-sm mb-2">Coordenador</p>
-                  <p className="text-sm">Colegio São Francisco De Assis</p>
                 </div>
+
+                {/* Quick Links Section */}
+                <div className="w-4/6">
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <h2 className="text-lg font-semibold">Atalhos rápidos</h2>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        <QuickLink icon={<Bot />} title="Assistente do Professor" />
+                        <QuickLink icon={<Box />} title="Provas Escolares" />
+                        <QuickLink icon={<CalendarRange />} title="Adicionar atalho" isAdd />
+                        <QuickLink icon={<BookOpenText />} title="Adicionar atalho" isAdd />
+                        <QuickLink icon={<Library />} title="Adicionar atalho" isAdd />
+                        <QuickLink icon={<FolderSearch />} title="Adicionar atalho" isAdd />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
               </div>
 
-              {/* Quick Links Section */}
-              <div className="w-4/6">
-                <Card>
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <h2 className="text-lg font-semibold">Atalhos rápidos</h2>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2">
-                      <QuickLink icon={<Bot />} title="Assistente do Professor" />
-                      <QuickLink icon={<Box />} title="Provas Escolares" />
-                      <QuickLink icon={<CalendarRange />} title="Adicionar atalho" isAdd />
-                      <QuickLink icon={<BookOpenText />} title="Adicionar atalho" isAdd />
-                      <QuickLink icon={<Library />} title="Adicionar atalho" isAdd />
-                      <QuickLink icon={<FolderSearch />} title="Adicionar atalho" isAdd />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+              
 
-          </div>
+          </section>
 
           {/* Content Right*/}
-          <div id="calendarSection" className="col-span-2 p-4 h-full">
+          <aside id="calendarSection" className="col-span-2 p-4 h-full">
             <Card className="relative">
               <CardContent className="h-auto max-h-[615px]">
 
@@ -303,8 +311,10 @@ const Dashboard = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </aside>
+
         </div>
+        
       </main>
 
 
