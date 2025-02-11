@@ -28,8 +28,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/types": ["types/index.ts"]
-    }
+      "@/types": ["./types/index.ts"]
+    },
   },
   "include": [
     "next-env.d.ts",
@@ -37,11 +37,11 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/utils/get/getNews.js",
-    "pages/api/news.ts",
-    "pages/about/index.tsx",
-    "pages/api/auth/[...nextauth]/rout.e.ts",
-    "pages/api/users/route.ts",
-    "pages/api/auth/[...nextauth]/route.ts",
+    "app/api/news.ts",
+    "app/pages/about/index.tsx",
+    "app/api/auth/[...nextauth]/rout.e.ts",
+    "app/api/users/route.ts",
+    "app/api/auth/[...nextauth]/route.ts",
     "middleware.ts",
     "app/sistema/login/page.tsx"
   ],
