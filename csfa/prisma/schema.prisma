@@ -41,7 +41,7 @@ enum Setor {
 }
 
 model Questao {
-  id        String   @id @default(cuid()) // Identificador único
+  id        String   @id @default(cuid()) @db.Char(25)// Identificador único
   nome      String   // Nome da questão
   conteudo  String   // Conteúdo da questão
   tag       String?  // Tag opcional para categorizar a questão
@@ -53,7 +53,7 @@ model Questao {
 }
 
 model Prova {
-  id        String   @id @default(cuid()) // Identificador único
+  id        String   @id @default(cuid()) @db.Char(25)// Identificador único
   nome      String   // Nome da prova
   tag       String?  // Tag opcional
   type      String   // Tipo da prova
@@ -64,8 +64,8 @@ model Prova {
 }
 
 model ProvaQuestao {
-  provaId   String
-  questaoId String
+  provaId   String  @db.Char(25)
+  questaoId String  @db.Char(25)
 
   prova     Prova   @relation(fields: [provaId], references: [id], onDelete: Cascade)
   questao   Questao @relation(fields: [questaoId], references: [id], onDelete: Cascade)
