@@ -1,7 +1,6 @@
 import { questaoService } from "@/services/questaoService";
 import { NextResponse } from "next/server";
 
-// 🔹 GET - Listar Questões
 export async function GET() {
   try {
     const questoes = await questaoService.listarQuestoes();
@@ -11,13 +10,14 @@ export async function GET() {
   }
 }
 
-// 🔹 POST - Criar Questão
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const novaQuestao = await questaoService.criarQuestao(body);
-    return NextResponse.json(novaQuestao, { status: 201 });
+    const questao = await questaoService.criarQuestao(body);
+    return NextResponse.json(questao, { status: 201 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
+
+export default { POST, GET};

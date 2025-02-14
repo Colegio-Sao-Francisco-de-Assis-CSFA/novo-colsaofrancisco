@@ -41,30 +41,35 @@ model VerificationToken {
 }
 
 model Questao {
-  id        String     @id @default(cuid()) @db.Char(25) // Identificador único
-  nome      String // Nome da questão
-  enunciado String // Conteúdo da questão
-  image     String
-  category  Category
-  tag       Disciplina // Tag opcional para categorizar a questão
-  type      Type // Tipo da questão
-  createdAt DateTime   @default(now()) // Data de criação
-  updatedAt DateTime   @updatedAt // Data de atualização
+  id          String      @id @default(cuid()) @db.Char(25) // Identificador único
+  nome        String // Nome da questão
+  enunciado   String      @default("")
+  image       String      @default("")
+  category    Category    @default(CSFA)
+  disciplina  Disciplina  @default(MATEMATICA)
+  nivel       Nivel       @default(ANOS_INICIAIS)
+  ano         Ano         @default(PRIMEIRO)
+  dificuldade Dificuldade @default(FACIL)
+  type        Type        @default(MULTIPLA)
+
+  createdAt DateTime @default(now()) // Data de criação
+  updatedAt DateTime @updatedAt // Data de atualização
 
   provas ProvaQuestao[] // Relação com provas (muitos para muitos)
 }
 
 model Prova {
-  id          String      @id @default(cuid()) @db.Char(25) // Identificador único
-  nome        String // Nome da prova
-  disciplina  Disciplina // Tag opcional
+  id          String       @id @default(cuid()) @db.VarChar(25)
+  nome        String
+  type        Type
+  disciplina  Disciplina
+  category    Category
   nivel       Nivel
   dificuldade Dificuldade
-  status      Status      @default(RASCUNHO)
-  createdAt   DateTime    @default(now()) // Data de criação
-  updatedAt   DateTime    @updatedAt // Data de atualização
-
-  questoes    ProvaQuestao[] // Relação com questões (muitos para muitos)
+  status      Status       @default(RASCUNHO)
+  questoes    ProvaQuestao[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 enum Status {
@@ -81,13 +86,17 @@ enum Type {
 enum Disciplina {
   MATEMATICA
   PORTUGUES
-  REDACAO
   INGLES
+  ESPANHOL
   FISICA
   QUIMICA
   HISTORIA
   GEOGRAFIA
-  ARTES
+  ARTE
+  FILOSOFIA
+  SOCIOGIA
+  BIOLOGIA
+  EDUCACAO_FISICA
 }
 
 enum Category {
@@ -106,6 +115,18 @@ enum Dificuldade {
   FACIL
   MEDIO
   DIFICIL
+}
+
+enum Ano {
+  PRIMEIRO
+  SEGUNDO
+  TERCEIRO
+  QUARTO
+  QUINTO
+  SEXTO
+  SETIMO
+  OITAVO
+  NONO
 }
 
 model ProvaQuestao {

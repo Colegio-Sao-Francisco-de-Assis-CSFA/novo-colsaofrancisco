@@ -1,27 +1,16 @@
 import { questaoModel } from "@/models/questaoModel";
 
 export const questaoService = {
-  
   async listarQuestoes() {
-    return await questaoModel.listar();
+    return questaoModel.listarQuestoes(); // Delega a busca ao model
   },
-
-  async buscarQuestao(id: string) {
-    if (!id) throw new Error("ID inválido!");
-    return await questaoModel.buscarPorId(id);
-  },
-
   async criarQuestao(data: any) {
-    if (!data.nome || !data.conteudo) throw new Error("Campos obrigatórios!");
-    return await questaoModel.criar(data);
-  },
+    // Validação ou transformação dos dados
+    if (!data.nome || !data.conteudo) {
+      throw new Error("Campos obrigatórios ausentes!");
+    }
 
-  async atualizarQuestao(id: string, data: any) {
-    return await questaoModel.atualizar(id, data);
+    // Envia os dados formatados para o model
+    return questaoModel.criarQuestao(data);
   },
-
-  async deletarQuestao(id: string) {
-    return await questaoModel.deletar(id);
-  },
-
 };

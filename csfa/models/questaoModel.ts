@@ -1,56 +1,27 @@
-import prisma from "@/lib/db/prisma"; // Importa o Prisma Client
-import { Prisma } from "@prisma/client";
+import prisma from "@/lib/db/prisma";
+
 
 export const questaoModel = {
-
-  async listar() {
+  async listarQuestoes() {
     return await prisma.questao.findMany();
   },
 
-  async buscarPorId(id: string) {
-    return await prisma.questao.findUnique({ where: { id } });
-  },
-
-
-  async criar(data: Omit<Prisma.QuestaoCreateInput, "provas"> & { provas?: string[] }) {
+  async criarQuestao(data: { nome: string; conteudo: string; tag: string; type: string }) {
     return await prisma.questao.create({
-      data: {
-        ...data,
-        provas: data.provas?.length
-          ? {
-              createMany: {
-                data: data.provas.map((provaId) => ({
-                  provaId, // 🔥 Insere na tabela intermediária
-                })),
-              },
-            }
-          : undefined,
-      },
+      data,
     });
   },
 
-  async  atualizar(id: string, data: Partial<Omit<Prisma.QuestaoUpdateInput, "provas">> & { provas?: string[] }) {
+  async atualizarQuestao(id: string, data: Partial<{ nome: string; conteudo: string; tag: string; type: string }>) {
     return await prisma.questao.update({
       where: { id },
-      data: {
-        ...data,
-        provas: data.provas?.length
-          ? {
-              deleteMany: {}, // 🔥 Remove todos os vínculos antigos
-              createMany: {
-                data: data.provas.map((provaId) => ({
-                  provaId, // 🔥 Insere os novos vínculos
-                })),
-              },
-            }
-          : undefined,
-      },
+      data,
     });
   },
-  
 
-  async deletar(id: string) {
-    return await prisma.questao.delete({ where: { id } });
+  async deletarQuestao(id: string) {
+    return await prisma.questao.delete({
+      where: { id },
+    });
   },
-  
 };
