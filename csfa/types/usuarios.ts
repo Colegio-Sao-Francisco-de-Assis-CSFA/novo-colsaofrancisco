@@ -1,5 +1,5 @@
 import { Setor } from "./enums";
-import { Post } from "./questoes";
+// import { Post } from "./questoes";
 
 export interface Usuario {
   id: string;
@@ -8,5 +8,5 @@ export interface Usuario {
   emailVerified?: Date | null;
   image?: string | null;
   setor: Setor;
-  posts: Post[];
+  // posts: Post[];
 }

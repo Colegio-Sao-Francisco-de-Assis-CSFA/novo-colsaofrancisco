@@ -1,3 +1,5 @@
+// schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,6 +9,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Modelo de usuário
 model Usuario {
   id            String    @id @default(cuid()) @db.Char(25)
   nome          String?   @db.VarChar(100)
@@ -15,8 +18,11 @@ model Usuario {
   image         String?
   setor         Setor
   posts         Post[]
+  questoes      Questao[] // Relaciona o autor às questões criadas
+  logs          Log[]     // Relaciona o usuário aos logs que ele gerou
 }
 
+// Enum para Setores do sistema
 enum Setor {
   COORDENACAO
   PROFESSOR
@@ -24,54 +30,112 @@ enum Setor {
   ADMIN
 }
 
+// Modelo de postagem (pode ser associada a questões ou provas)
 model Post {
-  id      String  @id @default(cuid()) @db.Char(25)
-  title   String  @db.VarChar(100)
-  content String? @db.Text
-  autor   Usuario @relation(fields: [autorId], references: [id], onDelete: Cascade)
-  autorId String  @db.Char(25)
+  id          String    @id @default(cuid()) @db.Char(25) // Identificador único
+  titulo      String    @db.VarChar(100)                 // Título do post
+  conteudo    String?   @db.Text                         // Conteúdo do post
+  imagem      String?   @db.VarChar(255)                 // URL da imagem de capa
+  publicado   Boolean   @default(false)                  // Indica se o post está publicado
+  categoria   CategoriaPost                              // Categoria do post
+  autorId     String                                    // Relacionado ao autor do post
+  autor       Usuario   @relation(fields: [autorId], references: [id], onDelete: Cascade)
+  tags        PostTag[]                                 // Relação com as tags do post
+  criadoEm    DateTime  @default(now())                 // Data de criação
+  atualizadoEm DateTime  @updatedAt                     // Data de última atualização
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique @db.VarChar(25)
-  expires    DateTime
-
-  @@unique([identifier, token])
+model Tag {
+  id      String   @id @default(cuid()) @db.Char(25)    // ID único
+  nome    String   @unique @db.VarChar(50)             // Nome da tag
+  posts   PostTag[]                                    // Relação com posts
 }
 
+model PostTag {
+  postId String @db.Char(25)
+  tagId  String @db.Char(25)
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId]) // Chave composta para garantir unicidade
+}
+
+enum CategoriaPost {
+  NOTICIAS
+  EVENTOS
+  AVISOS
+  ARTIGOS
+  OUTROS
+}
+
+// Atualização no modelo de Questão para incluir a relação com tags
 model Questao {
-  id          String      @id @default(cuid()) @db.Char(25) // Identificador único
-  nome        String // Nome da questão
+  id          String      @id @default(cuid()) @db.Char(25)
+  nome        String      @db.VarChar(100)
   enunciado   String      @default("")
   image       String      @default("")
   category    Category    @default(CSFA)
   disciplina  Disciplina  @default(MATEMATICA)
-  nivel       Nivel       @default(ANOS_INICIAIS)
+  nivel       Nivel       @default(INICIAIS)
   ano         Ano         @default(PRIMEIRO)
   dificuldade Dificuldade @default(FACIL)
   type        Type        @default(MULTIPLA)
+  tempoEstimado Int       @default(0)
 
-  createdAt DateTime @default(now()) // Data de criação
-  updatedAt DateTime @updatedAt // Data de atualização
+  provas      ProvaQuestao[]
 
-  provas ProvaQuestao[] // Relação com provas (muitos para muitos)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  autorId     String?  @db.Char(25)
+  autor       Usuario? @relation(fields: [autorId], references: [id], onDelete: SetNull)
+
 }
 
+
+// Modelo de provas
 model Prova {
   id          String       @id @default(cuid()) @db.VarChar(25)
-  nome        String
-  type        Type
-  disciplina  Disciplina
-  category    Category
-  nivel       Nivel
-  dificuldade Dificuldade
+  nome        String       @db.VarChar(100)
+  type        Type         @default(MULTIPLA)
+  disciplina  Disciplina   @default(MATEMATICA)
+  category    Category     @default(CSFA)
+  nivel       Nivel        @default(INICIAIS)
+  dificuldade Dificuldade  @default(FACIL)
   status      Status       @default(RASCUNHO)
-  questoes    ProvaQuestao[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  publishedAt DateTime?    // Data de publicação da prova
+  duracaoTotal Int         @default(0)  // Duração total da prova (em minutos)
+
+  questoes    ProvaQuestao[] // Relação com questões
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
+// Modelo intermediário para a relação de questões e provas
+model ProvaQuestao {
+  provaId   String
+  questaoId String
+  prova     Prova          @relation(fields: [provaId], references: [id])
+  questao   Questao        @relation(fields: [questaoId], references: [id])
+
+  @@id([provaId, questaoId]) // Composite primary key
+}
+
+// Modelo de log para auditoria
+model Log {
+  id        String    @id @default(cuid()) @db.Char(25)
+  action    String    // Tipo de ação (ex.: CREATED, UPDATED, DELETED)
+  model     String    // Nome do modelo afetado (ex.: Questao, Prova)
+  modelId   String    // ID do registro afetado
+  userId    String?   @db.Char(25) // Quem realizou a ação
+  createdAt DateTime  @default(now()) // Data e hora do log
+
+  usuario   Usuario?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+// Enums do sistema
 enum Status {
   PUBLICADA
   RASCUNHO
@@ -94,7 +158,7 @@ enum Disciplina {
   GEOGRAFIA
   ARTE
   FILOSOFIA
-  SOCIOGIA
+  SOCIOLOGIA
   BIOLOGIA
   EDUCACAO_FISICA
 }
@@ -103,12 +167,14 @@ enum Category {
   PUBLICA
   SAS
   CSFA
+  PARTICULARES
+  TREINAMENTO
 }
 
 enum Nivel {
-  ENSINO_MEDIO
-  ANOS_FINAIS
-  ANOS_INICIAIS
+  INICIAIS
+  FINAIS
+  MEDIO
 }
 
 enum Dificuldade {
@@ -127,14 +193,4 @@ enum Ano {
   SETIMO
   OITAVO
   NONO
-}
-
-model ProvaQuestao {
-  provaId   String @db.Char(25)
-  questaoId String @db.Char(25)
-
-  prova   Prova   @relation(fields: [provaId], references: [id], onDelete: Cascade)
-  questao Questao @relation(fields: [questaoId], references: [id], onDelete: Cascade)
-
-  @@id([provaId, questaoId]) // Chave composta para garantir unicidade
 }

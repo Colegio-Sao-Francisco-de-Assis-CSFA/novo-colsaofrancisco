@@ -1,16 +1,15 @@
-import { questaoModel } from "@/models/questaoModel";
+//QuestaoService
 
-export const questaoService = {
-  async listarQuestoes() {
-    return questaoModel.listarQuestoes(); // Delega a busca ao model
-  },
-  async criarQuestao(data: any) {
-    // Validação ou transformação dos dados
-    if (!data.nome || !data.conteudo) {
-      throw new Error("Campos obrigatórios ausentes!");
-    }
+import prisma from "@/lib/db/prisma";
+import QuestaoModel from "@/models/questaoModel";
 
-    // Envia os dados formatados para o model
-    return questaoModel.criarQuestao(data);
-  },
-};
+class QuestaoService {
+  async getAllQuestoes(){
+    const questoes = await prisma.questao.findMany({
+      include: {
+        provas: true,
+      },
+    });
+    return questoes.map((questao) => new QuestaoModel(questao));
+  }
+}

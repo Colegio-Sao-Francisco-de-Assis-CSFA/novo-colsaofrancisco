@@ -1,4 +1,4 @@
-import { Questao } from "./questoes";
+import {Questao}  from "./questoes";
 import { Type, Disciplina, Category, Nivel, Dificuldade, Status } from "./enums";
 
 export interface Prova {

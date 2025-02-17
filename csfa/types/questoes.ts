@@ -1,4 +1,5 @@
 import { Category, Disciplina, Nivel, Ano, Dificuldade, Type } from "./enums";
+  import { ProvaQuestao } from "./prova";
 
 export interface Questao {
   id: string;
@@ -13,5 +14,6 @@ export interface Questao {
   type: Type;
   createdAt: Date;
   updatedAt: Date;
+
   provas: ProvaQuestao[];
 }
