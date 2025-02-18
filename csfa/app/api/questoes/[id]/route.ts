@@ -1,63 +1,72 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
+import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-// GET: Detalhar uma questão
+const prisma = new PrismaClient();
+
+// GET - Obter uma questão específica
 export async function GET(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+  try {
+    const { id } = params;
 
-  const questao = await prisma.questao.findUnique({
-    where: { id },
-    include: {
-      autor: true, // Inclui informações do autor
-      provas: {
-        include: { prova: true }, // Inclui informações das provas associadas
+    const questao = await prisma.questao.findUnique({
+      where: { id },
+      include: {
+        autor: {
+          select: { id: true, nome: true, email: true },
+        },
+        provas: true,
       },
-    },
-  });
+    });
 
-  if (!questao) {
-    return NextResponse.json({ error: 'Questão não encontrada' }, { status: 404 });
+    if (!questao) {
+      return NextResponse.json({ error: "Questão não encontrada" }, { status: 404 });
+    }
+
+    return NextResponse.json(questao);
+  } catch (error) {
+    console.error("Erro ao buscar questão:", error);
+    return NextResponse.json({ error: "Erro ao buscar questão" }, { status: 500 });
   }
-
-  return NextResponse.json(questao);
 }
 
-// PUT: Atualizar uma questão
+// PUT - Atualizar uma questão específica
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
-  const body = await req.json();
-
   try {
+    const { id } = params;
+    const body = await req.json();
+
     const questaoAtualizada = await prisma.questao.update({
       where: { id },
       data: {
         nome: body.nome,
         enunciado: body.enunciado,
-        image: body.image || '',
-        category: body.category,
         disciplina: body.disciplina,
         nivel: body.nivel,
         ano: body.ano,
         dificuldade: body.dificuldade,
         type: body.type,
-        tempoEstimado: body.tempoEstimado || 0,
       },
     });
 
     return NextResponse.json(questaoAtualizada);
   } catch (error) {
-    return NextResponse.json({ error: 'Erro ao atualizar a questão' }, { status: 400 });
+    console.error("Erro ao atualizar questão:", error);
+    return NextResponse.json({ error: "Erro ao atualizar questão" }, { status: 500 });
   }
 }
 
-// DELETE: Deletar uma questão
+// DELETE - Deletar uma questão específica
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
-
   try {
-    await prisma.questao.delete({ where: { id } });
-    return NextResponse.json({ message: 'Questão deletada com sucesso' });
+    const { id } = params;
+
+    await prisma.questao.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: "Questão deletada com sucesso" });
   } catch (error) {
-    return NextResponse.json({ error: 'Erro ao deletar a questão' }, { status: 400 });
+    console.error("Erro ao deletar questão:", error);
+    return NextResponse.json({ error: "Erro ao deletar questão" }, { status: 500 });
   }
 }

@@ -13,3 +13,5 @@ class QuestaoService {
     return questoes.map((questao) => new QuestaoModel(questao));
   }
 }
+
+export  default new QuestaoService();

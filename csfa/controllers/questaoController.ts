@@ -1,10 +1,20 @@
-import QuestaoService from "../services/questao.service";
+// Atualização no QuestaoController para suportar filtros
+import QuestaoService from "@/services/questaoService";
 import { NextApiRequest, NextApiResponse } from "next";
 
 class QuestaoController {
   async getAll(req: NextApiRequest, res: NextApiResponse) {
     try {
-      const questoes = await QuestaoService.getAllQuestoes();
+      const filtros = {
+        search: req.query.search as string,
+        origin: req.query.origin as string,
+        grade: req.query.grade as string,
+        ano: req.query.ano as string,
+        dificuldade: req.query.dificuldade as string,
+        disciplina: req.query.disciplina as string,
+      };
+
+      const questoes = await QuestaoService.getAllQuestoes(filtros);
       return res.status(200).json(questoes);
     } catch (error) {
       return res.status(500).json({ message: error.message });

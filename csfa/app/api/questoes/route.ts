@@ -1,73 +1,48 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/db/prisma';
+import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 
-// GET: Listar questões com filtros
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const searchQuery = searchParams.get('query') || ''; // Texto de busca
-  const category = searchParams.get('category'); // Categoria
-  const nivel = searchParams.get('nivel'); // Nível de ensino
-  const dificuldade = searchParams.get('dificuldade'); // Dificuldade
-  const page = parseInt(searchParams.get('page') || '1'); // Paginação (página atual)
-  const limit = parseInt(searchParams.get('limit') || '10'); // Limite por página
+const prisma = new PrismaClient();
 
-  const skip = (page - 1) * limit; // Calcular offset
-
-  // Construir os filtros dinamicamente
-  const filters: any = {};
-  if (category) filters.category = category;
-  if (nivel) filters.nivel = nivel;
-  if (dificuldade) filters.dificuldade = dificuldade;
-
-  // Consultar questões no banco de dados
-  const [questoes, total] = await prisma.$transaction([
-    prisma.questao.findMany({
-      where: {
-        ...filters,
-        OR: [
-          { nome: { contains: searchQuery, mode: 'insensitive' } },
-          { enunciado: { contains: searchQuery, mode: 'insensitive' } },
-        ],
-      },
-      skip,
-      take: limit,
+// GET - Lista todas as questões
+export async function GET() {
+  try {
+    const questoes = await prisma.questao.findMany({
       include: {
-        autor: true, // Retornar informações do autor
+        autor: {
+          select: { id: true, nome: true, email: true },
+        },
+        provas: true,
       },
-    }),
-    prisma.questao.count({
-      where: {
-        ...filters,
-        OR: [
-          { nome: { contains: searchQuery, mode: 'insensitive' } },
-          { enunciado: { contains: searchQuery, mode: 'insensitive' } },
-        ],
-      },
-    }),
-  ]);
+    });
 
-  return NextResponse.json({ questoes, total, page, limit });
+    return NextResponse.json(questoes);
+  } catch (error) {
+    console.error("Erro ao buscar questões:", error);
+    return NextResponse.json({ error: "Erro ao buscar questões" }, { status: 500 });
+  }
 }
 
-// POST: Criar nova questão
+// POST - Cria uma nova questão
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const novaQuestao = await prisma.questao.create({
-    data: {
-      nome: body.nome,
-      enunciado: body.enunciado,
-      image: body.image || '',
-      category: body.category,
-      disciplina: body.disciplina,
-      nivel: body.nivel,
-      ano: body.ano,
-      dificuldade: body.dificuldade,
-      type: body.type,
-      tempoEstimado: body.tempoEstimado || 0,
-      autorId: body.autorId || null,
-    },
-  });
+    const novaQuestao = await prisma.questao.create({
+      data: {
+        nome: body.nome,
+        enunciado: body.enunciado,
+        disciplina: body.disciplina,
+        nivel: body.nivel,
+        ano: body.ano,
+        dificuldade: body.dificuldade,
+        type: body.type,
+        autorId: body.autorId || null, // Caso o autorId não seja enviado
+      },
+    });
 
-  return NextResponse.json(novaQuestao, { status: 201 });
+    return NextResponse.json(novaQuestao, { status: 201 });
+  } catch (error) {
+    console.error("Erro ao criar questão:", error);
+    return NextResponse.json({ error: "Erro ao criar questão" }, { status: 500 });
+  }
 }
