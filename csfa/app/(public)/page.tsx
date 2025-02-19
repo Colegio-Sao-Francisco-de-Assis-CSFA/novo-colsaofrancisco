@@ -1,10 +1,10 @@
 
-import SectionHeroCarousel from "@/components/csfa/Hero/SectionHero";
-import SectionCourses from "@/components/csfa/Courses/SectionCourses";
-import SectionAbout from "@/components/csfa/About/About";
-import SectionNews from "@/components/csfa/News/SectionNews";
-import SectionContact from "@/components/csfa/Contact/SectionContact";
-import SectionFeatures from "@/components/csfa/Features/SectionFeatures";
+import SectionHeroCarousel from "@/components/views/index-page/Hero/SectionHero";
+import SectionCourses from "@/components/views/index-page/Courses/SectionCourses";
+import SectionAbout from "@/components/views/index-page/About/About";
+import SectionNews from "@/components/views/index-page/News/SectionNews";
+import SectionContact from "@/components/views/index-page/Contact/SectionContact";
+import SectionFeatures from "@/components/views/index-page/Features/SectionFeatures";
 
 
 

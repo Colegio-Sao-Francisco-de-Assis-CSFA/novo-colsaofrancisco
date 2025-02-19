@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import React from "react";
 import "@/app/styles/globals.css";
-import Navigation from "@/components/apadges/Navigation/Navigation";
+import Navigation from "@/components/views/dashboard/Navigation/Navigation";
 
 export const metadata: Metadata = {
-  title: "Apadges", 
-  description: 
+  title: "Apadges",
+  description:
             `Sistema administrativo integrado ao siga Apadges`,
 };
 
