@@ -1,6 +1,5 @@
 const express = require("express");
-
-const usuariosRouter = require("./routes/provas");
+const provasRouter = require("./routes/provas");
 const questoesRouter = require("./routes/questoes");
 const usuariosRouter = require("./routes/usuarios");
 
@@ -16,7 +15,12 @@ app.use("/questoes", questoesRouter);
 app.use("/usuarios", usuariosRouter);
 
 
-// Iniciar o servidor
+// Middleware de erro global
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Erro interno do servidor." });
+});
+
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

@@ -1,10 +1,11 @@
-import ProvaService from "../services/ProvaService";
+const provasService = require("../services/provasService");
 
-const ProvaController = {
+const provasController = {
   async listarProvas(req, res) {
     try {
-      const provas = await ProvaService.listarProvas(req.query);
-      res.status(200).json(provas);
+      const filtros = req.query;
+      const provas = await provasService.listarProvas(filtros);
+      res.json(provas);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -12,7 +13,8 @@ const ProvaController = {
 
   async criarProva(req, res) {
     try {
-      const novaProva = await ProvaService.criarProva(req.body);
+      const dados = req.body;
+      const novaProva = await provasService.criarProva(dados);
       res.status(201).json(novaProva);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -22,22 +24,33 @@ const ProvaController = {
   async atualizarProva(req, res) {
     try {
       const { id } = req.params;
-      const provaAtualizada = await ProvaService.atualizarProva(id, req.body);
-      res.status(200).json(provaAtualizada);
+      const dados = req.body;
+      const provaAtualizada = await provasService.atualizarProva(id, dados);
+      res.json(provaAtualizada);
     } catch (error) {
       res.status(400).json({ error: error.message });
+    }
+  },
+
+  async buscarProvaPorId(req, res) {
+    try {
+      const { id } = req.params;
+      const prova = await provasService.buscarProvaPorId(id);
+      res.json(prova);
+    } catch (error) {
+      res.status(404).json({ error: error.message });
     }
   },
 
   async excluirProva(req, res) {
     try {
       const { id } = req.params;
-      await ProvaService.excluirProva(id);
+      await provasService.excluirProva(id);
       res.status(204).send();
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(404).json({ error: error.message });
     }
   },
 };
 
-export default ProvaController;
+module.exports = provasController;

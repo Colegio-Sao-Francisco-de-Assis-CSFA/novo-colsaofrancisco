@@ -1,38 +1,28 @@
-import prisma from "../config/database";
+const prisma = require("../config/database");
 
-const ProvaModel = {
-  // Listar provas com filtros opcionais
+const provasModel = {
+  // Listar todas as provas com filtros opcionais
   async listarProvas(filtros) {
-    const { categoria, disciplina, dificuldade, tipo } = filtros;
+    const { categoria, disciplina, dificuldade } = filtros || {};
     return await prisma.prova.findMany({
       where: {
-        ...(categoria && { category: categoria }),
+        ...(categoria && { categoria }),
         ...(disciplina && { disciplina }),
         ...(dificuldade && { dificuldade }),
-        ...(tipo && { type: tipo }),
       },
-      include: {
-        questoes: true,
-      },
+      include: { questoes: true }, // Relacionamento com questões (exemplo)
     });
   },
 
   // Criar uma nova prova
   async criarProva(dados) {
-    const { nome, type, disciplina, category, nivel, dificuldade, questoes, duracaoTotal } = dados;
     return await prisma.prova.create({
       data: {
-        nome,
-        type,
-        disciplina,
-        category,
-        nivel,
-        dificuldade,
-        duracaoTotal,
+        ...dados,
         questoes: {
-          create: questoes.map((q, index) => ({
+          create: dados.questoes.map((q) => ({
             questaoId: q.id,
-            ordem: index + 1,
+            ordem: q.ordem,
           })),
         },
       },
@@ -42,39 +32,25 @@ const ProvaModel = {
 
   // Atualizar uma prova
   async atualizarProva(id, dados) {
-    const { nome, type, disciplina, category, nivel, dificuldade, questoes, duracaoTotal } = dados;
-
-    // Remove as relações antigas (se houverem questões novas)
-    if (questoes) {
+    if (dados.questoes) {
+      // Atualizar relação com questões (exemplo)
       await prisma.provaQuestao.deleteMany({ where: { provaId: id } });
       await prisma.provaQuestao.createMany({
-        data: questoes.map((q, index) => ({
+        data: dados.questoes.map((q) => ({
           provaId: id,
           questaoId: q.id,
-          ordem: index + 1,
+          ordem: q.ordem,
         })),
       });
     }
 
-    // Atualiza os dados da prova
     return await prisma.prova.update({
       where: { id },
       data: {
-        nome,
-        type,
-        disciplina,
-        category,
-        nivel,
-        dificuldade,
-        duracaoTotal,
+        ...dados,
       },
       include: { questoes: true },
     });
-  },
-
-  // Excluir uma prova
-  async excluirProva(id) {
-    return await prisma.prova.delete({ where: { id } });
   },
 
   // Buscar uma prova pelo ID
@@ -85,12 +61,10 @@ const ProvaModel = {
     });
   },
 
-  // Buscar questões por ID (validação)
-  async buscarQuestoesPorIds(ids) {
-    return await prisma.questao.findMany({
-      where: { id: { in: ids } },
-    });
+  // Excluir uma prova
+  async excluirProva(id) {
+    return await prisma.prova.delete({ where: { id } });
   },
 };
 
-export default ProvaModel;
+module.exports = provasModel;

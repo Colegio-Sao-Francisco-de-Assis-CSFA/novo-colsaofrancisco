@@ -1,32 +1,13 @@
-
-import express from "express";
-import ProvaController from "../controllers/ProvaController";
-import { body } from "express-validator";
+const express = require("express");
+const provasController = require("../../controllers/provasController");
 
 const router = express.Router();
 
-// GET: Listar provas
-router.get("/", ProvaController.listarProvas);
+// Rotas de Provas
+router.get("/", provasController.listarProvas); // Listar provas
+router.get("/:id", provasController.buscarProvaPorId); // Buscar uma prova por ID
+router.post("/", provasController.criarProva); // Criar uma nova prova
+router.put("/:id", provasController.atualizarProva); // Atualizar uma prova
+router.delete("/:id", provasController.excluirProva); // Deletar uma prova
 
-// POST: Criar prova
-router.post(
-  "/",
-  [
-    body("nome").notEmpty().withMessage("O campo 'nome' é obrigatório."),
-    body("disciplina").notEmpty().withMessage("O campo 'disciplina' é obrigatório."),
-    body("category").notEmpty().withMessage("O campo 'category' é obrigatório."),
-    body("questoes")
-      .isArray({ min: 1, max: 90 })
-      .withMessage("A prova deve ter entre 1 e 90 questões."),
-    body("duracaoTotal").isInt({ min: 1 }).withMessage("Duração total deve ser maior que 0."),
-  ],
-  ProvaController.criarProva
-);
-
-// PUT: Atualizar prova
-router.put("/:id", ProvaController.atualizarProva);
-
-// DELETE: Excluir prova
-router.delete("/:id", ProvaController.excluirProva);
-
-export default router;
+module.exports = router;
