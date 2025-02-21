@@ -2,8 +2,15 @@ const prisma = require("../config/database");
 
 const usuariosModel = {
   // Listar todos os usuários
-  async listarUsuarios() {
-    return await prisma.usuario.findMany();
+  async listarUsuarios(filtros) {
+    const { nome, setor, email } = filtros || {};
+    return await prisma.usuario.findMany({
+      where: {
+        ...(nome && { nome: { contains: nome } }),
+        ...(setor && { setor: { contains: setor } }),
+        ...(email && { email: { contains: email } }),
+      },
+    });
   },
 
   // Criar um novo usuário
