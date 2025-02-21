@@ -41,7 +41,7 @@
     "app/pages/about/index.tsx",
     "app/api/auth/[...nextauth]/rout.e.ts",
     "app/api/users/route.ts",
-    "app/api/auth/[...nextauth]/route.ts",
+    "app/api/auth/[...nextauth]/[...nextauth].ts",
     "middleware.ts",
     "app/sistema/login/page.tsx"
   ],

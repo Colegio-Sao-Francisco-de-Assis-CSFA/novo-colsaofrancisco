@@ -4,6 +4,7 @@ const usuariosController = require("../../controllers/usuariosController");
 const router = express.Router();
 
 router.get("/", usuariosController.listarUsuarios); // Listar usuários
+router.get("/email", usuariosController.buscarUsuarioPorEmail);
 router.get("/:id", usuariosController.buscarUsuarioPorId); // Buscar usuário por ID
 router.post("/", usuariosController.criarUsuario); // Criar um novo usuário
 router.put("/:id", usuariosController.atualizarUsuario); // Atualizar um usuário

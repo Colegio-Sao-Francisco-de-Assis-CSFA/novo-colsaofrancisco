@@ -33,6 +33,13 @@ const usuariosService = {
     return usuario;
   },
 
+  async buscarUsuarioPorEmail(email) {
+    if (!email) {
+      throw new Error("Email é obrigatório");
+    }
+    return await usuariosModel.buscarUsuarioPorEmail(email);
+  },
+
   async atualizarUsuario(id, dados) {
     // Validações de negócio
     if (dados.setor && Array.isArray(dados.setor)) {

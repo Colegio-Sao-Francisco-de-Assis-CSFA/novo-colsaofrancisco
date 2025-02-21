@@ -3,13 +3,22 @@ const prisma = require("../config/database");
 const usuariosModel = {
   // Listar todos os usuários
   async listarUsuarios(filtros) {
-    const { nome, setor, email } = filtros || {};
+
+    const { nome, setor } = filtros || {};
+
     return await prisma.usuario.findMany({
       where: {
         ...(nome && { nome: { contains: nome } }),
         ...(setor && { setor: { contains: setor } }),
-        ...(email && { email: { contains: email } }),
       },
+    });
+  },
+
+  async buscarUsuarioPorEmail(email) {
+    console.log(`🔎 Buscando usuário pelo email: ${email}`);
+
+    return await prisma.usuario.findUnique({
+      where: { email },  // ✅ Buscando o usuário pelo email corretamente
     });
   },
 
@@ -25,12 +34,6 @@ const usuariosModel = {
     });
   },
 
-  // Buscar usuário por email
-  async buscarUsuarioPorEmail(email) {
-    return await prisma.usuario.findUnique({
-      where: { email },
-    });
-  },
 
   // Buscar usuário por ID
   async buscarUsuarioPorId(id) {

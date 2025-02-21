@@ -22,6 +22,7 @@ const FormSchema = z.object({
 });
 
 export default function InputForm() {
+
   const [isLoading, setIsLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null); // Mensagem de erro exibida no toast
 
@@ -32,7 +33,7 @@ export default function InputForm() {
       return () => clearTimeout(timer); // Limpa o timeout se o componente for desmontado
     }
   }, [toastMessage]);
-  
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -53,7 +54,7 @@ export default function InputForm() {
         return;
       }
 
-      const response = await fetch(`${appServerRoute}/api/validate-email`, {
+      const response = await fetch(`${appServerRoute}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
