@@ -30,6 +30,14 @@ const provasModel = {
     });
   },
 
+  // Buscar uma prova pelo ID
+  async buscarProvaPorId(id) {
+    return await prisma.prova.findUnique({
+      where: { id },
+      include: { questoes: true },
+    });
+  },
+
   // Atualizar uma prova
   async atualizarProva(id, dados) {
     if (dados.questoes) {
@@ -49,14 +57,6 @@ const provasModel = {
       data: {
         ...dados,
       },
-      include: { questoes: true },
-    });
-  },
-
-  // Buscar uma prova pelo ID
-  async buscarProvaPorId(id) {
-    return await prisma.prova.findUnique({
-      where: { id },
       include: { questoes: true },
     });
   },
