@@ -15,8 +15,10 @@
     "@prisma/client": "^6.4.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.12.0",
     "next-auth": "^4.24.11",
+    "nodemailer": "^6.10.0",
     "prisma": "^6.4.1"
   },
   "devDependencies": {

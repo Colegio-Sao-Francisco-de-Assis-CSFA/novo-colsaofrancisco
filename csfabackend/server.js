@@ -6,6 +6,8 @@ const authRouter = require("./routes/auth");
 const usuariosRouter = require("./routes/usuarios");
 const questoesRouter = require("./routes/questoes");
 
+
+
 const app = express();
 const PORT = process.env.PORT || 8801;
 
@@ -14,9 +16,12 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Rotas
+
+
+app.use("/auth", authRouter);
 app.use("/provas", provasRouter);
 app.use("/questoes", questoesRouter);
-app.use("/auth", authRouter);
+app.use("/auth", authRouter)
 app.use("/usuarios", usuariosRouter);
 
 

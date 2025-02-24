@@ -15,10 +15,17 @@ const usuariosModel = {
   },
 
   async buscarUsuarioPorEmail(email) {
-    console.log(`🔎 Buscando usuário pelo email: ${email}`);
+    // console.log(`🔎 Buscando usuário pelo email: ${email}`);
 
     return await prisma.usuario.findUnique({
       where: { email },  // ✅ Buscando o usuário pelo email corretamente
+    });
+  },
+
+  async atualizarVerificacaoEmail(email) {
+    return await prisma.usuario.update({
+      where: { email },
+      data: { emailVerified: new Date() },
     });
   },
 
