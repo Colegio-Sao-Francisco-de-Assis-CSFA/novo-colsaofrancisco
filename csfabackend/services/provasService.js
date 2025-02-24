@@ -1,61 +1,89 @@
-const usuariosModel = require("../models/usuariosModel");
+// provasModel.js
+const prisma = require("../config/database");
 
-const usuariosService = {
-  async listarUsuarios() {
-    return await usuariosModel.listarUsuarios();
+const provasModel = {
+  // Listar todas as provas com filtros opcionais
+  async listarProvas(filtros) {
+    const { categoria, disciplina, dificuldade } = filtros || {};
+    return await prisma.prova.findMany({
+      where: {
+        ...(categoria && { categoria }),
+        ...(disciplina && { disciplina }),
+        ...(dificuldade && { dificuldade }),
+      },
+      include: { questoes: true },
+    });
   },
 
-  async criarUsuario(dados) {
-    // Validações de negócio
-    if (!dados.nome || !dados.email || !dados.setor) {
-      throw new Error("Os campos 'nome', 'email' e 'setor' são obrigatórios.");
+  // Criar uma nova prova com validações
+  async criarProva(dados) {
+    // Validação de questões
+    if (!dados.questoes || !Array.isArray(dados.questoes) || dados.questoes.length === 0) {
+      throw new Error("A prova deve conter pelo menos uma questão.");
     }
 
-    // Email único
-    const usuarioExistente = await usuariosModel.buscarUsuarioPorEmail(dados.email);
-    if (usuarioExistente) {
-      throw new Error("Este email já está em uso.");
-    }
+    // Validar tipo de questão
+    const questoesFormatadas = dados.questoes.map((q) => {
+      if (q.type === "VERDADEIRO_OU_FALSO") {
+        if (!q.alternativas || q.alternativas.length < 3) {
+          throw new Error("Questões de verdadeiro ou falso devem ter pelo menos 3 alternativas.");
+        }
+      } else if (q.type === "MULTIPLA") {
+        if (!q.alternativas || q.alternativas.length < 3 || q.alternativas.length > 5) {
+          throw new Error("Questões de múltipla escolha devem ter entre 3 e 5 alternativas.");
+        }
+      } else if (q.type === "DISSERTATIVA") {
+        if (!q.tamanho || !["P", "M", "G", "GG"].includes(q.tamanho)) {
+          throw new Error("Questões dissertativas devem ter um tamanho válido (P, M, G ou GG).");
+        }
+      }
 
-    // Máximo de 1 setor por usuário
-    if (Array.isArray(dados.setor)) {
-      throw new Error("Um usuário pode ter no máximo 1 setor.");
-    }
+      return {
+        questaoId: q.id,
+        ordem: q.ordem,
+      };
+    });
 
-    return await usuariosModel.criarUsuario(dados);
+    return await prisma.prova.create({
+      data: {
+        ...dados,
+        questoes: { create: questoesFormatadas },
+      },
+      include: { questoes: true },
+    });
   },
 
-  async buscarUsuarioPorId(id) {
-    const usuario = await usuariosModel.buscarUsuarioPorId(id);
-    if (!usuario) {
-      throw new Error("Usuário não encontrado.");
-    }
-    return usuario;
+  // Buscar uma prova pelo ID
+  async buscarProvaPorId(id) {
+    return await prisma.prova.findUnique({
+      where: { id },
+      include: { questoes: true },
+    });
   },
 
-  async atualizarUsuario(id, dados) {
-    // Validações de negócio
-    if (dados.setor && Array.isArray(dados.setor)) {
-      throw new Error("Um usuário pode ter no máximo 1 setor.");
+  // Atualizar uma prova com validações
+  async atualizarProva(id, dados) {
+    if (dados.questoes) {
+      await prisma.provaQuestao.deleteMany({ where: { provaId: id } });
+      await prisma.provaQuestao.createMany({
+        data: dados.questoes.map((q) => ({
+          provaId: id,
+          questaoId: q.id,
+          ordem: q.ordem,
+        })),
+      });
     }
-
-    // Email único (caso seja alterado)
-    const usuarioExistente = await usuariosModel.buscarUsuarioPorEmail(dados.email);
-    if (usuarioExistente && usuarioExistente.id !== id) {
-      throw new Error("Este email já está em uso por outro usuário.");
-    }
-
-    return await usuariosModel.atualizarUsuario(id, dados);
+    return await prisma.prova.update({
+      where: { id },
+      data: { ...dados },
+      include: { questoes: true },
+    });
   },
 
-  async excluirUsuario(id) {
-    const usuario = await usuariosModel.buscarUsuarioPorId(id);
-    if (!usuario) {
-      throw new Error("Usuário não encontrado.");
-    }
-
-    return await usuariosModel.excluirUsuario(id);
+  // Excluir uma prova
+  async excluirProva(id) {
+    return await prisma.prova.delete({ where: { id } });
   },
 };
 
-module.exports = usuariosService;
+module.exports = provasModel;
