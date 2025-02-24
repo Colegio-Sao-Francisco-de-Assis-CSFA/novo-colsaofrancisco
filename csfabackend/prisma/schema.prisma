@@ -27,9 +27,9 @@ model Account {
 }
 
 model Session {
-  id           String @id @default(cuid()) @db.Char(36)
-  sessionToken String @unique @db.VarChar(191)
-  userId       String @db.Char(36)
+  id           String   @id @default(cuid()) @db.Char(36)
+  sessionToken String   @unique @db.VarChar(191)
+  userId       String   @db.Char(36)
   expires      DateTime
 
   user Usuario @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -56,8 +56,8 @@ model Usuario {
 }
 
 model VerificationToken {
-  identifier String @unique @db.VarChar(191)
-  token      String @unique @db.VarChar(191)
+  identifier String   @unique @db.VarChar(191)
+  token      String   @unique @db.VarChar(191)
   expires    DateTime
 }
 
@@ -96,8 +96,8 @@ model PostTag {
 model Questao {
   id            String      @id @default(cuid()) @db.Char(25)
   nome          String      @db.VarChar(100)
-  enunciado     String      @default("") @db.Char(25)
-  image         String?     @default("") @db.Text
+  enunciado     String      @db.Text
+  image         String?     @db.Text
   category      Category    @default(CSFA)
   disciplina    Disciplina  @default(MATEMATICA)
   nivel         Nivel       @default(INICIAIS)
@@ -123,6 +123,7 @@ model Prova {
   disciplina   Disciplina  @default(MATEMATICA)
   category     Category    @default(CSFA)
   nivel        Nivel       @default(INICIAIS)
+  ano          Ano         @default(PRIMEIRO)
   dificuldade  Dificuldade @default(FACIL)
   status       Status      @default(RASCUNHO)
   publishedAt  DateTime? // Data de publicação da prova
