@@ -1,7 +1,7 @@
 import { Bell, HelpCircle, LayoutGrid, Shapes, Sparkles, Boxes} from 'lucide-react';
 import Link from 'next/link';
-import { 
-    Avatar, 
+import {
+    Avatar,
     AvatarFallback,
     AvatarImage } from "@/components/ui/avatar"
 import {
@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
   import { Button } from "@/components/ui/button"
- 
+
 
 
 const navLinks = [
@@ -34,7 +34,7 @@ interface LinkProps {
 
 const LinkMenu: React.FC<LinkProps> = ({ icon, title, href  }) => {
   return (
-    <Link className="tetx-sm text-gray-500 hover:text-blue-600 flex gap-2" 
+    <Link className="tetx-sm text-gray-500 hover:text-blue-600 flex gap-2"
     href={href}>
          {icon}
          {title}
@@ -53,7 +53,7 @@ export default function Navigation(){
                         {navLinks.map((link) => (
 
                         <LinkMenu  href={link.href} icon={link.icon} title={link.name}/>
-                        
+
                         ))}
                 </div>
 
@@ -79,7 +79,7 @@ export default function Navigation(){
                         <DropdownMenuItem>Profile</DropdownMenuItem>
                         <DropdownMenuItem>
                             <Button className='w-full h-6' variant="destructive">
-                                
+
                                 Sair
                             </Button>
                         </DropdownMenuItem>
@@ -89,7 +89,7 @@ export default function Navigation(){
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                    
+
                 </div>
             </div>
         </div>

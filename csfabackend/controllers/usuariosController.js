@@ -68,11 +68,12 @@ const usuariosController = {
     try {
       const { id } = req.params;
       await usuariosService.excluirUsuario(id);
-      res.status(204).send();
+      res.status(204).end();
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
-  },
+  }
+
 };
 
 module.exports = usuariosController;
