@@ -1,8 +1,7 @@
 import { Resend } from "resend";
-
+import { EmailContent } from "@/components/views/EmailContent/EmailContent";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
 
 export async function sendMagicLinkEmail(email: string, url: string) {
   if (!process.env.EMAIL_FROM) {
@@ -18,7 +17,8 @@ export async function sendMagicLinkEmail(email: string, url: string) {
       from: process.env.EMAIL_FROM,
       to: email,
       subject: "Seu link de login",
-      html: `<p>Clique no link para entrar: <a href="${url}">${url}</a></p>`,
+      react: EmailContent({ link: url }),
+      // html: `<p>Clique no link para entrar: <a href="${url}">${url}</a></p>`,
     });
 
     console.log("📨 Resend Response:", response);

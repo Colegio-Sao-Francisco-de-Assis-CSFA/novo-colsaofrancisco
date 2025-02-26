@@ -1,33 +1,44 @@
-import NextAuth from "next-auth";
-import EmailProvider from "next-auth/providers/email";
-import { Resend } from "resend";
-import { CustomAdapter } from "@/lib/customAdapter"; // <- Importando o Adapter
+import { AuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const prisma = new PrismaClient();
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
-    EmailProvider({
-      from: process.env.EMAIL_FROM,
-      async sendVerificationRequest({ identifier: email, url }) {
-        try {
-          console.log(`📩 Enviando Magic Link para: ${email} - URL: ${url}`);
-          await resend.emails.send({
-            from: process.env.EMAIL_FROM!,
-            to: email,
-            subject: "Seu link de login",
-            html: `<p>Use este link para acessar: <a href="${url}">${url}</a></p>`,
-          });
-        } catch (error) {
-          console.error("❌ Erro ao enviar e-mail de login:", error);
-        }
-      },
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  pages: { signIn: "/sign-in" },
-  secret: process.env.NEXTAUTH_SECRET,
-  adapter: CustomAdapter(),
-};
+  callbacks: {
+    async signIn({ user }) {
+      if (!user.email) return false;
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+      const existingUser = await prisma.user.findUnique({
+        where: { email: user.email },
+      });
+
+      return !!existingUser; // Só permite login se o email existir no BD
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.sub!;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+  },
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET!,
+  pages: {
+    signIn: "/login",
+  }
+};
