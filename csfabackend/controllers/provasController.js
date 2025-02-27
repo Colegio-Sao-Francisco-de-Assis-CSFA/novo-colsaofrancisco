@@ -1,4 +1,4 @@
-const provaService = require("../services/provaService");
+const provaService = require("../services/provasService");
 
 const provaController = {
   async listarProvas(req, res) {

@@ -9,10 +9,10 @@ router.get("/", usuariosController.listarUsuarios);
 router.get("/email", usuariosController.buscarUsuarioPorEmail);
 
 // Rotas protegidas
-router.use(authMiddleware);
-router.get("/:id", usuariosController.buscarUsuarioPorId);
-router.post("/", usuariosController.criarUsuario);
-router.put("/:id", usuariosController.atualizarUsuario);
-router.delete("/:id", usuariosController.excluirUsuario);
+router.use(authMiddleware.authDecode);
+router.get("/:id", authMiddleware.authDecode, usuariosController.buscarUsuarioPorId);
+router.post("/", authMiddleware.authDecode, usuariosController.criarUsuario);
+router.put("/:id", authMiddleware.authDecode, usuariosController.atualizarUsuario);
+router.delete("/:id", authMiddleware.authDecode, usuariosController.excluirUsuario);
 
 module.exports = router;

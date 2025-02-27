@@ -13,49 +13,51 @@ const encryptId = (id) => {
   return encrypted;
 };
 
-const authMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
+const authMiddleware = {
 
-  if (!authHeader) {
-    return res.status(401).json({ message: "Acesso negado! Token não fornecido." });
-  }
+  async authDecode (req, res, next){
+    const authHeader = req.headers.authorization;
 
-  const token = authHeader.replace("Bearer ", "");
-
-  try {
-    // Decodifica e verifica o token JWT
-    const decoded = jwt.verify(token, SECRET_KEY);
-
-    // Verifica se a sessão ainda é válida no banco de dados
-    const sessionValid = await authService.verificarSessao(token);
-
-    if (!sessionValid) {
-      return res.status(401).json({ message: "Sessão expirada. Faça login novamente." });
+    if (!authHeader) {
+      return res.status(401).json({ message: "Acesso negado! Token não fornecido." });
     }
 
-    // Criptografa o ID do usuário antes de definir na requisição
-    req.userId = encryptId(decoded.userId);
-    req.acesso = decoded.acesso; // Apenas define internamente, sem expor ao frontend
+    const token = authHeader.replace("Bearer ", "");
+
+    try {
+      // Decodifica e verifica o token JWT
+      const decoded = jwt.verify(token, SECRET_KEY);
+
+      // Verifica se a sessão ainda é válida no banco de dados
+      const sessionValid = await authService.verificarSessao(token);
+
+      if (!sessionValid) {
+        return res.status(401).json({ message: "Sessão expirada. Faça login novamente." });
+      }
+
+      // Criptografa o ID do usuário antes de definir na requisição
+      req.userId = encryptId(decoded.userId);
+      req.acesso = decoded.acesso; // Apenas define internamente, sem expor ao frontend
+
+      next();
+    } catch (error) {
+      return res.status(401).json({ message: "Token inválido ou expirado." });
+    }
+  },
+  async redirectIfAuthenticated (req, res, next){
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return next();
+
+    const token = authHeader.replace("Bearer ", "");
+
+    const sessionValid = await authService.verificarSessao(token);
+    if (sessionValid) {
+      return res.redirect("/dashboard"); // Redireciona usuários logados para a dashboard
+    }
 
     next();
-  } catch (error) {
-    return res.status(401).json({ message: "Token inválido ou expirado." });
-  }
-};
-
-// Middleware para impedir usuários logados de acessar "/sign-in"
-const redirectIfAuthenticated = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return next();
-
-  const token = authHeader.replace("Bearer ", "");
-
-  const sessionValid = await authService.verificarSessao(token);
-  if (sessionValid) {
-    return res.redirect("/dashboard"); // Redireciona usuários logados para a dashboard
   }
 
-  next();
-};
+}
 
-module.exports = { authMiddleware, redirectIfAuthenticated };
+module.exports = authMiddleware;
