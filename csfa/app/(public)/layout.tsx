@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly <{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning className="light">
+    <html lang="pt-BR">
       <head>
         <link rel="shortcut icon" href="/logo.webp" type="image/webp" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

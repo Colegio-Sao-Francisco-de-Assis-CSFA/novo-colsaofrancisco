@@ -1,56 +1,53 @@
-const provasService = require("../services/provasService");
+const provaService = require("../services/provaService");
 
-const provasController = {
+const provaController = {
   async listarProvas(req, res) {
     try {
-      const filtros = req.query;
-      const provas = await provasService.listarProvas(filtros);
-      res.json(provas);
+      const provas = await provaService.listarProvas(req.query);
+      return res.status(200).json(provas);
     } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  },
-
-  async criarProva(req, res) {
-    try {
-      const dados = req.body;
-      const novaProva = await provasService.criarProva(dados);
-      res.status(201).json(novaProva);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-    }
-  },
-
-  async atualizarProva(req, res) {
-    try {
-      const { id } = req.params;
-      const dados = req.body;
-      const provaAtualizada = await provasService.atualizarProva(id, dados);
-      res.json(provaAtualizada);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
+      return res.status(500).json({ message: error.message });
     }
   },
 
   async buscarProvaPorId(req, res) {
     try {
       const { id } = req.params;
-      const prova = await provasService.buscarProvaPorId(id);
-      res.json(prova);
+      const prova = await provaService.buscarProvaPorId(id);
+      return res.status(200).json(prova);
     } catch (error) {
-      res.status(404).json({ error: error.message });
+      return res.status(404).json({ message: error.message });
+    }
+  },
+
+  async criarProva(req, res) {
+    try {
+      const prova = await provaService.criarProva(req.body);
+      return res.status(201).json(prova);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  },
+
+  async atualizarProva(req, res) {
+    try {
+      const { id } = req.params;
+      const prova = await provaService.atualizarProva(id, req.body);
+      return res.status(200).json(prova);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
     }
   },
 
   async excluirProva(req, res) {
     try {
       const { id } = req.params;
-      await provasService.excluirProva(id);
-      res.status(204).send();
+      await provaService.excluirProva(id);
+      return res.status(200).json({ message: "Prova excluída com sucesso." });
     } catch (error) {
-      res.status(404).json({ error: error.message });
+      return res.status(400).json({ message: error.message });
     }
   },
 };
 
-module.exports = provasController;
+module.exports = provaController;
