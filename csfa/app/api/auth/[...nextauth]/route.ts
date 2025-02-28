@@ -44,15 +44,14 @@ export const authOptions: NextAuthOptions = {
           if (!response.data.valid) {
             throw new Error("e-mail não cadastrado, informe ao administrador");
           }
-
           user.id = response.data.id;
           user.role = response.data.role;
           user.setor = response.data.setor ?? null;
-        } catch (error: any) {
+        }
+        catch(error: any) {
           throw new Error(error.message || "Erro ao validar e-mail");
         }
         return true;
-      },
     },
     async session({session, token}){
       return {
@@ -64,20 +63,21 @@ export const authOptions: NextAuthOptions = {
           setor: token.setor ?? null,
         },
       };
-    }
-  async jwt({ token, account, user }){
+    },
+    async jwt({ token, account, user }){
 
-      if (account) {
-        token.accessToken = account.access_token;
-      }
+        if (account) {
+          token.accessToken = account.access_token;
+        }
 
-      if (user && user.id) { // ✅ Garante que user.id existe antes de atribuir
-        token.id = user.id;
-        token.role = user.role || "user"; // 🔹 Defina um valor padrão se estiver indefinido
-        token.setor = user.setor ?? null;
-      }
+        if (user && user.id) { // ✅ Garante que user.id existe antes de atribuir
+          token.id = user.id;
+          token.role = user.role || "user"; // 🔹 Defina um valor padrão se estiver indefinido
+          token.setor = user.setor ?? null;
+        }
 
-      return token;
+        return token;
+    },
   },
   session:{
     strategy: "jwt",

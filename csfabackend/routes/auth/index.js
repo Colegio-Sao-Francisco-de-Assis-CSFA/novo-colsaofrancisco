@@ -1,14 +1,10 @@
-const express = require("express");
-const authController = require("../../controllers/authController");
-const authMiddleware = require("../../middlewares/authMiddleware");
+import { Router } from "express";
+import { authController } from "../controllers/authController";
 
-const router = express.Router();
+const router = Router();
 
-router.post("/sign-in", authController.signIn);
-router.get("/check-session", authMiddleware.authDecode, authController.checkSession);
-router.post("/logout", authMiddleware.redirectIfAuthenticated, authController.logout);
+router.post("/login", authController.login);
 
-// Protege todas as rotas dentro de `/dashboard`
-router.use("/dashboard", authMiddleware.authDecode);
+export default router;
 
-module.exports = router;
+//PAREI NO CONTROLLER

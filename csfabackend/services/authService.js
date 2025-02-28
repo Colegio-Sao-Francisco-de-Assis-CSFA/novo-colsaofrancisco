@@ -1,46 +1,20 @@
-const authModel = require("../models/authModel");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { authModel } from "../models/authModel";
 
-const authService = {
-  async validarEmail(email) {
-    // RN - Apenas e-mails institucionais são aceitos
-    if (!email || !email.endsWith("@colsaofrancisco.com.br")) {
-      throw new Error("E-mail inválido. Use seu e-mail institucional.");
-    }
-
-    // Verifica se o usuário está cadastrado
-    const user = await authModel.buscarUsuarioPorEmail(email);
-    if (!user) {
-      throw new Error("E-mail não cadastrado, informe ao administrador.");
-    }
-
-    return { valid: true };
+export const authService = {
+  async registrar(name: string, email: string, password: string) {
+    const senhaCriptografada = await bcrypt.hash(password, 10);
+    return await authModel.criarUsuario(name, email, senhaCriptografada);
   },
 
-  async criarSessao(userId) {
-    const expiresAt = new Date(Date.now() + 12 * 60 * 60 * 1000); // RN - Sessão válida por 12H
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "12h" });
-
-    // Salvar token no banco
-    await authModel.salvarSessao(userId, token, expiresAt);
-
-    return { token, expiresAt };
-  },
-
-  async verificarSessao(token) {
-    if (!token) return false;
-
-    const sessao = await authModel.buscarSessaoPorToken(token);
-    if (!sessao || new Date(sessao.expiresAt) < new Date()) {
-      return false;
+  async login(email: string, password: string) {
+    const usuario = await authModel.buscarUsuarioPorEmail(email);
+    if (!usuario || !(await bcrypt.compare(password, usuario.password))) {
+      throw new Error("Credenciais inválidas");
     }
 
-    return true;
-  },
-
-  async logout(token) {
-    await authModel.removerSessao(token);
+    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET!, { expiresIn: "12h" });
+    return { token };
   },
 };
-
-module.exports = authService;
