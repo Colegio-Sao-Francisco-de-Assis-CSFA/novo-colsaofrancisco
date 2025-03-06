@@ -1,25 +1,19 @@
 const usuariosModel = require("../models/usuariosModel");
 
 const usuariosService = {
-  async listarUsuarios() {
-    return await usuariosModel.listarUsuarios();
+  async listarUsuarios(filtros) {
+    return await usuariosModel.listarUsuarios(filtros);
   },
 
   async criarUsuario(dados) {
-    // Validações de negócio
-    if (!dados.nome || !dados.email || !dados.setor) {
-      throw new Error("Os campos 'nome', 'email' e 'setor' são obrigatórios.");
+    if (!dados.nome || !dados.email) {
+      throw new Error("Os campos 'nome' e 'email' são obrigatórios.");
     }
 
-    // Email único
+    // Verifica se o usuário já existe
     const usuarioExistente = await usuariosModel.buscarUsuarioPorEmail(dados.email);
     if (usuarioExistente) {
       throw new Error("Este email já está em uso.");
-    }
-
-    // Máximo de 1 setor por usuário
-    if (Array.isArray(dados.setor)) {
-      throw new Error("Um usuário pode ter no máximo 1 setor.");
     }
 
     return await usuariosModel.criarUsuario(dados);
@@ -37,7 +31,13 @@ const usuariosService = {
     if (!email) {
       throw new Error("Email é obrigatório");
     }
-    return await usuariosModel.buscarUsuarioPorEmail(email);
+
+    const usuario = await usuariosModel.buscarUsuarioPorEmail(email);
+    if (!usuario) {
+      throw new Error("Usuário não encontrado.");
+    }
+
+    return usuario;
   },
 
   async atualizarUsuario(id, dados) {

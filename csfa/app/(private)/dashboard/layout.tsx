@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
 import "@/app/styles/globals.css";
-import Navigation from "@/components/views/dashboard/Navigation/Navigation";
+import Navigation from "@/components/views/dashboard/Navigation";
 import SessionProvider from "@/components/views/SessionProvider/SessionProvider";
 
 export const metadata: Metadata = {

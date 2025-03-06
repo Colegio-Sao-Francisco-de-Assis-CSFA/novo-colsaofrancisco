@@ -12,8 +12,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
-  import { Button } from "@/components/ui/button"
-
+import { Button } from "@/components/ui/button"
+import LoginBtn from '@/components/shared/LoginBtn';
 
 
 const navLinks = [
@@ -78,10 +78,7 @@ export default function Navigation(){
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>Profile</DropdownMenuItem>
                         <DropdownMenuItem>
-                            <Button className='w-full h-6' variant="destructive">
-
-                                Sair
-                            </Button>
+                            <LoginBtn />
                         </DropdownMenuItem>
                         {/* <DropdownMenuItem>Billing</DropdownMenuItem>
                         <DropdownMenuItem>Team</DropdownMenuItem>

@@ -57,7 +57,12 @@ const usuariosController = {
         return res.status(404).json({ error: "Usuário não encontrado." });
       }
 
-      res.json(usuario);
+      res.json({
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
+        setor: usuario.setor ? usuario.setor.nome : null, // Retorna apenas o nome do setor
+      });
     } catch (error) {
       console.error("❌ Erro ao buscar usuário:", error);
       res.status(500).json({ error: "Erro interno no servidor." });
