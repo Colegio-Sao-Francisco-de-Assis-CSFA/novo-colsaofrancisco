@@ -1,5 +1,4 @@
 // schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -47,12 +46,20 @@ model Usuario {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  setor    Setor
   posts    Post[]
   questoes Questao[] // Relaciona o autor às questões criadas
   logs     Log[] // Relaciona o usuário aos logs que ele gerou
   accounts Account[]
   sessions Session[]
+
+  setorId  String?  @db.Char(36) // Torna opcional para evitar erro
+  setor    Setor?   @relation(fields: [setorId], references: [id])
+
+}
+model Setor {
+  id       String   @id @default(cuid()) @db.Char(36)
+  nome     String   @db.VarChar(100)
+  usuarios Usuario[] // Relação inversa
 }
 
 model VerificationToken {
@@ -119,9 +126,7 @@ model Questao {
 model Prova {
   id           String      @id @default(cuid()) @db.VarChar(25)
   nome         String      @db.VarChar(100)
-  type         Type        @default(MULTIPLA)
   disciplina   Disciplina  @default(MATEMATICA)
-  category     Category    @default(CSFA)
   nivel        Nivel       @default(INICIAIS)
   ano          Ano         @default(PRIMEIRO)
   dificuldade  Dificuldade @default(FACIL)
@@ -159,12 +164,6 @@ model Log {
 }
 
 // Enums do sistema
-enum Setor {
-  COORDENACAO
-  PROFESSOR
-  DESIGNER
-  ADMIN
-}
 
 enum Action {
   CREATED

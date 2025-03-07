@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter as useNavigation } from 'next/navigation';
+import { useRouter } from "next/router";
 import Image from 'next/image';
 import logo from '@/public/logo.webp';
 import LoginBtn from '@/components/shared/LoginBtn';
@@ -11,22 +12,18 @@ import { toast } from "sonner";
 
 export default function LoginPage() {
 
-  const { data: session } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+  useEffect( () => {
+    const { error } = router.query;
 
-    const msg = searchParams.get("msg");
-
-    if (msg === "auth_required") {
-      toast.error("⚠️ Você precisa estar autenticado para acessar esta página.");
-    } else if (msg === "setor_required") {
-      toast.warning("⚠️ Seu setor não está cadastrado. Entre em contato com o administrador.");
-    } else if (msg === "server_error") {
-      toast.error("❌ Erro ao conectar com o servidor. Tente novamente mais tarde.");
+    if (error === "true") {
+      toast.error("Falha no Sign In. Tente novamente.");
     }
-  }, [searchParams]);
+  }, [router.query]);
+
+
 
   return (
     <section className='w-dvw h-dvh bg-white'>
@@ -46,6 +43,8 @@ export default function LoginPage() {
           </small>
         </div>
       </div>
+
+      
     </section>
   );
 }
